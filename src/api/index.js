@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const prefix = "/api/v1";
-export const baseurl = "https://levya-careers-backend-ybmd.vercel.app/";
+export const baseurl = "https://levya-careers-backend-ybmd.vercel.app";
 export const url = baseurl + prefix;
 const API = Axios.create({ baseURL: url });
 
