@@ -1,17 +1,17 @@
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
-import Dashboard from '../components/Dashboard'
+import JobContent from '../components/JobContent'
 import Sidebar from '../components/Sidebar'
 
-function Homepage() {
+function Jobspage() {
   return (
     <>
       <Flex bg='#e9ebf0' h='100vh'>
         <Sidebar />
-        <Dashboard />
+        <JobContent />
       </Flex>
     </>
   )
 }
 
-export default Homepage
+export default Jobspage

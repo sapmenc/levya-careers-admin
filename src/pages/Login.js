@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import {  Button, Heading, Input, Stack, useToast } from '@chakra-ui/react';
+import { Button, Heading, Image, Input, Stack, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -36,16 +36,74 @@ function Login() {
             bgGradient='linear(to-l, #F4DC92, #D0A07A,#363F68)'>
             <Stack>
                 {show ? (
-                    <Stack bg='white' py={5} px={10} w='xl'
+                    <Stack
+                        rounded={'15px'}
+                        bg='white' py={5} px={10} w='md'
                         align='center' spacing={5}>
-                        <Heading>Careers Portal</Heading>
-                        <Input ref={emailRef} type='email' placeholder='Email' fontWeight='extrabold' />
-                        <Input ref={passwordRef} type='password' placeholder='Password' fontWeight='extrabold' />
-                        <Button variant='outline' onClick={() => handleLogin()}>Login</Button>
-                        <Heading alignSelf='end'>Logo</Heading>
+                        <Heading
+                            color='#5f5f5f'
+                        >
+                            Careers Portal
+                        </Heading>
+                        <Input
+                            px={5}
+                            py={2}
+                            variant='unstyled'
+                            border={'1px solid #EF940B'}
+                            ref={emailRef}
+                            type='email' placeholder='Email' fontWeight='extrabold' />
+                        <Input
+                            px={5}
+                            py={2}
+                            variant='unstyled'
+                            border={'1px solid #EF940B'}
+                            ref={passwordRef}
+                            type='password' placeholder='Password' fontWeight='extrabold' />
+                        <Button
+                            variant='unstyled'
+                            bg='white'
+                            color='#EF940B'
+                            border={'1px solid #EF940B'}
+                            px={5}
+                            py={2}
+                            w='50%'
+                            onClick={() => handleLogin()}>Login</Button>
+                        <Stack direction='row' w='100%' justify='end' >
+                            <Image
+                                src='https://ik.imagekit.io/q8qsfnr9wag/Asset_1_2x_Aed07oRMi.png?ik-sdk-version=javascript-1.4.3&updatedAt=1663682194939'
+                                alt='Levya' w='100px' h='30px'
+                                objectFit={'contain'} />
+                        </Stack>
                     </Stack>
                 ) : (
-                    <Button onClick={() => setShow(true)}>Login</Button>
+                    <Stack
+                        h='300px'
+                        spacing={20}
+                        rounded={'15px'}
+                        bg='white' py={5} px={10} w='md'
+                        align='center'>
+                        <Heading
+                            color='#5f5f5f'
+                        >
+                            Careers Portal
+                        </Heading>
+                        <Button
+                            variant='unstyled'
+                            bg='white'
+                            color='#EF940B'
+                            border={'1px solid #EF940B'}
+                            px={5}
+                            py={2}
+                            w='xs'
+                            onClick={() => setShow(true)}>Login
+                        </Button>
+                        <Stack direction='row' w='100%' justify='end' >
+                            <Image
+                                src='https://ik.imagekit.io/q8qsfnr9wag/Asset_1_2x_Aed07oRMi.png?ik-sdk-version=javascript-1.4.3&updatedAt=1663682194939'
+                                alt='Levya' w='100px' h='30px'
+                                objectFit={'contain'} />
+                        </Stack>
+                    </Stack>
                 )}
             </Stack>
         </Stack>
