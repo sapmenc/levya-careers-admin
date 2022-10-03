@@ -132,7 +132,7 @@ function CreateJob() {
                         </Flex>
 
                         <Flex>
-                            <Button colorScheme='orange' variant='outline' mx='auto' type='submit'>PUBLISH</Button>
+                            <Button colorScheme='magenta' variant='outline' mx='auto' type='submit'>PUBLISH</Button>
                         </Flex>
                         </Stack>
                     </FormControl>

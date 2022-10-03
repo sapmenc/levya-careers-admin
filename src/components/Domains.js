@@ -185,7 +185,7 @@ function Domains() {
                             placeholder='New Domain Title' onChange={(e) => setNewDomain(e.target.value)} size='sm' />
                         <Button onClick={() => handleAddDomain()}
                             variant='outline'
-                            colorScheme='orange'
+                            colorScheme='purple'
                             bg='white'>
                             Add
                         </Button>

@@ -49,28 +49,28 @@ function Login() {
                             px={5}
                             py={2}
                             variant='unstyled'
-                            border={'1px solid #EF940B'}
+                            border={'1px solid #E5097F'}
                             ref={emailRef}
                             type='email' placeholder='Email' fontWeight='extrabold' />
                         <Input
                             px={5}
                             py={2}
                             variant='unstyled'
-                            border={'1px solid #EF940B'}
+                            border={'1px solid #E5097F'}
                             ref={passwordRef}
                             type='password' placeholder='Password' fontWeight='extrabold' />
                         <Button
                             variant='unstyled'
                             bg='white'
-                            color='#EF940B'
-                            border={'1px solid #EF940B'}
+                            color='#E5097F'
+                            border={'1px solid #E5097F'}
                             px={5}
                             py={2}
                             w='50%'
                             onClick={() => handleLogin()}>Login</Button>
                         <Stack direction='row' w='100%' justify='end' >
                             <Image
-                                src='https://ik.imagekit.io/q8qsfnr9wag/Asset_1_2x_Aed07oRMi.png?ik-sdk-version=javascript-1.4.3&updatedAt=1663682194939'
+                                src='https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154'
                                 alt='Levya' w='100px' h='30px'
                                 objectFit={'contain'} />
                         </Stack>
@@ -90,8 +90,8 @@ function Login() {
                         <Button
                             variant='unstyled'
                             bg='white'
-                            color='#EF940B'
-                            border={'1px solid #EF940B'}
+                            color='#E5097F'
+                            border={'1px solid #E5097F'}
                             px={5}
                             py={2}
                             w='xs'
@@ -99,7 +99,7 @@ function Login() {
                         </Button>
                         <Stack direction='row' w='100%' justify='end' >
                             <Image
-                                src='https://ik.imagekit.io/q8qsfnr9wag/Asset_1_2x_Aed07oRMi.png?ik-sdk-version=javascript-1.4.3&updatedAt=1663682194939'
+                                src='https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154'
                                 alt='Levya' w='100px' h='30px'
                                 objectFit={'contain'} />
                         </Stack>

@@ -13,22 +13,22 @@ function Sidebar() {
             p='6'
             borderRadius='md'
             minW={'40px'}
-            maxW={'max-content'} 
+            maxW={'max-content'}
             h='95vh' display='flex'
             flexDir={'column'}
             justifyContent='space-between'
             alignItems='center'
             boxShadow='lg'
-            bg='white'
+            bg='#741b47'
         >
             <Box>
-                <Box display='flex' alignItems='center' ml={toggle ? ('2') : ('')}>
+                <Box bg='white' py={2} px={4} borderRadius={'md'} display='flex' alignItems='center' ml={toggle ? ('2') : ('')}>
                     {toggle ? (
-                        <Image display={toggle ? ('block') : ('none')} src='https://ik.imagekit.io/o0spphqdc/Asset_1_2x_aYEQjORqUu.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664049781111'
+                        <Image display={toggle ? ('block') : ('none')} src='https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154'
                             objectFit='contain'
                             alt='Levya' w='100%' h='30px' />
                     ) : (
-                        <Image src='https://ik.imagekit.io/o0spphqdc/Asset_2_2x_jeHz6Ng-S.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664049780718'
+                        <Image src='https://ik.imagekit.io/o0spphqdc/Asset_2_2x_E9vIncDEz.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975136'
                             alt='Levya' w='100%' h='30px' objectFit='contain' />
                     )}
                 </Box>
@@ -38,42 +38,42 @@ function Sidebar() {
                             navigate('/')
                         }}
                         display='flex' alignItems='center' ml={toggle ? ('2') : ('')} gap='10px'>
-                        <Command />
-                        <Heading fontSize='md' display={toggle ? ('block') : ('none')}>Dashboard</Heading>
+                        <Command color='#FFF' />
+                        <Heading color='#FFF' fontSize='md' display={toggle ? ('block') : ('none')}>Dashboard</Heading>
                     </Box>
                     <Box
                         onClick={() => {
                             navigate('/jobs')
                         }}
                         display='flex' alignItems='center' ml={toggle ? ('2') : ('')} gap='10px'>
-                        <Clipboard />
-                        <Heading fontSize='md' display={toggle ? ('block') : ('none')}>Job Posts</Heading>
+                        <Clipboard color='#FFF' />
+                        <Heading color='#FFF' fontSize='md' display={toggle ? ('block') : ('none')}>Job Posts</Heading>
                     </Box>
                     <Box
                         onClick={() => {
                             navigate('/domains')
                         }}
                         display='flex' alignItems='center' ml={toggle ? ('2') : ('')} gap='10px'>
-                        <Server />
-                        <Heading fontSize='md' display={toggle ? ('block') : ('none')}>Domains</Heading>
+                        <Server color='#FFF' />
+                        <Heading color='#FFF' fontSize='md' display={toggle ? ('block') : ('none')}>Domains</Heading>
                     </Box>
                     <Divider />
                     <Box onClick={() => {
                         navigate('/login')
                     }}
                         display='flex' alignItems='center' ml={toggle ? ('2') : ('')} gap='10px'>
-                        <LogOut />
-                        <Heading fontSize='md' display={toggle ? ('block') : ('none')}>Sign out</Heading>
+                        <LogOut color='#FFF' />
+                        <Heading color='#FFF' fontSize='md' display={toggle ? ('block') : ('none')}>Sign out</Heading>
                     </Box>
                 </Box>
             </Box>
             <Box cursor='pointer' >
                 {toggle ? (
-                    <ChevronLeft onClick={() => {
+                    <ChevronLeft color='#FFF' onClick={() => {
                         setToggle((ps) => !ps)
                     }} />
                 ) : (
-                    <ChevronRight onClick={() => {
+                    <ChevronRight color='#FFF' onClick={() => {
                         setToggle((ps) => !ps)
                     }} />
                 )}

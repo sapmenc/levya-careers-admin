@@ -120,7 +120,7 @@ function JobContent() {
                     return navigate('/createjob');
                 }}
                     variant='outline'
-                    colorScheme='orange'
+                    colorScheme='magenta'
                     bg='white'
                 >
                     Add Job
@@ -144,7 +144,7 @@ function JobContent() {
                 </Stack>
                 <Stack>
                     <TableContainer rounded='md' bgColor='white'>
-                        <Table variant='striped' colorScheme={'orange'}>
+                        <Table variant='striped' colorScheme={'purple'}>
                             <Thead>
                                 <Tr>
                                     <Th>Job ID</Th>
@@ -170,11 +170,11 @@ function JobContent() {
                                                 <Stack spacing={5} align='center' direction='row'>
                                                     <Button onClick={() => {
                                                         return navigate(`/editjob/${job._id}`);
-                                                    }} bgColor='white' color='black'>
+                                                    }} bgColor='purple' color='white'>
                                                         Edit
                                                     </Button>
                                                     <Switch isChecked={job.status === 'active' ?
-                                                        true : false} colorScheme='orange' />
+                                                        true : false} colorScheme='purple' />
                                                 </Stack>
                                             </Td>
                                         </Tr>
@@ -194,11 +194,11 @@ function JobContent() {
                                                     <Stack spacing={5} align='center' direction='row'>
                                                         <Button onClick={() => {
                                                             return navigate(`/editjob/${job._id}`);
-                                                        }} bgColor='white' color='black'>
+                                                        }} bgColor='purple' color='white'>
                                                             Edit
                                                         </Button>
                                                         <Switch isChecked={job.status === 'active' ?
-                                                            true : false} colorScheme='orange' />
+                                                            true : false} colorScheme='purple' />
                                                     </Stack>
                                                 </Td>
                                             </Tr>
