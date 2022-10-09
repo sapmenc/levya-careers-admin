@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button, Heading, Image, Input, Stack, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { signinUser } from '../api';
 
 function Login() {
     const navigate = useNavigate();
@@ -8,7 +9,11 @@ function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const toast = useToast()
-    const handleLogin = () => {
+    const handleLogin = async () => {
+        console.log("handleLogin");
+        let email = emailRef.current.value;
+        let password = passwordRef.current.value;
+
         if (!emailRef.current.value || !passwordRef.current.value)
             return toast({
                 title: "Error",
@@ -17,16 +22,61 @@ function Login() {
                 duration: 3000,
                 isClosable: true,
             })
-        if (emailRef.current.value === "admin@gmail.com" && passwordRef.current.value === "admin") {
+        // if (emailRef.current.value === "admin@gmail.com" && passwordRef.current.value === "admin") {
+        //     toast({
+        //         title: "Success",
+        //         description: "Login successful",
+        //         status: "success",
+        //         duration: 3000,
+        //         isClosable: true,
+        //     })
+        //     navigate('/')
+        // }
+        try {
+            let body = {
+                "email": email,
+                "password": password
+            }
+            let { data } = await signinUser(body);
+            if (data.token) {
+                toast({
+                    title: "Success",
+                    description: "Login successful",
+                    status: "success",
+                    duration: 2000,
+                    isClosable: true,
+                })
+                console.log(data);
+                localStorage.setItem('auth', data.token);
+                navigate('/')
+            }
+        }
+        catch (err) {
             toast({
-                title: "Success",
-                description: "Login successful",
-                status: "success",
-                duration: 3000,
+                title: "Error",
+                description: err.message,
+                status: "error",
+                duration: 2000,
                 isClosable: true,
             })
-            navigate('/')
         }
+        // .then(({ token }) => {
+        //     if (token) {
+        //         localStorage.setItem('jwt', token);
+        //         setLoggedIn(true);
+        //         setEmail(email);
+        //         getInitialData();
+        //         history.push('/');
+        //     }
+        // })
+        // .catch(() => {
+        //     setLoggedIn(false);
+        //     setIsInfoTooltipOpen({
+        //         open: true,
+        //         message: SOMETHING_WRONG,
+        //         success: false,
+        //     });
+        // });
     }
     return (
         <Stack

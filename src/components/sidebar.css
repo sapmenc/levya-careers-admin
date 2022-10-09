@@ -1,0 +1,59 @@
+.navigation {
+    position: relative;
+    height: 92%;
+    width: 70px;
+    background: #2b343b;
+    box-shadow: 10px 0 0 #c47ac0;
+    overflow: hidden !important;
+    transition: all 0.4s;
+    margin: auto;
+    border-radius: 0 10px 10px 0;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.navigation:hover {
+    width: 300px;
+}
+
+.navigation ul li .title {
+    display: none;
+}
+.navigation:hover ul li .title {
+    display: block;
+}
+
+.navigation .icon {
+    margin-right: 10px;
+}
+.navigation ul {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding-left: 5px !important;
+    padding-top: 40px !important;
+    border-left: 10px solid #2b343b !important;
+}
+
+.navigation ul li {
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+    position: relative !important;
+    list-style: none;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    color: white;
+    display: flex;
+    padding: 10px;
+}
+
+.navigation ul li.active {
+    background: #4187f6;
+}
+
+.navigation ul li:hover {
+    transition: 0.3s all;
+    background: #4399f6;
+}

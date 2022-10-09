@@ -13,6 +13,7 @@ import { MinusCircle } from 'react-feather'
 import { addDomain, deleteDomain, fetchAllDomains } from '../api'
 
 function Domains() {
+    let token = localStorage.getItem('auth')
     const toast = useToast()
     const [domains, setDomains] = useState([])
     const [newDomain, setNewDomain] = useState('')
@@ -67,7 +68,7 @@ function Domains() {
     }
     const handleFetchAllDomains = async () => {
         try {
-            const { data } = await fetchAllDomains()
+            const { data } = await fetchAllDomains(token)
             if (data.error) {
                 toast({
                     title: "Error",
@@ -111,7 +112,7 @@ function Domains() {
             let body = {
                 "name": newDomain
             }
-            const { data } = await addDomain(body)
+            const { data } = await addDomain(body, token)
             if (data.error) {
                 toast({
                     title: "Error",
@@ -149,7 +150,7 @@ function Domains() {
         handleFetchAllDomains()
     }, [])
     return (
-        <Box w='90%'>
+        <Box w='100%' overflowX='hidden'>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent>
@@ -169,7 +170,6 @@ function Domains() {
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -177,7 +177,8 @@ function Domains() {
             <SimpleGrid
                 m={2}
                 p={2}
-                w='100%' columns={2}>
+                w='100%'
+                 columns={2}>
                 <GridItem w='50%' mx='auto'>
                     <Stack align={'end'} spacing={2}>
                         <Input rounded='md' bg='white' type='text'
@@ -193,7 +194,7 @@ function Domains() {
                 </GridItem>
                 <GridItem w='50%' mx='auto' border='1px solid gray'>
                     <Stack bg='white' spacing={1} p={1}>
-                        {domains?.map((domain, index) => (
+                        {domains.length>0 && domains?.map((domain, index) => (
                             <Stack p={2} bg='gray.200' w='100%' justify='space-between' key={index} direction='row'>
                                 <Text flexGrow='1' textTransform='capitalize'>{domain.name}</Text>
                                 <MinusCircle onClick={() => handleDeleteDomain(domain._id)} />

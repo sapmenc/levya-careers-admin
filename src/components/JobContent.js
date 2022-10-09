@@ -13,23 +13,67 @@ import {
     Thead,
     Table,
     Input,
-    Switch
+    Switch,
+    Spinner
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Search } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
-import { fetchAllDomains, fetchAllJobs } from '../api'
+import { fetchAllDomains, fetchAllJobs, updateJob } from '../api'
 import Fuse from "fuse.js";
 
 function JobContent() {
+    let token = localStorage.getItem('auth')
     const navigate = useNavigate()
     const toast = useToast()
     const [fetchedJobs, setFetchedJobs] = useState([])
     const [resultJobs, setResultJobs] = useState([])
     const [domains, setDomains] = useState([])
+    const [isSelectedActive, setIsSelectedActive] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
+    const [searchDomain, setSearchDomain] = useState('')
+    const [searchStatus, setSearchStatus] = useState('')
+
+    const handleUpdateJobStatus = async (id, status) => {
+        setLoading(true)
+        try {
+            let body = {
+                "status": status
+            }
+            const { data } = await updateJob(body, token, id)
+            if (data.error) {
+                return toast({
+                    title: "Error",
+                    description: data.message,
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                })
+            }
+            toast({
+                title: "Success",
+                description: data.message,
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+            })
+            handleFetchAllJobs()
+        } catch (err) {
+            return toast({
+                title: "Error",
+                description: err.message,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        } finally {
+            setLoading(false)
+        }
+    }
     const handleFetchAllDomains = async () => {
         try {
-            const { data } = await fetchAllDomains()
+            const { data } = await fetchAllDomains(token)
             if (data.error) {
                 toast({
                     title: "Error",
@@ -55,7 +99,7 @@ function JobContent() {
     }
     const handleFetchAllJobs = async () => {
         try {
-            const { data } = await fetchAllJobs()
+            const { data } = await fetchAllJobs(token)
             if (data.error) {
                 return toast({
                     title: "Error",
@@ -88,16 +132,26 @@ function JobContent() {
     }
     const options = {
         includeScore: true,
-        keys: ["title", "domain.name", "country", "state", "city"],
+        keys: ["title", "domain.name", "country", "state", "city", "_id"],
     };
     const fuse = new Fuse(fetchedJobs, options);
 
     const searchWithFuse = (query) => {
+        console.log(query)
         if (!query) {
             return [];
         }
-        console.log(query)
-        console.log(fuse.search(query));
+        console.log(fuse.search({
+            $or: [
+                // { title: searchQuery },
+                { "domain.name": `'${query.searchDomain}` },
+                // { country: query.searchQuery },
+                // { state: query.searchQuery },
+                // { city: query.searchQuery },
+                // { _id: query.searchQuery },
+                // { status: query.searchStatus }
+            ],
+        }));
         let result = []
         result = fuse.search(query).map((result) => result.item);
         return result
@@ -105,6 +159,7 @@ function JobContent() {
     useEffect(() => {
         handleFetchAllJobs()
         handleFetchAllDomains()
+        console.log(resultJobs)
     }, [resultJobs])
     return (
         <Box
@@ -126,24 +181,42 @@ function JobContent() {
                     Add Job
                 </Button>
             </Stack>
-            <Stack h='80vh' overflow={'auto'}>
-                <Stack direction='row'>
-                    <Input bg='white' type='text' placeholder='Search' />
-                    <Select bg='white' placeholder='Select domain'>
+            <Stack align='center' h='80vh' overflow={'auto'}>
+                <Stack bg='secondary' p={5} zIndex={4} direction='row' align='center' pos='fixed'>
+                    <Input w='sm' bg='white' type='text' placeholder='Search' onChange={
+                        (e) => {
+                            setSearchQuery(e.target.value)
+                        }
+                    } value={searchQuery} />
+                    <Select w='sm' bg='white' placeholder='Select domain'
+                        onChange={
+                            (e) => {
+                                setSearchDomain(e.target.value)
+                            }
+                        }
+                    >
                         {domains.map((domain) => {
                             return (
-                                <option key={domain._id} value={domain._id}>{domain.name}</option>
+                                <option key={domain._id} value={domain.name}>{domain.name}</option>
                             )
                         })}
                     </Select>
-                    <Select bg='white' placeholder='Status'>
-                        <option value='option1'>Active</option>
-                        <option value='option2'>Inactive</option>
+                    <Select w='sm' bg='white' placeholder='Status' value={searchStatus}
+                        onChange={(e) => {
+                            // setIsSelectedActive(e.target.value),
+                            setSearchStatus(e.target.value)
+                        }}
+                    >
+                        <option
+                            value='active'>Active</option>
+                        <option value='inactive'>Inactive</option>
                     </Select>
-                    <Search onClick={() => setResultJobs(searchWithFuse("sde 1"))} />
+                    <Box px={5} py={1} borderRadius='md' border='1px solid white'>
+                        <Search size='30' onClick={() => setResultJobs(searchWithFuse({ searchQuery, searchDomain, searchStatus }))} />
+                    </Box>
                 </Stack>
                 <Stack>
-                    <TableContainer rounded='md' bgColor='white'>
+                    <TableContainer mt={20} rounded='md' bgColor='white'>
                         <Table variant='striped' colorScheme={'purple'}>
                             <Thead>
                                 <Tr>
@@ -156,7 +229,7 @@ function JobContent() {
                                     <Th>Job Action</Th>
                                 </Tr>
                             </Thead>
-                            <Tbody>
+                            <Tbody top={10}>
                                 {resultJobs.length > 0 ? resultJobs?.map((job) => {
                                     return (
                                         <Tr key={job._id}>
@@ -170,11 +243,22 @@ function JobContent() {
                                                 <Stack spacing={5} align='center' direction='row'>
                                                     <Button onClick={() => {
                                                         return navigate(`/editjob/${job._id}`);
-                                                    }} bgColor='purple' color='white'>
+                                                    }} bgColor='secondary' color='white'>
                                                         Edit
                                                     </Button>
-                                                    <Switch isChecked={job.status === 'active' ?
-                                                        true : false} colorScheme='purple' />
+                                                    <Switch
+                                                        disabled={loading}
+                                                        isChecked={job.status === 'active' ? true : false}
+                                                        onChange={() => {
+                                                            if (job.status === 'active') {
+                                                                handleUpdateJobStatus(job._id, "inactive")
+                                                            }
+                                                            else {
+                                                                handleUpdateJobStatus(job._id, "active")
+                                                            }
+                                                        }}
+                                                        colorScheme='purple' />
+
                                                 </Stack>
                                             </Td>
                                         </Tr>
@@ -194,11 +278,22 @@ function JobContent() {
                                                     <Stack spacing={5} align='center' direction='row'>
                                                         <Button onClick={() => {
                                                             return navigate(`/editjob/${job._id}`);
-                                                        }} bgColor='purple' color='white'>
+                                                        }} bgColor='secondary' color='white'>
                                                             Edit
                                                         </Button>
-                                                        <Switch isChecked={job.status === 'active' ?
-                                                            true : false} colorScheme='purple' />
+                                                        <Switch
+                                                            disabled={loading}
+                                                            isChecked={job.status === 'active' ? true : false}
+                                                            onChange={() => {
+                                                                if (job.status === 'active') {
+                                                                    handleUpdateJobStatus(job._id, "inactive")
+                                                                }
+                                                                else {
+                                                                    handleUpdateJobStatus(job._id, "active")
+                                                                }
+                                                            }}
+                                                            colorScheme='purple' />
+
                                                     </Stack>
                                                 </Td>
                                             </Tr>

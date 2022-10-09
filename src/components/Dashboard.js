@@ -3,17 +3,18 @@ import React, { useEffect, useState } from 'react'
 import { fetchAllJobs } from '../api'
 
 function Dashboard() {
+    let token = localStorage.getItem('auth')
     const [jobs, setJobs] = useState([])
     const toast = useToast()
     const handleFetchAllJobs = async () => {
         try {
-            const { data } = await fetchAllJobs()
+            const { data } = await fetchAllJobs(token)
             if (data.error) {
                 toast({
                     title: "Error",
                     description: data.message,
                     status: "error",
-                    duration: 4000,
+                    duration: 1000,
                     isClosable: true,
                 })
             } else {
@@ -21,7 +22,7 @@ function Dashboard() {
                     title: "Success",
                     description: data.message,
                     status: "success",
-                    duration: 4000,
+                    duration: 1000,
                     isClosable: true,
                 })
                 setJobs(data.data)
@@ -59,14 +60,14 @@ function Dashboard() {
             </Stack>
             <Stack border='1px' h={'64'} pos='relative' w={'64'} align='center' justify='center'>
                 <Circle
-                   color='white'
-                   shadow='lg'
-                   size={'32'}
-                   bg='magenta'
-                   pos='absolute'
-                   top='-16'
-                   fontWeight='bold'
-                   fontSize='5xl'
+                    color='white'
+                    shadow='lg'
+                    size={'32'}
+                    bg='magenta'
+                    pos='absolute'
+                    top='-16'
+                    fontWeight='bold'
+                    fontSize='5xl'
                 >
                     5
                 </Circle>

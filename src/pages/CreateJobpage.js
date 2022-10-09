@@ -4,13 +4,14 @@ import CreateJob from '../components/Job/CreateJob'
 import Sidebar from '../components/Sidebar'
 
 function CreateJobpage() {
+    if (localStorage.getItem('auth') === null) {
+        window.location.href = "/login"
+    }
     return (
-        <>
-            <Flex bg='#e9ebf0' h='100vh'>
-                <Sidebar />
-                <CreateJob />
-            </Flex>
-        </>
+        <Flex bg='#e9ebf0' h='100vh'>
+            <Sidebar />
+            <CreateJob />
+        </Flex>
     )
 }
 
