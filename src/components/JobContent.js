@@ -183,12 +183,12 @@ function JobContent() {
             </Stack>
             <Stack align='center' h='80vh' overflow={'auto'}>
                 <Stack bg='secondary' p={5} zIndex={4} direction='row' align='center' pos='fixed'>
-                    <Input w='sm' bg='white' type='text' placeholder='Search' onChange={
+                    <Input w='xs' bg='white' type='text' placeholder='Search' onChange={
                         (e) => {
                             setSearchQuery(e.target.value)
                         }
                     } value={searchQuery} />
-                    <Select w='sm' bg='white' placeholder='Select domain'
+                    <Select w='xs' bg='white' placeholder='Select domain'
                         onChange={
                             (e) => {
                                 setSearchDomain(e.target.value)
@@ -201,7 +201,7 @@ function JobContent() {
                             )
                         })}
                     </Select>
-                    <Select w='sm' bg='white' placeholder='Status' value={searchStatus}
+                    <Select w='xs' bg='white' placeholder='Status' value={searchStatus}
                         onChange={(e) => {
                             // setIsSelectedActive(e.target.value),
                             setSearchStatus(e.target.value)
@@ -212,7 +212,7 @@ function JobContent() {
                         <option value='inactive'>Inactive</option>
                     </Select>
                     <Box px={5} py={1} borderRadius='md' border='1px solid white'>
-                        <Search size='30' onClick={() => setResultJobs(searchWithFuse({ searchQuery, searchDomain, searchStatus }))} />
+                        <Search size='28' onClick={() => setResultJobs(searchWithFuse({ searchQuery, searchDomain, searchStatus }))} />
                     </Box>
                 </Stack>
                 <Stack>
