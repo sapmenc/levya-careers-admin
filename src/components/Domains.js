@@ -74,7 +74,7 @@ function Domains() {
                     title: "Error",
                     description: data.message,
                     status: "error",
-                    duration: 5000,
+                    duration: 2000,
                     isClosable: true,
                 })
             }
@@ -83,17 +83,17 @@ function Domains() {
                     title: "Success",
                     description: data.message,
                     status: "success",
-                    duration: 5000,
+                    duration: 2000,
                     isClosable: true,
                 })
                 setDomains(data.data)
             }
         } catch (error) {
-            toast({
+            return toast({
                 title: "Error",
                 description: error,
                 status: "error",
-                duration: 5000,
+                duration: 2000,
                 isClosable: true,
             })
         }
