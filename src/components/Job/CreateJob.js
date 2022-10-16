@@ -18,6 +18,7 @@ import { addJob, fetchAllDomains } from '../../api';
 import { useNavigate } from 'react-router-dom';
 
 function CreateJob() {
+    const token = localStorage.getItem('auth');
     const toast = useToast()
     const navigate = useNavigate()
     const [jobTitle, setJobTitle] = useState('');
@@ -29,22 +30,38 @@ function CreateJob() {
     const [city, setCity] = useState('');
     const [urgent, setUrgent] = useState(false);
     const [remote, setRemote] = useState(false);
+    const [state_code, setStateCode] = useState('');
+    const [country_code, setCountryCode] = useState('');
+    const [hybrid, setHybrid] = useState(false);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (!jobTitle || !jobDesc || !selectedDomain || !country || !state || !city) {
+                return toast({
+                    title: "Error",
+                    description: "Please fill all the fields",
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                })
+            }
             let body = {
                 "title": jobTitle,
+                "domain": selectedDomain,
                 "description": jobDesc,
+                "highPriority": urgent,
+                "remote": remote,
+                "hybrid": hybrid,
                 "city": city,
                 "state": state,
+                "state_code": state_code,
                 "country": country,
-                "isRemote": remote,
-                "isUrgentOpening": urgent,
-                "domain": selectedDomain
+                "country_code": country_code,
             }
             console.log(body)
-            const { data } = await addJob(body)
+            const { data } = await addJob(body, token)
 
             if (data.status) {
                 toast({
@@ -68,7 +85,7 @@ function CreateJob() {
     }
     const handleFetchAllDomains = async () => {
         try {
-            const { data } = await fetchAllDomains()
+            const { data } = await fetchAllDomains(token)
             if (data.status) {
                 toast({
                     title: "Success",
@@ -96,49 +113,69 @@ function CreateJob() {
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <Stack spacing={10}>
-                        <Input bg='white' type='text' placeholder='Job Title' w={150} onChange={(e) => setJobTitle(e.target.value)} />
-                        <Textarea bg='white' cols={10} placeholder='Job Description' mt='3' onChange={(e) => setJobDesc(e.target.value)} />
-                        <Flex alignItems={'center'} mt='3' gap={2}>
-                            <Select placeholder='Select Domain' textTransform='capitalize' onChange={(e) => setSelectedDomain(e.target.value)}>
-                                {domains && domains.map((domain, i) => (
-                                    <option key={i} value={domain._id}>{domain.name}</option>
-                                ))}
-                            </Select>
-                            <Select placeholder='Select Country' value={country} onChange={(e) => setCountry(e.target.value)}>
-                                {Country.getAllCountries().map((country, i) => (
-                                    <option key={i} value={country.isoCode}>
-                                        {country.name}
-                                    </option>
-                                ))}
-                            </Select>
-                            <Select placeholder='Select State' value={state} onChange={(e) => setState(e.target.value)}>
-                                {State.getStatesOfCountry(country).map((state, i) => (
-                                    <option key={i} value={state.isoCode}>
-                                        {state.name}
-                                    </option>
-                                ))}
-                            </Select>
-                            <Select placeholder='Select City' value={city} onChange={(e) => setCity(e.target.value)}>
-                                {City.getCitiesOfState(country, state).map((city, i) => (
-                                    <option key={i} value={city.name}>
-                                        {city.name}
-                                    </option>
-                                ))}
-                            </Select>
-                        </Flex>
-                        <Flex mt='3' gap={5}>
-                            <Checkbox onChange={(e) => setUrgent(e.target.checked)}>Is Urgent Opening</Checkbox>
-                            <Checkbox onChange={(e) => setRemote(e.target.checked)} >Is Remote</Checkbox>
-                        </Flex>
+                            <Input bg='white' type='text' placeholder='Job Title' w={150} onChange={(e) => setJobTitle(e.target.value)} />
+                            <Textarea bg='white' cols={10} placeholder='Job Description' mt='3' onChange={(e) => setJobDesc(e.target.value)} />
+                            <Flex alignItems={'center'} mt='3' gap={2}>
+                                <Select bg='white' placeholder='Select Domain' textTransform='capitalize' onChange={(e) => setSelectedDomain(e.target.value)}>
+                                    {domains && domains.map((domain, i) => (
+                                        <option key={i} value={domain._id}>{domain.name}</option>
+                                    ))}
+                                </Select>
+                                <Select bg='white' placeholder='Select Country' value={country} onChange={(e) => {
+                                    let country_code = e.target.value.split('_')[0]
+                                    let country = e.target.value.split('_')[1]
+                                    setCountry(country)
+                                    setCountryCode(country_code)
+                                    console.log(country, country_code)
+                                }}>
+                                    {Country.getAllCountries().map((country, i) => (
+                                        <option key={i} value={country.isoCode + "_" + country.name}>
+                                            {country.name}
+                                        </option>
+                                    ))}
+                                </Select>
+                                <Select bg='white' placeholder='Select State' value={state} onChange={(e) => {
+                                    let state_code = e.target.value.split('_')[0]
+                                    let state = e.target.value.split('_')[1]
+                                    setState(state)
+                                    setStateCode(state_code)
+                                    console.log(state, state_code)
+                                }}>
+                                    {State.getStatesOfCountry(country_code).map((state, i) => (
+                                        <option key={i} value={state.isoCode + "_" + state.name}>
+                                            {state.name}
+                                        </option>
+                                    ))}
+                                </Select>
+                                <Select bg='white' placeholder='Select City' value={city} onChange={(e) => setCity(e.target.value)}>
+                                    {console.log(country_code, state_code)}
+                                    {City.getCitiesOfState(country_code, state_code).map((city, i) => (
+                                        <option key={i} value={city.name}>
+                                            {city.name}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </Flex>
+                            <Flex mt='3' gap={5}>
+                                <Checkbox
+                                    p={2}
+                                    bg='white' onChange={(e) => setUrgent(e.target.checked)}>Is Urgent Opening</Checkbox>
+                                <Checkbox
+                                    p={2}
+                                    bg='white' onChange={(e) => setRemote(e.target.checked)} >Is Remote</Checkbox>
+                                <Checkbox
+                                    p={2}
+                                    bg='white' onChange={(e) => setHybrid(e.target.checked)} >Is Hybrid</Checkbox>
+                            </Flex>
 
-                        <Flex>
-                            <Button colorScheme='magenta' variant='outline' mx='auto' type='submit'>PUBLISH</Button>
-                        </Flex>
+                            <Flex>
+                                <Button colorScheme='magenta' variant='outline' mx='auto' type='submit'>PUBLISH</Button>
+                            </Flex>
                         </Stack>
                     </FormControl>
                 </form>
             </Box>
-        </Stack>
+        </Stack >
     )
 }
 

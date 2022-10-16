@@ -34,6 +34,7 @@ function JobContent() {
     const [searchQuery, setSearchQuery] = useState('')
     const [searchDomain, setSearchDomain] = useState('')
     const [searchStatus, setSearchStatus] = useState('')
+    const [jobId, setJobId] = useState('')
 
     const handleUpdateJobStatus = async (id, status) => {
         setLoading(true)
@@ -47,7 +48,7 @@ function JobContent() {
                     title: "Error",
                     description: data.message,
                     status: "error",
-                    duration: 9000,
+                    duration: 2000,
                     isClosable: true,
                 })
             }
@@ -55,7 +56,7 @@ function JobContent() {
                 title: "Success",
                 description: data.message,
                 status: "success",
-                duration: 9000,
+                duration: 2000,
                 isClosable: true,
             })
             handleFetchAllJobs()
@@ -64,7 +65,7 @@ function JobContent() {
                 title: "Error",
                 description: err.message,
                 status: "error",
-                duration: 9000,
+                duration: 2000,
                 isClosable: true,
             })
         } finally {
@@ -79,7 +80,7 @@ function JobContent() {
                     title: "Error",
                     description: data.message,
                     status: "error",
-                    duration: 9000,
+                    duration: 2000,
                     isClosable: true,
                 })
             }
@@ -92,7 +93,7 @@ function JobContent() {
                 title: "Error",
                 description: err.message,
                 status: "error",
-                duration: 9000,
+                duration: 2000,
                 isClosable: true,
             })
         }
@@ -105,7 +106,7 @@ function JobContent() {
                     title: "Error",
                     description: data.error,
                     status: "error",
-                    duration: 3000,
+                    duration: 2000,
                     isClosable: true,
                 })
             }
@@ -114,7 +115,7 @@ function JobContent() {
                     title: "Success",
                     description: data.message,
                     status: "success",
-                    duration: 3000,
+                    duration: 2000,
                     isClosable: true,
                 })
                 setFetchedJobs(data.data)
@@ -125,7 +126,7 @@ function JobContent() {
                 title: "Error",
                 description: err.message,
                 status: "error",
-                duration: 3000,
+                duration: 2000,
                 isClosable: true,
             })
         }
@@ -137,25 +138,24 @@ function JobContent() {
     const fuse = new Fuse(fetchedJobs, options);
 
     const searchWithFuse = (query) => {
-        console.log(query)
-        if (!query) {
-            return [];
+        if (jobId.length > 0) {
+            let res = []
+            res = fetchedJobs.filter((job) => job._id === jobId)
+            console.log(res)
+            return res
         }
-        console.log(fuse.search({
-            $or: [
-                // { title: searchQuery },
-                { "domain.name": `'${query.searchDomain}` },
-                // { country: query.searchQuery },
-                // { state: query.searchQuery },
-                // { city: query.searchQuery },
-                // { _id: query.searchQuery },
-                // { status: query.searchStatus }
-            ],
-        }));
-        let result = []
-        result = fuse.search(query).map((result) => result.item);
-        return result
+        //destructure query to get searchQuery, searchDomain, searchStatus
+        const { searchQuery, searchDomain, searchStatus } = query
+        let result = fuse.search(searchQuery);
+        if (searchDomain) {
+            result = result.filter((job) => job.item.domain.name === searchDomain);
+        }
+        if (searchStatus) {
+            result = result.filter((job) => job.item.status === searchStatus);
+        }
+        return result.map((job) => job.item);
     }
+
     useEffect(() => {
         handleFetchAllJobs()
         handleFetchAllDomains()
@@ -183,12 +183,18 @@ function JobContent() {
             </Stack>
             <Stack align='center' h='80vh' overflow={'auto'}>
                 <Stack bg='secondary' p={5} zIndex={4} direction='row' align='center' pos='fixed'>
-                    <Input w='xs' bg='white' type='text' placeholder='Search' onChange={
+                    <Input w='56' bg='white' type='text' onChange={
+                        (e) => {
+                            setJobId(e.target.value)
+                        }
+                    } value={jobId}
+                        placeholder='job id' />
+                    <Input w='56' bg='white' type='text' placeholder='Search' onChange={
                         (e) => {
                             setSearchQuery(e.target.value)
                         }
                     } value={searchQuery} />
-                    <Select w='xs' bg='white' placeholder='Select domain'
+                    <Select w='56' bg='white' placeholder='Select domain'
                         onChange={
                             (e) => {
                                 setSearchDomain(e.target.value)
@@ -201,7 +207,7 @@ function JobContent() {
                             )
                         })}
                     </Select>
-                    <Select w='xs' bg='white' placeholder='Status' value={searchStatus}
+                    <Select w='56' bg='white' placeholder='Status' value={searchStatus}
                         onChange={(e) => {
                             // setIsSelectedActive(e.target.value),
                             setSearchStatus(e.target.value)
@@ -212,7 +218,20 @@ function JobContent() {
                         <option value='inactive'>Inactive</option>
                     </Select>
                     <Box px={5} py={1} borderRadius='md' border='1px solid white'>
-                        <Search size='28' onClick={() => setResultJobs(searchWithFuse({ searchQuery, searchDomain, searchStatus }))} />
+                        <Search size='28' onClick={() => {
+                            if (!searchQuery && !jobId) {
+                                return toast({
+                                    title: "Error",
+                                    description: "Please enter a search query",
+                                    status: "error",
+                                    duration: 3000,
+                                    isClosable: true,
+                                })
+                            }
+                            else {
+                                setResultJobs(searchWithFuse({ searchQuery, searchDomain, searchStatus }))
+                            }
+                        }} />
                     </Box>
                 </Stack>
                 <Stack>
