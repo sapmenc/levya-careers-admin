@@ -148,7 +148,6 @@ function CreateJob() {
                                     ))}
                                 </Select>
                                 <Select bg='white' placeholder='Select City' value={city} onChange={(e) => setCity(e.target.value)}>
-                                    {console.log(country_code, state_code)}
                                     {City.getCitiesOfState(country_code, state_code).map((city, i) => (
                                         <option key={i} value={city.name}>
                                             {city.name}
