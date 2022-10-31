@@ -121,7 +121,7 @@ function CreateJob() {
                                         <option key={i} value={domain._id}>{domain.name}</option>
                                     ))}
                                 </Select>
-                                <Select bg='white' placeholder='Select Country' value={country} onChange={(e) => {
+                                <Select bg='white' placeholder='Select Country' onChange={(e) => {
                                     let country_code = e.target.value.split('_')[0]
                                     let country = e.target.value.split('_')[1]
                                     setCountry(country)
@@ -134,7 +134,7 @@ function CreateJob() {
                                         </option>
                                     ))}
                                 </Select>
-                                <Select bg='white' placeholder='Select State' value={state} onChange={(e) => {
+                                <Select bg='white' placeholder='Select State' onChange={(e) => {
                                     let state_code = e.target.value.split('_')[0]
                                     let state = e.target.value.split('_')[1]
                                     setState(state)
