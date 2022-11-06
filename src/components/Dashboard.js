@@ -48,7 +48,7 @@ function Dashboard() {
                     color='white'
                     shadow='lg'
                     size={'32'}
-                    bg='magenta'
+                    bgColor='secondary'
                     pos='absolute'
                     top='-16'
                     fontWeight='bold'
@@ -63,7 +63,7 @@ function Dashboard() {
                     color='white'
                     shadow='lg'
                     size={'32'}
-                    bg='magenta'
+                    bgColor='secondary'
                     pos='absolute'
                     top='-16'
                     fontWeight='bold'

@@ -9,7 +9,6 @@ import {
     Button,
     FormControl,
     useToast,
-    Switch,
     Stack
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
@@ -60,7 +59,6 @@ function CreateJob() {
                 "country": country,
                 "country_code": country_code,
             }
-            console.log(body)
             const { data } = await addJob(body, token)
 
             if (data.status) {
@@ -107,47 +105,65 @@ function CreateJob() {
     }, [country, state, city])
 
     return (
-        <Stack spacing={5} align='center' w={'100%'}>
+        <Stack spacing={5} align='center' w={'100%'} my={10}>
             <Heading size='md' textAlign={'center'}>NEW JOB POST</Heading>
             <Box p='4' w='60%' justifyContent={'center'} mx='64'>
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <Stack spacing={10}>
-                            <Input bg='white' type='text' placeholder='Job Title' w={150} onChange={(e) => setJobTitle(e.target.value)} />
-                            <Textarea bg='white' cols={10} placeholder='Job Description' mt='3' onChange={(e) => setJobDesc(e.target.value)} />
+                            <Input
+                                borderColor='purple'
+                                borderWidth={2}
+                                bg='white' type='text' placeholder='Job Title' w={'2xl'} onChange={(e) => setJobTitle(e.target.value)} />
+                            <Textarea
+                                borderColor='purple'
+                                borderWidth={2}
+                                bg='white' cols={10} placeholder='Job Description' mt='3' onChange={(e) => setJobDesc(e.target.value)} />
                             <Flex alignItems={'center'} mt='3' gap={2}>
-                                <Select bg='white' placeholder='Select Domain' textTransform='capitalize' onChange={(e) => setSelectedDomain(e.target.value)}>
+                                <Select
+                                    borderColor='purple'
+                                    borderWidth={2}
+                                    bg='white' placeholder='Select Domain' textTransform='capitalize' onChange={(e) => setSelectedDomain(e.target.value)}>
                                     {domains && domains.map((domain, i) => (
                                         <option key={i} value={domain._id}>{domain.name}</option>
                                     ))}
                                 </Select>
-                                <Select bg='white' placeholder='Select Country' onChange={(e) => {
-                                    let country_code = e.target.value.split('_')[0]
-                                    let country = e.target.value.split('_')[1]
-                                    setCountry(country)
-                                    setCountryCode(country_code)
-                                    console.log(country, country_code)
-                                }}>
+                                <Select
+                                    borderColor='purple'
+                                    borderWidth={2}
+                                    bg='white' placeholder='Select Country' onChange={(e) => {
+                                        let country_code = e.target.value.split('_')[0]
+                                        let country = e.target.value.split('_')[1]
+                                        setCountry(country)
+                                        setCountryCode(country_code)
+                                        console.log(country, country_code)
+                                    }}>
                                     {Country.getAllCountries().map((country, i) => (
                                         <option key={i} value={country.isoCode + "_" + country.name}>
                                             {country.name}
                                         </option>
                                     ))}
                                 </Select>
-                                <Select bg='white' placeholder='Select State' onChange={(e) => {
-                                    let state_code = e.target.value.split('_')[0]
-                                    let state = e.target.value.split('_')[1]
-                                    setState(state)
-                                    setStateCode(state_code)
-                                    console.log(state, state_code)
-                                }}>
+                                <Select
+                                    borderColor='purple'
+                                    borderWidth={2}
+                                    bg='white' placeholder='Select State' onChange={(e) => {
+                                        let state_code = e.target.value.split('_')[0]
+                                        let state = e.target.value.split('_')[1]
+                                        setState(state)
+                                        setStateCode(state_code)
+                                        console.log(state, state_code)
+                                    }}>
                                     {State.getStatesOfCountry(country_code).map((state, i) => (
                                         <option key={i} value={state.isoCode + "_" + state.name}>
                                             {state.name}
                                         </option>
                                     ))}
                                 </Select>
-                                <Select bg='white' placeholder='Select City' value={city} onChange={(e) => setCity(e.target.value)}>
+                                <Select
+                                    borderColor='purple'
+                                    borderWidth={2}
+                                    bg='white' placeholder='Select City' value={city} onChange={(e) => setCity(e.target.value)}>
                                     {City.getCitiesOfState(country_code, state_code).map((city, i) => (
                                         <option key={i} value={city.name}>
                                             {city.name}
@@ -157,12 +173,18 @@ function CreateJob() {
                             </Flex>
                             <Flex mt='3' gap={5}>
                                 <Checkbox
+                                    borderColor='purple'
+                                    borderWidth={2}
                                     p={2}
                                     bg='white' onChange={(e) => setUrgent(e.target.checked)}>Is Urgent Opening</Checkbox>
                                 <Checkbox
+                                    borderColor='purple'
+                                    borderWidth={2}
                                     p={2}
                                     bg='white' onChange={(e) => setRemote(e.target.checked)} >Is Remote</Checkbox>
                                 <Checkbox
+                                    borderColor='purple'
+                                    borderWidth={2}
                                     p={2}
                                     bg='white' onChange={(e) => setHybrid(e.target.checked)} >Is Hybrid</Checkbox>
                             </Flex>
