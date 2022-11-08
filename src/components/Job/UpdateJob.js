@@ -206,16 +206,19 @@ function UpdateJob(props) {
               </Flex>
               <Flex mt='3' gap={5}>
                 <Checkbox
+                  checked={urgent?true:false}
                   borderColor='purple'
                   borderWidth={2}
                   p={2}
                   bg='white' onChange={(e) => setUrgent(e.target.checked)}>Is Urgent Opening</Checkbox>
                 <Checkbox
+                  checked={remote?true:false}
                   borderColor='purple'
                   borderWidth={2}
                   p={2}
                   bg='white' onChange={(e) => setRemote(e.target.checked)} >Is Remote</Checkbox>
                 <Checkbox
+                  checked={hybrid?true:false}
                   borderColor='purple'
                   borderWidth={2}
                   p={2}
