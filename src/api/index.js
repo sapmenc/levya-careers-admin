@@ -48,8 +48,12 @@ export const addDomain = async (body, token) =>
     }
   });
 
-export const deleteDomain = async (id) =>
-  API.delete(`/domains/${id}`);
+export const deleteDomain = async (token, id) =>
+  API.delete(`/domains/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 
 export const signinUser = async (body) =>
   API.post('/signin', body);

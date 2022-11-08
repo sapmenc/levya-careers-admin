@@ -34,9 +34,9 @@ function Domains() {
             })
         }
         try {
-            const { data } = await deleteDomain(domainId)
+            const { data } = await deleteDomain(token, domainId)
             if (data.error) {
-                toast({
+                return toast({
                     title: "Error",
                     description: data.error,
                     status: "error",
@@ -157,7 +157,6 @@ function Domains() {
                     <ModalHeader>
                         <CloseButton />
                     </ModalHeader>
-                    <ModalCloseButton />
                     <ModalBody>
                         <Text>All jobs associated with this domain will get deleted !!</Text>
                         <Text>Do you still want to delete this domain?</Text>
@@ -178,7 +177,7 @@ function Domains() {
                 m={2}
                 p={2}
                 w='100%'
-                 columns={2}>
+                columns={2}>
                 <GridItem w='50%' mx='auto'>
                     <Stack align={'end'} spacing={2}>
                         <Input rounded='md' bg='white' type='text'
@@ -194,7 +193,7 @@ function Domains() {
                 </GridItem>
                 <GridItem w='50%' mx='auto' border='1px solid gray'>
                     <Stack bg='white' spacing={1} p={1}>
-                        {domains.length>0 && domains?.map((domain, index) => (
+                        {domains.length > 0 && domains?.map((domain, index) => (
                             <Stack p={2} bg='gray.200' w='100%' justify='space-between' key={index} direction='row'>
                                 <Text flexGrow='1' textTransform='capitalize'>{domain.name}</Text>
                                 <MinusCircle onClick={() => handleDeleteDomain(domain._id)} />
