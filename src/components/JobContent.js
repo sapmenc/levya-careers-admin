@@ -217,7 +217,7 @@ function JobContent() {
                             value='active'>Active</option>
                         <option value='inactive'>Inactive</option>
                     </Select>
-                    <Box px={5} py={1} borderRadius='md' border='1px solid white'>
+                    <Box px={5} py={1} borderRadius='md' border='1px solid white' cursor='pointer'>
                         <Search size='28' onClick={() => {
                             if (!searchQuery && !jobId) {
                                 return toast({
