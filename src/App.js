@@ -9,6 +9,7 @@ import Jobspage from "./pages/Jobspage";
 import Login from "./pages/Login";
 import Userspage from "./pages/Userspage";
 import Sidebar from "./components/Sidebar";
+import EditJobpage from "./pages/EditJobpage";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/createjob' element={<CreateJobpage />} />
           <Route path='/users' element={<Userspage />} />
           <Route path='/createuser' element={<CreateUserpage />} />
+          <Route path='/editjob/:id' element={<EditJobpage />} />
           <Route path='*' element={<Heading>Page Not Found</Heading>} />
         </Routes>
       </Router>

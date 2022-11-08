@@ -19,6 +19,14 @@ export const fetchAllJobs = async (token) =>
     }
   });
 
+
+export const fetchJobById = async (token, id) =>
+  API.get(`/jobs/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
 export const addJob = async (body, token) =>
   API.post('/jobs', body, {
     headers: {
@@ -26,7 +34,7 @@ export const addJob = async (body, token) =>
     }
   });
 
-export const updateJob = async (body, token,id) =>
+export const updateJob = async (body, token, id) =>
   API.patch(`/jobs/${id}`, body, {
     headers: {
       Authorization: `Bearer ${token}`
