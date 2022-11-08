@@ -42,7 +42,7 @@ function CreateJob() {
                     title: "Error",
                     description: "Please fill all the fields",
                     status: "error",
-                    duration: 9000,
+                    duration: 2000,
                     isClosable: true,
                 })
             }
@@ -66,7 +66,7 @@ function CreateJob() {
                     title: "Job Created",
                     description: "Job has been created successfully",
                     status: "success",
-                    duration: 9000,
+                    duration: 2000,
                     isClosable: true,
                 })
                 navigate('/jobs')
@@ -76,7 +76,7 @@ function CreateJob() {
                 title: "Error",
                 description: error,
                 status: "error",
-                duration: 5000,
+                duration: 2000,
                 isClosable: true,
             })
         }
@@ -136,7 +136,6 @@ function CreateJob() {
                                         let country = e.target.value.split('_')[1]
                                         setCountry(country)
                                         setCountryCode(country_code)
-                                        console.log(country, country_code)
                                     }}>
                                     {Country.getAllCountries().map((country, i) => (
                                         <option key={i} value={country.isoCode + "_" + country.name}>
@@ -152,7 +151,6 @@ function CreateJob() {
                                         let state = e.target.value.split('_')[1]
                                         setState(state)
                                         setStateCode(state_code)
-                                        console.log(state, state_code)
                                     }}>
                                     {State.getStatesOfCountry(country_code).map((state, i) => (
                                         <option key={i} value={state.isoCode + "_" + state.name}>

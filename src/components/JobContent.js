@@ -141,7 +141,6 @@ function JobContent() {
         if (jobId.length > 0) {
             let res = []
             res = fetchedJobs.filter((job) => job._id === jobId)
-            console.log(res)
             return res
         }
         //destructure query to get searchQuery, searchDomain, searchStatus
@@ -155,11 +154,17 @@ function JobContent() {
         }
         return result.map((job) => job.item);
     }
-
+    const handleSearchFilterForDomain = (e) => {
+        let r = fetchedJobs.filter((job) => job.domain.name === e.target.value)
+        setResultJobs(r)
+    }
+    const handleSearchFilterForStatus = (e) => {
+        let r = fetchedJobs.filter((job) => job.status === e.target.value)
+        setResultJobs(r)
+    }
     useEffect(() => {
         handleFetchAllJobs()
         handleFetchAllDomains()
-        console.log(resultJobs)
     }, [resultJobs])
     return (
         <Box
@@ -194,10 +199,10 @@ function JobContent() {
                             setSearchQuery(e.target.value)
                         }
                     } value={searchQuery} />
-                    <Select w='56' bg='white' placeholder='Select domain'
+                    <Select w='56' bg='white' placeholder='All'
                         onChange={
                             (e) => {
-                                setSearchDomain(e.target.value)
+                                handleSearchFilterForDomain(e)
                             }
                         }
                     >
@@ -210,7 +215,8 @@ function JobContent() {
                     <Select w='56' bg='white' placeholder='Status' value={searchStatus}
                         onChange={(e) => {
                             // setIsSelectedActive(e.target.value),
-                            setSearchStatus(e.target.value)
+                            // setSearchStatus(e.target.value)
+                            handleSearchFilterForStatus(e)
                         }}
                     >
                         <option
@@ -289,7 +295,7 @@ function JobContent() {
                                             <Tr key={job._id}>
                                                 <Td>{job._id}</Td>
                                                 <Td>{job.title}</Td>
-                                                <Td>{job.domain.name}</Td>
+                                                <Td>{job.domain?.name}</Td>
                                                 <Td>{job.state + " " + job.country}</Td>
                                                 <Td>{55}</Td>
                                                 <Td>{job.status}</Td>
