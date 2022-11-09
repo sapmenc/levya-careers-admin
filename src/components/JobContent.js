@@ -214,8 +214,6 @@ function JobContent() {
                     </Select>
                     <Select w='56' bg='white' placeholder='Status' value={searchStatus}
                         onChange={(e) => {
-                            // setIsSelectedActive(e.target.value),
-                            // setSearchStatus(e.target.value)
                             handleSearchFilterForStatus(e)
                         }}
                     >
