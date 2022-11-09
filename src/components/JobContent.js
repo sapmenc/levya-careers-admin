@@ -168,11 +168,7 @@ function JobContent() {
     }, [resultJobs])
     return (
         <Box
-            m='auto'
-            p='6'
-            borderRadius='md'
-            w='90%'
-            h='95vh'
+        w='100%' overflowX='hidden'
         >
             <Heading textAlign='center'>All Job Posts</Heading>
             <Stack m='2' direction='row' justify='end'>
@@ -255,7 +251,7 @@ function JobContent() {
                             <Tbody top={10}>
                                 {resultJobs.length > 0 ? resultJobs?.map((job) => {
                                     return (
-                                        <Tr key={job._id}>
+                                        <Tr key={job._id} fontSize='sm'>
                                             <Td>{job._id}</Td>
                                             <Td>{job.title}</Td>
                                             <Td>{job.domain.name}</Td>
@@ -290,7 +286,7 @@ function JobContent() {
                                 ) :
                                     fetchedJobs?.map((job) => {
                                         return (
-                                            <Tr key={job._id}>
+                                            <Tr key={job._id} fontSize='sm'>
                                                 <Td>{job._id}</Td>
                                                 <Td>{job.title}</Td>
                                                 <Td>{job.domain?.name}</Td>
