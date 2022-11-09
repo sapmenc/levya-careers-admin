@@ -168,10 +168,10 @@ function JobContent() {
     }, [resultJobs])
     return (
         <Box
-            m='2'
+            m='auto'
             p='6'
             borderRadius='md'
-            w='85%'
+            w='90%'
             h='95vh'
         >
             <Heading textAlign='center'>All Job Posts</Heading>
