@@ -194,7 +194,7 @@ function Domains() {
                 <GridItem w='50%' mx='auto' border='1px solid gray'>
                     <Stack bg='white' spacing={1} p={1}>
                         {domains.length > 0 && domains?.map((domain, index) => (
-                            <Stack p={2} bg='gray.200' w='100%' justify='space-between' key={index} direction='row'>
+                            <Stack p={2} bg='secondary' w='100%' justify='space-between' key={index} direction='row'>
                                 <Text flexGrow='1' textTransform='capitalize'>{domain.name}</Text>
                                 <MinusCircle onClick={() => handleDeleteDomain(domain._id)} />
                             </Stack>

@@ -168,7 +168,7 @@ function JobContent() {
     }, [resultJobs])
     return (
         <Box
-        w='100%' overflowX='hidden'
+            w='100%' overflowX='hidden'
         >
             <Heading textAlign='center'>All Job Posts</Heading>
             <Stack m='2' direction='row' justify='end'>
@@ -208,14 +208,15 @@ function JobContent() {
                             )
                         })}
                     </Select>
-                    <Select w='56' bg='white' placeholder='Status' value={searchStatus}
+                    <Select w='56' bg='white' placeholder='Status'
                         onChange={(e) => {
                             handleSearchFilterForStatus(e)
                         }}
                     >
                         <option
                             value='active'>Active</option>
-                        <option value='inactive'>Inactive</option>
+                        <option
+                            value='inactive'>Inactive</option>
                     </Select>
                     <Box px={5} py={1} borderRadius='md' border='1px solid white' cursor='pointer'>
                         <Search size='28' onClick={() => {
