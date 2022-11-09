@@ -130,7 +130,7 @@ function UpdateJob(props) {
 
   return (
     <Stack spacing={5} align='center' w={'100%'} my={10}>
-      <Heading size='md' textAlign={'center'}>NEW JOB POST</Heading>
+      <Heading size='md' textAlign={'center'}>EDIT JOB POST</Heading>
       <Box p='4' w='60%' justifyContent={'center'} mx='64'>
         <form onSubmit={handleSubmit}>
           <FormControl>
