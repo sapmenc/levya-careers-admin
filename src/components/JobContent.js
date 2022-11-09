@@ -171,7 +171,7 @@ function JobContent() {
             m='2'
             p='6'
             borderRadius='md'
-            w='100%'
+            w='85%'
             h='95vh'
         >
             <Heading textAlign='center'>All Job Posts</Heading>
@@ -187,7 +187,7 @@ function JobContent() {
                 </Button>
             </Stack>
             <Stack align='center' h='80vh' overflow={'auto'}>
-                <Stack bg='secondary' p={5} zIndex={4} direction='row' align='center' pos='fixed'>
+                <Stack bg='secondary' p={5} zIndex={4} direction={['column', 'column', 'row']} align='center' pos='fixed'>
                     <Input w='56' bg='white' type='text' onChange={
                         (e) => {
                             setJobId(e.target.value)
@@ -238,7 +238,7 @@ function JobContent() {
                         }} />
                     </Box>
                 </Stack>
-                <Stack>
+                <Stack w={['50%', '50%', '95%']}>
                     <TableContainer mt={20} rounded='md' bgColor='white'>
                         <Table variant='striped' colorScheme={'purple'}>
                             <Thead>
@@ -298,7 +298,7 @@ function JobContent() {
                                                 <Td>{55}</Td>
                                                 <Td>{job.status}</Td>
                                                 <Td>
-                                                    <Stack spacing={5} align='center' direction='row'>
+                                                    <Stack spacing={3} align='center' direction='row'>
                                                         <Button onClick={() => {
                                                             return navigate(`/editjob/${job._id}`);
                                                         }} bgColor='secondary' color='white'>
