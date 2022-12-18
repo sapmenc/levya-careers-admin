@@ -170,7 +170,7 @@ function JobContent() {
         <Box
             w='100%' overflowX='hidden'
         >
-            <Heading textAlign='center'>All Job Posts</Heading>
+            <Heading textAlign='center' mt={10}>All Job Posts</Heading>
             <Stack m='2' direction='row' justify='end'>
                 <Button onClick={() => {
                     return navigate('/createjob');
@@ -237,7 +237,7 @@ function JobContent() {
                 </Stack>
                 <Stack w={['50%', '50%', '95%']}>
                     <TableContainer mt={20} rounded='md' bgColor='white'>
-                        <Table variant='striped' colorScheme={'purple'}>
+                        <Table variant='striped' colorScheme={'red'}>
                             <Thead>
                                 <Tr>
                                     <Th>Job ID</Th>
@@ -277,7 +277,7 @@ function JobContent() {
                                                                 handleUpdateJobStatus(job._id, "active")
                                                             }
                                                         }}
-                                                        colorScheme='purple' />
+                                                        colorScheme='red' />
 
                                                 </Stack>
                                             </Td>
@@ -312,7 +312,7 @@ function JobContent() {
                                                                     handleUpdateJobStatus(job._id, "active")
                                                                 }
                                                             }}
-                                                            colorScheme='purple' />
+                                                            colorScheme='red' />
 
                                                     </Stack>
                                                 </Td>

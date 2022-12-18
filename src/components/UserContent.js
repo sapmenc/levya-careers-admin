@@ -76,7 +76,7 @@ function UserContent() {
             <Stack h='80vh' overflow={'auto'}>
                 <Stack>
                     <TableContainer rounded='md' bgColor='white'>
-                        <Table variant='striped' colorScheme={'purple'}>
+                        <Table variant='striped' colorScheme={'red'}>
                             <Thead>
                                 <Tr>
                                     <Th>User Id</Th>
@@ -99,16 +99,16 @@ function UserContent() {
                                                 <Stack spacing={5} align='center' direction='row'>
                                                     <Button onClick={() => {
                                                         return navigate(`/editjob/${user._id}`);
-                                                    }} bgColor='purple' color='white'>
+                                                    }} bgColor='red.300' color='white'>
                                                         Edit
                                                     </Button>
                                                     <Button onClick={() => {
                                                         return navigate(`/delete/${user._id}`);
-                                                    }} bgColor='purple' color='white'>
+                                                    }} bgColor='red.300' color='white'>
                                                         Delete
                                                     </Button>
                                                     <Switch isChecked={user.status === 'active' ?
-                                                        true : false} colorScheme='purple' />
+                                                        true : false} colorScheme='red.300' />
                                                 </Stack>
                                             </Td>
                                         </Tr>

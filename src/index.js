@@ -7,9 +7,9 @@ import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const colors = {
-  primary: "#77567a",
-  secondary: "#c47ac0",
-  tertiary: "#e39ec1",
+  primary: "#ED3237",
+  secondary: "#ED3237",
+  tertiary: "#FFFFFF ",
 }
 
 const theme = extendTheme({ colors })

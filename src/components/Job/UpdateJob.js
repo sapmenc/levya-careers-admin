@@ -61,7 +61,7 @@ function UpdateJob(props) {
         "country": country,
         "country_code": country_code,
       }
-      const { data } = await updateJob(body, token)
+      const { data } = await updateJob(body, token, jid);
 
       if (data.status) {
         toast({
@@ -78,7 +78,7 @@ function UpdateJob(props) {
         title: "Error",
         description: error,
         status: "error",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       })
     }
@@ -206,19 +206,19 @@ function UpdateJob(props) {
               </Flex>
               <Flex mt='3' gap={5}>
                 <Checkbox
-                  checked={urgent?true:false}
+                  checked={urgent ? true : false}
                   borderColor='purple'
                   borderWidth={2}
                   p={2}
                   bg='white' onChange={(e) => setUrgent(e.target.checked)}>Is Urgent Opening</Checkbox>
                 <Checkbox
-                  checked={remote?true:false}
+                  checked={remote ? true : false}
                   borderColor='purple'
                   borderWidth={2}
                   p={2}
                   bg='white' onChange={(e) => setRemote(e.target.checked)} >Is Remote</Checkbox>
                 <Checkbox
-                  checked={hybrid?true:false}
+                  checked={hybrid ? true : false}
                   borderColor='purple'
                   borderWidth={2}
                   p={2}

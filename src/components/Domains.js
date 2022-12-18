@@ -172,7 +172,7 @@ function Domains() {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-            <Heading textAlign='center'>All Domains</Heading>
+            <Heading textAlign='center' mt={10}>All Domains</Heading>
             <SimpleGrid
                 m={2}
                 p={2}
@@ -185,7 +185,7 @@ function Domains() {
                             placeholder='New Domain Title' onChange={(e) => setNewDomain(e.target.value)} size='sm' />
                         <Button onClick={() => handleAddDomain()}
                             variant='outline'
-                            colorScheme='purple'
+                            colorScheme='red'
                             bg='white'>
                             Add
                         </Button>

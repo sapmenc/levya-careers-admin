@@ -1,6 +1,6 @@
-import { Box, Divider, Heading, Icon, Image, ListItem, UnorderedList } from '@chakra-ui/react'
-import React, { useEffect, useRef, useState } from 'react'
-import { ChevronRight, ChevronLeft, Command, Clipboard, Server, LogOut, UserPlus, List } from 'react-feather'
+import { Box, Divider, Image } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { Command, Clipboard, Server, LogOut, UserPlus } from 'react-feather'
 import { useNavigate } from 'react-router-dom';
 import { fetchCurrentUser } from '../api';
 import './sidebar.css'
@@ -8,7 +8,6 @@ import './sidebar.css'
 function Sidebar() {
     const [userRole, setUserRole] = useState('')
     let token = localStorage.getItem('auth')
-    const [toggle, setToggle] = useState(false)
     const navigate = useNavigate();
     const getCurrentUser = async () => {
         const { data } = await fetchCurrentUser(token)
@@ -19,47 +18,20 @@ function Sidebar() {
     }
     useEffect(() => {
         getCurrentUser()
-        // const List = document.querySelectorAll('.list');
-
-        // function activeLink() {
-        //     List.forEach((item) =>
-        //         item.classList.remove('active'));
-        //     this.classList.add('active');
-        // }
-
-        // List.forEach((item) =>
-        //     item.addEventListener('click', activeLink));
-
     }, [])
     return (
         <div className="navigation">
-            {/* <Box bg='white' py={2} px={4} borderRadius={'md'} display='flex' alignItems='center' ml={toggle ? ('2') : ('')}>
-                {toggle ? (
-                    <Image display={toggle ? ('block') : ('none')} src='https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154'
-                        objectFit='contain'
-                        alt='Levya' w='100%' h='30px' />
-                ) : (
-                    // <Image src='https://ik.imagekit.io/o0spphqdc/Asset_2_2x_E9vIncDEz.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975136'
-                    //     alt='Levya' w='100%' h='30px' objectFit='contain' />
-                )}
-            </Box> */}
             <Box py={2} px={4} borderRadius={'md'} display='flex' alignItems='center' justifyContent='center'>
-                <Image display='block' my={2} mx={4} src='https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154'
+                <Image display='block' my={2} mx={4} src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
                     objectFit='contain'
                     alt='Levya' w='100%' h='30px' />
             </Box>
             <ul>
                 <li
                     id='dashboard'
-                    //add active class to the list item
                     className="list"
                     onClick={() => {
                         navigate('/')
-                        //add active class to the list item
-                        // const List = document.querySelectorAll('.list');
-                        // List.forEach((item) => {
-                        //     item.classList.remove('active')
-                        // })
                         document.getElementById('dashboard').classList.add('active')
                     }}
                 >
@@ -74,11 +46,6 @@ function Sidebar() {
                         className="list"
                         onClick={() => {
                             navigate('/users')
-                            //add active class to the list item
-                            // const List = document.querySelectorAll('.list');
-                            // List.forEach((item) => {
-                            //     item.classList.remove('active')
-                            // })
                             document.getElementById('users').classList.add('active')
                         }}>
                         <span className="icon">
@@ -92,11 +59,6 @@ function Sidebar() {
                     className="list "
                     onClick={() => {
                         navigate('/jobs')
-                        //add active class to the list item
-                        // const List = document.querySelectorAll('.list');
-                        // List.forEach((item) => {
-                        //     item.classList.remove('active')
-                        // })
                         document.getElementById('jobs').classList.add('active')
                     }}>
                     <span className="icon">
@@ -109,11 +71,6 @@ function Sidebar() {
                     className="list "
                     onClick={() => {
                         navigate('/domains')
-                        //add active class to the list item
-                        // const List = document.querySelectorAll('.list');
-                        // List.forEach((item) => {
-                        //     item.classList.remove('active')
-                        // })
                         document.getElementById('domains').classList.add('active')
                     }}>
                     <span className="icon">
