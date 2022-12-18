@@ -14,7 +14,8 @@ import {
     Table,
     Input,
     Switch,
-    Spinner
+    Spinner,
+    Image
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Search } from 'react-feather'
@@ -170,7 +171,10 @@ function JobContent() {
         <Box
             w='100%' overflowX='hidden'
         >
-            <Heading textAlign='center' mt={10}>All Job Posts</Heading>
+            <Stack w='100%' justifyContent='center' alignItems='center' mt={8}>
+                <Image src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012" boxSize='32' alt="" />
+            </Stack>
+            <Heading textAlign='center' mt={8}>All Job Posts</Heading>
             <Stack m='2' direction='row' justify='end'>
                 <Button onClick={() => {
                     return navigate('/createjob');
@@ -182,7 +186,7 @@ function JobContent() {
                     Add Job
                 </Button>
             </Stack>
-            <Stack align='center' h='80vh' overflow={'auto'}>
+            <Stack align='center' h='70vh' overflow={'auto'}>
                 <Stack bg='secondary' p={5} zIndex={4} direction={['column', 'column', 'row']} align='center' pos='fixed'>
                     <Input w='56' bg='white' type='text' onChange={
                         (e) => {

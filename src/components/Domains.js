@@ -6,7 +6,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure, Box, Button, GridItem, Heading, Input, SimpleGrid, Stack, Text, useToast, CloseButton
+    useDisclosure, Box, Button, GridItem, Heading, Input, SimpleGrid, Stack, Text, useToast, CloseButton, Image
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { MinusCircle } from 'react-feather'
@@ -163,16 +163,19 @@ function Domains() {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={() => finalDeleteDomain()}>
+                        <Button colorScheme='red' mr={3} onClick={() => finalDeleteDomain()}>
                             Delete
                         </Button>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        <Button colorScheme='red' mr={3} onClick={onClose}>
                             Close
                         </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-            <Heading textAlign='center' mt={10}>All Domains</Heading>
+            <Stack w='100%' justifyContent='center' alignItems='center' mt={8}>
+                <Image src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012" boxSize='32' alt="" />
+            </Stack>
+            <Heading textAlign='center' mt={8}>All Domains</Heading>
             <SimpleGrid
                 m={2}
                 p={2}

@@ -47,13 +47,15 @@
     color: white;
     display: flex;
     padding: 10px;
+    cursor: pointer;
+    transition: 0.6s all;
 }
 
 .navigation ul li.active {
-    background: #4187f6;
+    background: #ED3237;
 }
 
 .navigation ul li:hover {
     transition: 0.3s all;
-    background: #4399f6;
+    background: #ED3237;
 }
