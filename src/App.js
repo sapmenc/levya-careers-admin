@@ -1,4 +1,3 @@
-
 import { Heading } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CreateUserpage from "./pages/CreateUserPage";
@@ -12,20 +11,19 @@ import Sidebar from "./components/Sidebar";
 import EditJobpage from "./pages/EditJobpage";
 
 function App() {
-
   return (
     <>
       <Router>
         <Routes>
-          <Route path='/' element={<Homepage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/jobs' element={<Jobspage />} />
-          <Route path='/domains' element={<Domainspage />} />
-          <Route path='/createjob' element={<CreateJobpage />} />
-          <Route path='/users' element={<Userspage />} />
-          <Route path='/createuser' element={<CreateUserpage />} />
-          <Route path='/editjob/:id' element={<EditJobpage />} />
-          <Route path='*' element={<Heading>Page Not Found</Heading>} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/jobs" element={<Jobspage />} />
+          <Route path="/domains" element={<Domainspage />} />
+          <Route path="/createjob" element={<CreateJobpage />} />
+          <Route path="/users" element={<Userspage />} />
+          <Route path="/createuser" element={<CreateUserpage />} />
+          <Route path="/editjob/:id" element={<EditJobpage />} />
+          <Route path="*" element={<Heading>Page Not Found</Heading>} />
         </Routes>
       </Router>
     </>
