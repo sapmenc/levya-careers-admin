@@ -48,14 +48,14 @@
     display: flex;
     padding: 10px;
     cursor: pointer;
-    transition: 0.6s all;
+    transition: 0.2s all;
 }
 
 .navigation ul li:hover {
     transition: 0.3s all;
     background: #ed323879;
 }
-.navigation ul li.active {
+.navigation ul li.activeModule {
     background: #ED3237;
 }
 

@@ -205,7 +205,7 @@ function JobContent() {
             }}
             value={jobId}
             placeholder="job id"
-            focusBorderColor="#000000"
+            focusBorderColor="#292929cf"
           />
           <Input
             w="56"
@@ -216,13 +216,13 @@ function JobContent() {
               setSearchQuery(e.target.value);
             }}
             value={searchQuery}
-            focusBorderColor="#000000"
+            focusBorderColor="#292929cf"
           />
           <Select
             w="56"
             bg="white"
             placeholder="All"
-            focusBorderColor="#000000"
+            focusBorderColor="#292929cf"
             onChange={(e) => {
               handleSearchFilterForDomain(e);
             }}
@@ -239,7 +239,7 @@ function JobContent() {
             w="56"
             bg="white"
             placeholder="Status"
-            focusBorderColor="#000000"
+            focusBorderColor="#292929cf"
             onChange={(e) => {
               handleSearchFilterForStatus(e);
             }}
@@ -251,19 +251,17 @@ function JobContent() {
             px={5}
             py={1}
             borderRadius="md"
-            // border="1px solid black"
-            backgroundColor="white"
+            // border="1px solid white"
+            backgroundColor="#ED3237"
             cursor="pointer"
-            border="1px solid transparent"
-            transitionDuration="200ms"
+            transitionDuration="250ms"
             _hover={{
-              bg: "red.200",
-              border: "1px solid black",
+              transform: "scale(1.1)",
             }}
           >
             <Search
               size="28"
-              color="black"
+              color="white"
               onClick={() => {
                 if (!searchQuery && !jobId) {
                   return toast({

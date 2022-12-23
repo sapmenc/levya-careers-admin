@@ -1,7 +1,7 @@
 import { Box, Divider, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Command, Clipboard, Server, LogOut, UserPlus } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { fetchCurrentUser } from "../api";
 import "./sidebar.css";
 
@@ -41,26 +41,30 @@ function Sidebar() {
         />
       </Box>
       <ul>
-        <li
-          id="dashboard"
-          className="list"
-          onClick={() => {
-            navigate("/");
-            document.getElementById("dashboard").classList.add("active");
-          }}
-        >
-          <span className="icon">
-            <Command color="#FFF" />
-          </span>
-          <span className="title">Dashboard</span>
-        </li>
+        <NavLink to="/">
+          <li
+            id="dashboard"
+            className="list"
+            onClick={() => {
+              navigate("/");
+              document
+                .getElementById("dashboard")
+                .classList.add("activeModule");
+            }}
+          >
+            <span className="icon">
+              <Command color="#FFF" />
+            </span>
+            <span className="title">Dashboard</span>
+          </li>
+        </NavLink>
+
         {userRole === "admin" && (
           <li
             id="users"
             className="list"
             onClick={() => {
-              navigate("/users");
-              document.getElementById("users").classList.add("active");
+              document.getElementById("users").classList.add("activeModule");
             }}
           >
             <span className="icon">
@@ -69,32 +73,35 @@ function Sidebar() {
             <span className="title">User Management</span>
           </li>
         )}
-        <li
-          id="jobs"
-          className="list"
-          onClick={() => {
-            navigate("/jobs");
-            document.getElementById("jobs").classList.add("active");
-          }}
-        >
-          <span className="icon">
-            <Clipboard color="#FFF" />
-          </span>
-          <span className="title">Job Posts</span>
-        </li>
-        <li
-          id="domains"
-          className="list"
-          onClick={() => {
-            navigate("/domains");
-            document.getElementById("domains").classList.add("active");
-          }}
-        >
-          <span className="icon">
-            <Server color="#FFF" />
-          </span>
-          <span className="title">Domains</span>
-        </li>
+        <NavLink to="/jobs">
+          <li
+            id="jobs"
+            className="list"
+            onClick={() => {
+              document.getElementById("jobs").classList.add("activeModule");
+            }}
+          >
+            <span className="icon">
+              <Clipboard color="#FFF" />
+            </span>
+            <span className="title">Job Posts</span>
+          </li>
+        </NavLink>
+
+        <NavLink to="/domains">
+          <li
+            id="domains"
+            className="list"
+            onClick={() => {
+              document.getElementById("domains").classList.add("activeModule");
+            }}
+          >
+            <span className="icon">
+              <Server color="#FFF" />
+            </span>
+            <span className="title">Domains</span>
+          </li>
+        </NavLink>
         <Divider />
         <li
           className="list"

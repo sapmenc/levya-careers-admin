@@ -9,11 +9,64 @@ import Login from "./pages/Login";
 import Userspage from "./pages/Userspage";
 import Sidebar from "./components/Sidebar";
 import EditJobpage from "./pages/EditJobpage";
+import { Flex } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
+var locationName = "notFound";
 function App() {
+  // module can have values : ["dashboard", "jobs", "domains"]
+  const location = useLocation();
+  let module = "dashboard";
+  useEffect(() => {
+    let activeModuleElements = Object.values(
+      document.getElementsByClassName("activeModule")
+    );
+    activeModuleElements.forEach((element) => {
+      element.classList.remove("activeModule");
+    });
+    let locationPath = location.pathname.split("/");
+    // possible locationName : ["", "jobs", "domains", "createjob", "editjob", "login"]
+    let possibleLocations = [
+      "",
+      "jobs",
+      "domains",
+      "createjob",
+      "editjob",
+      "login",
+    ];
+
+    for (let i = locationPath.length - 1; i >= 0; i--) {
+      if (possibleLocations.includes(locationPath[i])) {
+        locationName = locationPath[i];
+        break;
+      }
+    }
+
+    if (locationName === "") module = "dashboard";
+    else if (
+      locationName === "jobs" ||
+      locationName === "createjob" ||
+      locationName === "editjob"
+    )
+      module = "jobs";
+    else if (locationName === "domains") module = "domains";
+    let element = document.getElementById(module);
+    element?.classList.add("activeModule");
+  }, [location]);
+
   return (
     <>
-      <Router>
+      <Flex bg="#e9ebf0" h="100vh">
+        {location.pathname.split("/")[
+          location.pathname.split("/").length - 1
+        ] === "login" ? (
+          <></>
+        ) : (
+          <>
+            <Sidebar />
+          </>
+        )}
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
@@ -25,7 +78,7 @@ function App() {
           <Route path="/editjob/:id" element={<EditJobpage />} />
           <Route path="*" element={<Heading>Page Not Found</Heading>} />
         </Routes>
-      </Router>
+      </Flex>
     </>
   );
 }
