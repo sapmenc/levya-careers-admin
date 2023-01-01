@@ -159,6 +159,7 @@ function UpdateJob(props) {
                 onChange={(e) => setJobTitle(e.target.value)}
               />
               <Textarea
+                maxW={"2xl"}
                 focusBorderColor="#ED3237"
                 borderWidth={2}
                 bg="white"

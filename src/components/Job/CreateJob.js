@@ -110,10 +110,10 @@ function CreateJob() {
   useEffect(() => {}, [country, state, city]);
 
   return (
-    <Box p="4" w="60%" justifyContent={"center"} mx="64">
+    <Box  w="100%" overflowX="hidden">
       <form onSubmit={handleSubmit}>
         <FormControl>
-          <Stack spacing={10}>
+          <Stack align='center' maxW='70%' marginX='auto' spacing={10}>
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
               <Image
                 src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012"
@@ -134,6 +134,7 @@ function CreateJob() {
               onChange={(e) => setJobTitle(e.target.value)}
             />
             <Textarea
+              maxW={"2xl"}
               focusBorderColor="#ED3237"
               borderWidth={2}
               bg="white"
