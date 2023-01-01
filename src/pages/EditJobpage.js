@@ -6,14 +6,11 @@ import { useParams } from "react-router-dom";
 
 function EditJobpage(props) {
   const jid = useParams();
-  console.log("jid", jid);
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }
   return (
-    <>
       <UpdateJob jid={jid} />
-    </>
   );
 }
 
