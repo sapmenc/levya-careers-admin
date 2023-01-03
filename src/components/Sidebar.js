@@ -1,6 +1,6 @@
 import { Box, Divider, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Command, Clipboard, Server, LogOut, UserPlus } from "react-feather";
+import { Command, Clipboard, Server, LogOut, UserPlus, Image as ImageIcon } from "react-feather";
 import { NavLink, useNavigate } from "react-router-dom";
 import { fetchCurrentUser } from "../api";
 import "./sidebar.css";
@@ -60,18 +60,36 @@ function Sidebar() {
         </NavLink>
 
         {userRole === "admin" && (
-          <li
-            id="users"
-            className="list"
-            onClick={() => {
-              document.getElementById("users").classList.add("activeModule");
-            }}
-          >
-            <span className="icon">
-              <UserPlus color="#FFF" />
-            </span>
-            <span className="title">User Management</span>
-          </li>
+          <>
+            <NavLink to='appearance'>
+              <li
+                id="appearance"
+                className="list"
+                onClick={() => {
+                  document.getElementById("appearance").classList.add("activeModule");
+                }}
+              >
+                <span className="icon">
+                  <ImageIcon color="#FFF" />
+                </span>
+                <span className="title">Appearance</span>
+              </li>
+            </NavLink>
+            <NavLink to="/users">
+              <li
+                id="users"
+                className="list"
+                onClick={() => {
+                  document.getElementById("users").classList.add("activeModule");
+                }}
+              >
+                <span className="icon">
+                  <UserPlus color="#FFF" />
+                </span>
+                <span className="title">User Management</span>
+              </li>
+            </NavLink>
+          </>
         )}
         <NavLink to="/jobs">
           <li
