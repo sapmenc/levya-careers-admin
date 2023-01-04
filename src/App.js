@@ -16,7 +16,6 @@ import Appearancepage from "./pages/Appearancepage";
 
 var locationName = "notFound";
 function App() {
-  // module can have values : ["dashboard", "jobs", "domains"]
   const location = useLocation();
   let module = "dashboard";
   useEffect(() => {
@@ -27,7 +26,6 @@ function App() {
       element.classList.remove("activeModule");
     });
     let locationPath = location.pathname.split("/");
-    // possible locationName : ["", "jobs", "domains", "createjob", "editjob", "login"]
     let possibleLocations = [
       "",
       "jobs",
@@ -35,6 +33,8 @@ function App() {
       "createjob",
       "editjob",
       "login",
+      "users",
+      "appearance"
     ];
 
     for (let i = locationPath.length - 1; i >= 0; i--) {
@@ -52,6 +52,8 @@ function App() {
     )
       module = "jobs";
     else if (locationName === "domains") module = "domains";
+    else if (locationName === "users") module = "users";
+    else if (locationName === "appearance") module = "appearance";
     let element = document.getElementById(module);
     element?.classList.add("activeModule");
   }, [location]);

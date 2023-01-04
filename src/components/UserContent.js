@@ -55,27 +55,30 @@ function UserContent() {
     }, [])
     return (
         <Box
-            m='2'
-            p='6'
-            borderRadius='md'
-            w='100%'
-            h='95vh'
+            w="100%" overflowX="hidden"
         >
-            <Heading textAlign='center'>User Management</Heading>
+            <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
+                <Image
+                    src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012"
+                    boxSize="32"
+                    alt=""
+                />
+            </Stack>
+            <Heading textAlign='center' mt={8}>User Management</Heading>
             <Stack m='2' direction='row' justify='end'>
                 <Button onClick={() => {
                     return navigate('/createuser');
                 }}
                     variant='outline'
-                    colorScheme='magenta'
+                    colorScheme='red'
                     bg='white'
                 >
                     Add User
                 </Button>
             </Stack>
-            <Stack h='80vh' overflow={'auto'}>
-                <Stack>
-                    <TableContainer rounded='md' bgColor='white'>
+            <Stack align="center" h="70vh" overflow={"auto"}>
+                <Stack w={["50%", "50%", "95%"]}>
+                    <TableContainer mt={20} rounded="md" bgColor="white">
                         <Table variant='striped' colorScheme={'red'}>
                             <Thead>
                                 <Tr>
