@@ -9,7 +9,6 @@ function Userspage() {
     }
     return (
         <Flex bg='#e9ebf0' h='100vh'>
-            <Sidebar />
             <UserContent />
         </Flex>
     )
