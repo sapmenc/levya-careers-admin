@@ -15,7 +15,6 @@ import {
   Table,
   Input,
   Switch,
-  Image,
 } from "@chakra-ui/react";
 import { fetchAllUsers } from "../api";
 import { useNavigate } from "react-router-dom";
