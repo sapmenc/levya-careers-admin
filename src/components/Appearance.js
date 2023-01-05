@@ -99,7 +99,7 @@ function Appearance() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image
           src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="400px"
+          maxWidth="250px"
           height="auto"
         />
       </Stack>

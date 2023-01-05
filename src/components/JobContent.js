@@ -168,7 +168,7 @@ function JobContent() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image
           src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="400px"
+          maxWidth="250px"
           height="auto"
         />
       </Stack>
@@ -251,12 +251,14 @@ function JobContent() {
             px={5}
             py={1}
             borderRadius="md"
+            ml={3}
             // border="1px solid white"
             backgroundColor="#ED3237"
             cursor="pointer"
             transitionDuration="250ms"
             _hover={{
               transform: "scale(1.1)",
+              boxShadow: "dark-lg",
             }}
           >
             <Search

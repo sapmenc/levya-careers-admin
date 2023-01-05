@@ -110,15 +110,15 @@ function CreateJob() {
   useEffect(() => {}, [country, state, city]);
 
   return (
-    <Box  w="100%" overflowX="hidden">
+    <Box w="100%" overflowX="hidden">
       <form onSubmit={handleSubmit}>
         <FormControl>
-          <Stack align='center' maxW='70%' marginX='auto' spacing={10}>
+          <Stack align="center" maxW="70%" marginX="auto" spacing={10}>
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
               <Image
-                src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012"
-                boxSize="32"
-                alt=""
+                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
+                maxWidth="250px"
+                height="auto"
               />
             </Stack>
             <Heading textAlign="center" mt={8}>

@@ -130,24 +130,24 @@ function UpdateJob(props) {
     handleFetchAllDomains();
     handleCurrentJob();
   }, []);
-  useEffect(() => { }, [country, state, city]);
+  useEffect(() => {}, [country, state, city]);
 
   return (
     <Box w="100%" overflowX="hidden">
       <form onSubmit={handleSubmit}>
         <FormControl>
-          <Stack spacing={10} align='center' width='70%' marginX='auto'>
+          <Stack spacing={10} align="center" width="70%" marginX="auto">
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
               <Image
-                src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012"
-                boxSize="32"
-                alt=""
+                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
+                maxWidth="250px"
+                height="auto"
               />
             </Stack>
             <Heading textAlign="center" mt={8}>
               EDIT JOB POST
             </Heading>
-            <Stack align='center'>
+            <Stack align="center">
               <Input
                 focusBorderColor="#ED3237"
                 borderWidth={2}
@@ -201,7 +201,10 @@ function UpdateJob(props) {
                   }}
                 >
                   {Country.getAllCountries().map((country, i) => (
-                    <option key={i} value={country.isoCode + "_" + country.name}>
+                    <option
+                      key={i}
+                      value={country.isoCode + "_" + country.name}
+                    >
                       {country.name}
                     </option>
                   ))}

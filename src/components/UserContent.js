@@ -57,7 +57,7 @@ function UserContentTemp() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image
           src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="400px"
+          maxWidth="250px"
           height="auto"
         />
       </Stack>
@@ -78,7 +78,7 @@ function UserContentTemp() {
       </Stack>
       <Stack align="center" h="70vh" overflow={"auto"}>
         <Stack w={["50%", "50%", "95%"]}>
-          <TableContainer mt={20} rounded="md" bgColor="white">
+          <TableContainer mt={10} rounded="md" bgColor="white">
             <Table variant="striped" colorScheme={"red"}>
               <Thead>
                 <Tr>
