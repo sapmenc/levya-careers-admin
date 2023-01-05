@@ -1,6 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CreateUserpage from "./pages/CreateUserPage";
+import EditUserpage from "./pages/EditUserPage";
 import CreateJobpage from "./pages/CreateJobpage";
 import Domainspage from "./pages/Domainspage";
 import Homepage from "./pages/Homepage";
@@ -35,6 +36,8 @@ function App() {
       "login",
       "users",
       "appearance",
+      "createuser",
+      "edituser",
     ];
 
     for (let i = locationPath.length - 1; i >= 0; i--) {
@@ -52,7 +55,12 @@ function App() {
     )
       module = "jobs";
     else if (locationName === "domains") module = "domains";
-    else if (locationName === "users") module = "users";
+    else if (
+      locationName === "users" ||
+      locationName === "createuser" ||
+      locationName === "edituser"
+    )
+      module = "users";
     else if (locationName === "appearance") module = "appearance";
     let element = document.getElementById(module);
     element?.classList.add("activeModule");
@@ -74,9 +82,10 @@ function App() {
         <Route path="/jobs" element={<Jobspage />} />
         <Route path="/domains" element={<Domainspage />} />
         <Route path="/createjob" element={<CreateJobpage />} />
+        <Route path="/editjob/:id" element={<EditJobpage />} />
         <Route path="/users" element={<Userspage />} />
         <Route path="/createuser" element={<CreateUserpage />} />
-        <Route path="/editjob/:id" element={<EditJobpage />} />
+        <Route path="/edituser/:id" element={<EditUserpage />} />
         <Route path="/appearance" element={<Appearancepage />} />
         <Route path="*" element={<Heading>Page Not Found</Heading>} />
       </Routes>

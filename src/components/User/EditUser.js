@@ -71,7 +71,7 @@ function CreateUser() {
         />
       </Stack>
       <Heading textAlign="center" mt={8}>
-        Create a user
+        Edit user
       </Heading>
       <Stack m={5} p={5} spacing={5} align="center" w={"100%"}>
         <Input
@@ -105,7 +105,7 @@ function CreateUser() {
           <option value="option1">Admin</option>
           <option value="option2">User</option>
         </Select>
-        <Button onClick={handleUserCreation}>Create User</Button>
+        <Button onClick={handleUserCreation}>Update</Button>
       </Stack>
     </Box>
   );

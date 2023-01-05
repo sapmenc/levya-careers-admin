@@ -102,7 +102,7 @@ function UserContentTemp() {
                         <Stack spacing={5} align="center" direction="row">
                           <Button
                             onClick={() => {
-                              return navigate(`/editjob/${user._id}`);
+                              return navigate(`/edituser/${user._id}`);
                             }}
                             bgColor="red.300"
                             color="white"
