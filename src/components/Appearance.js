@@ -1,24 +1,12 @@
 import React, { useEffect } from "react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Box,
   Button,
   GridItem,
   Heading,
-  Input,
   SimpleGrid,
   Stack,
-  Text,
   Flex,
-  useToast,
-  CloseButton,
   Image,
   Radio,
   RadioGroup,
@@ -32,7 +20,7 @@ import bg5 from "../assets/backgrounds/t5.png";
 import bg6 from "../assets/backgrounds/t6.jpg";
 import bg7 from "../assets/backgrounds/t7.jpg";
 import bg8 from "../assets/backgrounds/t8.jpg";
-import { fetchAllAppearance } from "../api";
+import { fetchAllAppearance, fetchAppliedAppearance } from "../api";
 
 function Appearance() {
   const data = [
@@ -77,6 +65,18 @@ function Appearance() {
       alt: "bg8",
     },
   ];
+  const setDefaultBackground = async() => {
+    try {
+      const { data } = await fetchAppliedAppearance();
+      if (data) {
+        let bg = document.getElementById("bg");
+    bg.style.backgroundImage = `url(${data.data.image}})`;
+    bg.style.backgroundSize = "cover";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const changeBackground = (id) => {
     let bg = document.getElementById("bg");
     bg.style.backgroundImage = `url(${data[id - 1].image})`;
@@ -91,9 +91,21 @@ function Appearance() {
   const handleFetchAllAppearance = async () => {
     try {
       const { data } = await fetchAllAppearance();
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
-  useEffect(() => {}, []);
+  const handleFetchAppliedAppearance = async () => {
+    try {
+      const { data } = await fetchAppliedAppearance();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    handleFetchAppliedAppearance();
+    handleFetchAllAppearance();
+  }, []);
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>

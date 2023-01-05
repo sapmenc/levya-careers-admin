@@ -8,7 +8,7 @@ import {
   Box,
   Image,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { editUserProfile, fetchCurrentUser, signupUser } from "../../api";
 
@@ -82,6 +82,10 @@ function CreateUser() {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    handleFetchCurrentUser();
+  }, [])
 
   return (
     <Box w="100%" overflowX="hidden">
