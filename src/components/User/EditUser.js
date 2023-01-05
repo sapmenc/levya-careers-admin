@@ -82,11 +82,11 @@ function CreateUser() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     handleFetchCurrentUser();
-  }, [])
+  }, []);
 
   return (
     <Box w="100%" overflowX="hidden">
@@ -119,7 +119,7 @@ function CreateUser() {
           onChange={(e) => setEmail(e.target.value)}
           focusBorderColor="#ED3237"
         />
-        <Input
+        {/* <Input
           w="md"
           bg="white"
           type="password"
@@ -127,7 +127,7 @@ function CreateUser() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           focusBorderColor="#ED3237"
-        />
+        /> */}
         <Select placeholder="Role" w="md" bg="white" focusBorderColor="#ED3237">
           <option value="option1">Admin</option>
           <option value="option2">User</option>
