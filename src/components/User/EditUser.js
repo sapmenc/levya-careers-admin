@@ -10,9 +10,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupUser } from "../../api";
+import { editUserProfile, signupUser } from "../../api";
 
 function CreateUser() {
+  const token = localStorage.getItem("auth");
   const toast = useToast();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -21,7 +22,7 @@ function CreateUser() {
   const [role, setRole] = useState("user");
   const [status, setStatus] = useState("active");
 
-  const handleUserCreation = async (e) => {
+  const handleUserUpdation = async (e) => {
     try {
       let body = {
         name: name,
@@ -30,7 +31,7 @@ function CreateUser() {
         role: role,
         status: status,
       };
-      const { data } = await signupUser(body);
+      const { data } = await editUserProfile(token, body);
       if (data.error) {
         return toast({
           title: "Error",
@@ -105,7 +106,7 @@ function CreateUser() {
           <option value="option1">Admin</option>
           <option value="option2">User</option>
         </Select>
-        <Button onClick={handleUserCreation}>Update</Button>
+        <Button onClick={handleUserUpdation}>Update</Button>
       </Stack>
     </Box>
   );
