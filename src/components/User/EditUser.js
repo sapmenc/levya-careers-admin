@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { editUserProfile, signupUser } from "../../api";
+import { editUserProfile, fetchCurrentUser, signupUser } from "../../api";
 
 function CreateUser() {
   const token = localStorage.getItem("auth");
@@ -61,6 +61,27 @@ function CreateUser() {
       });
     }
   };
+
+  const handleFetchCurrentUser = async () => {
+    try {
+      const { data } = await fetchCurrentUser(token);
+      if (data.status) {
+        toast({
+          title: "Success",
+          description: "Current user details fetched successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        setEmail(data.user.email);
+        setName(data.user.name);
+        setRole(data.user.role);
+        setStatus(data.user.status);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Box w="100%" overflowX="hidden">
