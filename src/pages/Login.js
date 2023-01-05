@@ -146,7 +146,7 @@ function Login() {
             </Button>
             <Stack direction="row" w="100%" justify="end">
               <Image
-                src="https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154"
+                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
                 alt="Levya"
                 w="100px"
                 h="30px"
@@ -188,7 +188,7 @@ function Login() {
             </Button>
             <Stack direction="row" w="100%" justify="end">
               <Image
-                src="https://ik.imagekit.io/o0spphqdc/Asset_1_2x_5yv7dh7TI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1664816975154"
+                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
                 alt="Levya"
                 w="100px"
                 h="30px"

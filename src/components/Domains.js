@@ -187,9 +187,9 @@ function Domains() {
       </Modal>
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logoround_DadwYn5xgI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685012"
-          boxSize="32"
-          alt=""
+          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
+          maxWidth="400px"
+          height="auto"
         />
       </Stack>
       <Heading textAlign="center" mt={8}>

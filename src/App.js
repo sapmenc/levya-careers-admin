@@ -34,7 +34,7 @@ function App() {
       "editjob",
       "login",
       "users",
-      "appearance"
+      "appearance",
     ];
 
     for (let i = locationPath.length - 1; i >= 0; i--) {
@@ -59,10 +59,9 @@ function App() {
   }, [location]);
 
   return (
-    <Flex bg="#e9ebf0" h="100vh" id='bg'>
-      {location.pathname.split("/")[
-        location.pathname.split("/").length - 1
-      ] === "login" ? (
+    <Flex bg="#e9ebf0" h="100vh" justifyContent="flex-start" id="bg">
+      {location.pathname.split("/")[location.pathname.split("/").length - 1] ===
+      "login" ? (
         <></>
       ) : (
         <>
