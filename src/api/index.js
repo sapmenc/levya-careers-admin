@@ -76,7 +76,7 @@ export const fetchAllUsers = async (token) =>
   });
 
 export const editUserProfile = async (token, body) =>
-  API.patch('/users/me', body, {
+  API.patch('/users', body, {
     headers: {
       Authorization: `Bearer ${token}`
     }

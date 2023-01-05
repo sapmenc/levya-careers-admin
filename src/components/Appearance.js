@@ -65,18 +65,6 @@ function Appearance() {
       alt: "bg8",
     },
   ];
-  const setDefaultBackground = async() => {
-    try {
-      const { data } = await fetchAppliedAppearance();
-      if (data) {
-        let bg = document.getElementById("bg");
-    bg.style.backgroundImage = `url(${data.data.image}})`;
-    bg.style.backgroundSize = "cover";
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
   const changeBackground = (id) => {
     let bg = document.getElementById("bg");
     bg.style.backgroundImage = `url(${data[id - 1].image})`;
@@ -98,6 +86,11 @@ function Appearance() {
   const handleFetchAppliedAppearance = async () => {
     try {
       const { data } = await fetchAppliedAppearance();
+      if (data) {
+        let bg = document.getElementById("bg");
+        bg.style.backgroundImage = `url(${data.data.image}})`;
+        bg.style.backgroundSize = "cover";
+      }
     } catch (err) {
       console.log(err);
     }
