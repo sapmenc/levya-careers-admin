@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editUserProfile, fetchCurrentUser, signupUser } from "../../api";
 
 function CreateUser() {
+  const param = useParams();
   const token = localStorage.getItem("auth");
   const toast = useToast();
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ function CreateUser() {
   const [status, setStatus] = useState("active");
 
   const handleUserUpdation = async (e) => {
-    const param = useParams();
     try {
       let body = {
         id: param.id,
