@@ -9,7 +9,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { editUserProfile, fetchCurrentUser, signupUser } from "../../api";
 
 function CreateUser() {
@@ -23,11 +23,12 @@ function CreateUser() {
   const [status, setStatus] = useState("active");
 
   const handleUserUpdation = async (e) => {
+    const param = useParams();
     try {
       let body = {
+        id: param.id,
         name: name,
         email: email,
-        password: password,
         role: role,
         status: status,
       };
