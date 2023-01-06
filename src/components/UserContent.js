@@ -104,7 +104,7 @@ function UserContentTemp() {
                             onClick={() => {
                               return navigate(`/edituser/${user._id}`);
                             }}
-                            bgColor="red.300"
+                            bgColor="#790202"
                             color="white"
                           >
                             Edit
@@ -113,7 +113,7 @@ function UserContentTemp() {
                             onClick={() => {
                               return navigate(`/delete/${user._id}`);
                             }}
-                            bgColor="red.300"
+                            bgColor="#790202"
                             color="white"
                           >
                             Delete

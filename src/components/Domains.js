@@ -206,7 +206,7 @@ function Domains() {
               placeholder="New Domain Title"
               onChange={(e) => setNewDomain(e.target.value)}
               size="sm"
-              focusBorderColor="#ED3237"
+              focusBorderColor="#790202"
             />
             <Button
               onClick={() => handleAddDomain()}

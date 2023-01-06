@@ -108,7 +108,7 @@ function Login() {
               px={5}
               py={2}
               variant="unstyled"
-              border={"1px solid #ED3237"}
+              border={"1px solid #790202"}
               ref={emailRef}
               type="email"
               placeholder="Email"
@@ -118,7 +118,7 @@ function Login() {
               px={5}
               py={2}
               variant="unstyled"
-              border={"1px solid #ED3237"}
+              border={"1px solid #790202"}
               ref={passwordRef}
               type="password"
               placeholder="Password"
@@ -127,14 +127,14 @@ function Login() {
             <Button
               variant="unstyled"
               bg="white"
-              color="#ED3237"
-              border={"1px solid #ED3237"}
+              color="#790202"
+              border={"1px solid #790202"}
               px={5}
               py={2}
               w="50%"
               onClick={() => handleLogin()}
               _hover={{
-                bg: "#ED3237",
+                bg: "#790202",
                 color: "white",
               }}
               _active={{
@@ -169,14 +169,14 @@ function Login() {
             <Button
               variant="unstyled"
               bg="white"
-              color="#ED3237"
-              border={"1px solid #ED3237"}
+              color="#790202"
+              border={"1px solid #790202"}
               px={5}
               py={2}
               w="xs"
               onClick={() => setShow(true)}
               _hover={{
-                bg: "#ED3237",
+                bg: "#790202",
                 color: "white",
               }}
               _active={{

@@ -181,7 +181,7 @@ function JobContent() {
             return navigate("/createjob");
           }}
           variant="outline"
-          colorScheme="magenta"
+          colorScheme="red"
           bg="white"
         >
           Add Job
