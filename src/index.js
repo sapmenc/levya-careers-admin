@@ -8,8 +8,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const colors = {
-  primary: "#ED3237",
-  secondary: "#ED3237",
+  primary: "#790202",
+  secondary: "#790202",
   tertiary: "#FFFFFF ",
 };
 

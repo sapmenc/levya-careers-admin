@@ -108,7 +108,7 @@ function CreateUser() {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          focusBorderColor="#ED3237"
+          focusBorderColor="#790202"
         />
         <Input
           w="md"
@@ -117,7 +117,7 @@ function CreateUser() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          focusBorderColor="#ED3237"
+          focusBorderColor="#790202"
         />
         {/* <Input
           w="md"
@@ -128,11 +128,20 @@ function CreateUser() {
           onChange={(e) => setPassword(e.target.value)}
           focusBorderColor="#ED3237"
         /> */}
-        <Select placeholder="Role" w="md" bg="white" focusBorderColor="#ED3237">
+        <Select placeholder="Role" w="md" bg="white" focusBorderColor="#790202">
           <option value="option1">Admin</option>
           <option value="option2">User</option>
         </Select>
-        <Button onClick={handleUserUpdation}>Update</Button>
+        <Button
+          onClick={handleUserUpdation}
+          _hover={{
+            backgroundColor: "#790202",
+            color: "white",
+            boxShadow: "dark-lg",
+          }}
+        >
+          Update
+        </Button>
       </Stack>
     </Box>
   );

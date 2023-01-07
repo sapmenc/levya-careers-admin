@@ -125,7 +125,7 @@ function CreateJob() {
               NEW JOB POST
             </Heading>
             <Input
-              focusBorderColor="#ED3237"
+              focusBorderColor="#790202"
               borderWidth={2}
               bg="white"
               type="text"
@@ -135,7 +135,7 @@ function CreateJob() {
             />
             <Textarea
               maxW={"2xl"}
-              focusBorderColor="#ED3237"
+              focusBorderColor="#790202"
               borderWidth={2}
               bg="white"
               cols={10}
@@ -145,7 +145,7 @@ function CreateJob() {
             />
             <Flex alignItems={"center"} mt="3" gap={2}>
               <Select
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 bg="white"
                 placeholder="Select Domain"
@@ -160,7 +160,7 @@ function CreateJob() {
                   ))}
               </Select>
               <Select
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 bg="white"
                 placeholder="Select Country"
@@ -178,7 +178,7 @@ function CreateJob() {
                 ))}
               </Select>
               <Select
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 bg="white"
                 placeholder="Select State"
@@ -196,7 +196,7 @@ function CreateJob() {
                 ))}
               </Select>
               <Select
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 bg="white"
                 placeholder="Select City"
@@ -214,7 +214,7 @@ function CreateJob() {
             </Flex>
             <Flex mt="3" gap={5}>
               <Checkbox
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 p={2}
                 bg="white"
@@ -225,7 +225,7 @@ function CreateJob() {
                 Is Urgent Opening
               </Checkbox>
               <Checkbox
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 p={2}
                 bg="white"
@@ -236,7 +236,7 @@ function CreateJob() {
                 Is Remote
               </Checkbox>
               <Checkbox
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 p={2}
                 bg="white"
@@ -257,8 +257,9 @@ function CreateJob() {
                 type="submit"
                 w="xl"
                 _hover={{
+                  backgroundColor: "#790202",
                   color: "white",
-                  backgroundColor: "black",
+                  boxShadow: "dark-lg",
                 }}
               >
                 PUBLISH

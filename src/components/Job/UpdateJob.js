@@ -149,7 +149,7 @@ function UpdateJob(props) {
             </Heading>
             <Stack align="center">
               <Input
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 value={jobTitle}
                 bg="white"
@@ -160,7 +160,7 @@ function UpdateJob(props) {
               />
               <Textarea
                 maxW={"2xl"}
-                focusBorderColor="#ED3237"
+                focusBorderColor="#790202"
                 borderWidth={2}
                 bg="white"
                 cols={10}
@@ -171,7 +171,7 @@ function UpdateJob(props) {
               />
               <Flex alignItems={"center"} mt="3" gap={2}>
                 <Select
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   borderWidth={2}
                   value={selectedDomain}
                   bg="white"
@@ -187,7 +187,7 @@ function UpdateJob(props) {
                     ))}
                 </Select>
                 <Select
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   borderWidth={2}
                   value={country}
                   bg="white"
@@ -210,7 +210,7 @@ function UpdateJob(props) {
                   ))}
                 </Select>
                 <Select
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   value={state}
                   borderWidth={2}
                   bg="white"
@@ -230,7 +230,7 @@ function UpdateJob(props) {
                   ))}
                 </Select>
                 <Select
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   borderWidth={2}
                   value={city}
                   bg="white"
@@ -249,7 +249,7 @@ function UpdateJob(props) {
               <Flex mt="3" gap={5}>
                 <Checkbox
                   checked={urgent ? true : false}
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   borderWidth={2}
                   p={2}
                   bg="white"
@@ -261,7 +261,7 @@ function UpdateJob(props) {
                 </Checkbox>
                 <Checkbox
                   checked={remote ? true : false}
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   borderWidth={2}
                   p={2}
                   bg="white"
@@ -273,7 +273,7 @@ function UpdateJob(props) {
                 </Checkbox>
                 <Checkbox
                   checked={hybrid ? true : false}
-                  focusBorderColor="#ED3237"
+                  focusBorderColor="#790202"
                   borderWidth={2}
                   p={2}
                   bg="white"
@@ -293,8 +293,9 @@ function UpdateJob(props) {
                   type="submit"
                   w="xl"
                   _hover={{
+                    backgroundColor: "#790202",
                     color: "white",
-                    backgroundColor: "black",
+                    boxShadow: "dark-lg",
                   }}
                 >
                   UPDATE
