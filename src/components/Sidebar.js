@@ -61,7 +61,7 @@ function Sidebar() {
 
         {userRole === "admin" && (
           <>
-            <NavLink to='appearance'>
+            <NavLink to='/appearance'>
               <li
                 id="appearance"
                 className="list"
@@ -89,6 +89,20 @@ function Sidebar() {
                 <span className="title">User Management</span>
               </li>
             </NavLink>
+            <NavLink to="/domains">
+              <li
+                id="domains"
+                className="list"
+                onClick={() => {
+                  document.getElementById("domains").classList.add("activeModule");
+                }}
+              >
+                <span className="icon">
+                  <Server color="#FFF" />
+                </span>
+                <span className="title">Domains</span>
+              </li>
+            </NavLink>
           </>
         )}
         <NavLink to="/jobs">
@@ -103,21 +117,6 @@ function Sidebar() {
               <Clipboard color="#FFF" />
             </span>
             <span className="title">Job Posts</span>
-          </li>
-        </NavLink>
-
-        <NavLink to="/domains">
-          <li
-            id="domains"
-            className="list"
-            onClick={() => {
-              document.getElementById("domains").classList.add("activeModule");
-            }}
-          >
-            <span className="icon">
-              <Server color="#FFF" />
-            </span>
-            <span className="title">Domains</span>
           </li>
         </NavLink>
         <Divider />
