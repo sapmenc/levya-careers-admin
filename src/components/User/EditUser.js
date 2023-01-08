@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editUserProfile, fetchCurrentUser, signupUser } from "../../api";
 
 function CreateUser() {
   const param = useParams();

@@ -16,15 +16,75 @@ import {
   Input,
   Switch,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  CloseButton,
+  ModalBody,
+  Text,
+  ModalFooter,
 } from "@chakra-ui/react";
-import { fetchAllUsers } from "../api";
+import { deleteUser, fetchAllUsers } from "../api";
 import { useNavigate } from "react-router-dom";
+
 
 function UserContentTemp() {
   let token = localStorage.getItem("auth");
   const toast = useToast();
   const navigate = useNavigate();
   const [fetchedUsers, setFetchedUsers] = useState([]);
+
+  const [userId, setUserId] = useState("");
+
+  const handleDeleteUser = (id) => {
+    setUserId(id);
+    onOpen();
+  };
+  const finalDeleteUser = async () => {
+    if (userId === "") {
+      return toast({
+        title: "Error",
+        description: "User Id not found",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+    try {
+      let body = {
+        id: userId,
+      };
+      const { data } = await deleteUser(token, body);
+      if (data.error) {
+        return toast({
+          title: "Error",
+          description: data.error,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: data.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        handleFetchAllUsers();
+        onClose();
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
   const handleFetchAllUsers = async () => {
     try {
       const { data } = await fetchAllUsers(token);
@@ -54,6 +114,33 @@ function UserContentTemp() {
   }, []);
   return (
     <Box w="100%" overflowX="hidden">
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <CloseButton />
+          </ModalHeader>
+          <ModalBody>
+            <Text>
+              All data associated with this user profile will get deleted !!
+            </Text>
+            <Text>Do you still want to delete this user?</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="red"
+              mr={3}
+              onClick={() => finalDeleteUser()}
+            >
+              Delete
+            </Button>
+            <Button colorScheme="red" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image
           src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
@@ -111,7 +198,7 @@ function UserContentTemp() {
                           </Button>
                           <Button
                             onClick={() => {
-                              return navigate(`/delete/${user._id}`);
+                              handleDeleteUser(user._id)
                             }}
                             bgColor="#790202"
                             color="white"
