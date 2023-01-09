@@ -83,7 +83,7 @@ export const editUserProfile = async (token, body) =>
   });
 
 export const deleteUser = async (token, body) =>
-  API.delete(`/users/:${body.id}`, {
+  API.delete(`/users/${body.id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
