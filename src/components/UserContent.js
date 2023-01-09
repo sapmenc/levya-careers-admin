@@ -24,6 +24,7 @@ import {
   ModalBody,
   Text,
   ModalFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { deleteUser, fetchAllUsers } from "../api";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +33,7 @@ import { useNavigate } from "react-router-dom";
 function UserContentTemp() {
   let token = localStorage.getItem("auth");
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const [fetchedUsers, setFetchedUsers] = useState([]);
 
