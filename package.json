@@ -1,6 +1,7 @@
 {
   "name": "levya-careers-admin",
   "version": "0.1.0",
+  "proxy":"https://levya-careers-backend-ybmd.vercel.app",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.3.2",
