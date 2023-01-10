@@ -61,20 +61,6 @@ function Sidebar() {
 
         {userRole === "admin" && (
           <>
-            <NavLink to='/appearance'>
-              <li
-                id="appearance"
-                className="list"
-                onClick={() => {
-                  document.getElementById("appearance").classList.add("activeModule");
-                }}
-              >
-                <span className="icon">
-                  <ImageIcon color="#FFF" />
-                </span>
-                <span className="title">Appearance</span>
-              </li>
-            </NavLink>
             <NavLink to="/users">
               <li
                 id="users"
@@ -105,6 +91,20 @@ function Sidebar() {
             </NavLink>
           </>
         )}
+        <NavLink to='/appearance'>
+          <li
+            id="appearance"
+            className="list"
+            onClick={() => {
+              document.getElementById("appearance").classList.add("activeModule");
+            }}
+          >
+            <span className="icon">
+              <ImageIcon color="#FFF" />
+            </span>
+            <span className="title">Appearance</span>
+          </li>
+        </NavLink>
         <NavLink to="/jobs">
           <li
             id="jobs"
