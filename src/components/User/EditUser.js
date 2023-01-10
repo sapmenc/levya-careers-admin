@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editUserProfile, fetchCurrentUser } from "../../api";
+import { editUserProfile, fetchCurrentUser, getUserById } from "../../api";
 
 function CreateUser() {
   const param = useParams();
@@ -65,11 +65,11 @@ function CreateUser() {
 
   const handleFetchCurrentUser = async () => {
     try {
-      const { data } = await fetchCurrentUser(token);
+      const { data } = await getUserById(token, param.id);
       if (data.status) {
         toast({
           title: "Success",
-          description: "Current user details fetched successfully",
+          description: "User details fetched successfully",
           status: "success",
           duration: 2000,
           isClosable: true,

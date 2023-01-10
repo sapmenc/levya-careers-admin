@@ -89,6 +89,13 @@ export const deleteUser = async (token, body) =>
     }
   });
 
+export const getUserById = async (token, id) =>
+  API.get(`/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
 export const fetchAllAppearance = async (token) =>
   API.get('/appearance', {
     headers: {
