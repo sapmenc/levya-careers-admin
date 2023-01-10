@@ -101,9 +101,11 @@ function CreateUser() {
           onChange={(e) => setPassword(e.target.value)}
           focusBorderColor="#790202"
         />
-        <Select placeholder="Role" w="md" bg="white" focusBorderColor="#790202">
-          <option value="option1">Admin</option>
-          <option value="option2">User</option>
+        <Select placeholder="Role" w="md" bg="white" focusBorderColor="#790202" 
+        onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
         </Select>
         <Button
           onClick={handleUserCreation}

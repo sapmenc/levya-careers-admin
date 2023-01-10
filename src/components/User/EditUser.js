@@ -74,10 +74,10 @@ function CreateUser() {
           duration: 2000,
           isClosable: true,
         });
-        setEmail(data.data.email);
-        setName(data.data.name);
-        setRole(data.data.role);
-        setStatus(data.data.status);
+        setEmail(data.email);
+        setName(data.name);
+        setRole(data.role);
+        setStatus(data.status);
       }
     } catch (error) {
       console.log(error);
