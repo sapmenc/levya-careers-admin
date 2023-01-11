@@ -6,12 +6,14 @@ import {
   useToast,
   Image,
   Box,
+  IconButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { fetchAllJobs, fetchCurrentUser } from "../api";
 import "./Dashboard.css";
 import Typewriter from "typewriter-effect";
 import Fade from "react-reveal/Fade";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 function Dashboard() {
   let token = localStorage.getItem("auth");
@@ -59,7 +61,7 @@ function Dashboard() {
     handleFetchAllJobs();
   }, []);
   return (
-    <Box w="100%" overflowX="hidden">
+    <Box w="100%" overflowX="hidden" id="homepage-comp">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image
           src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
@@ -71,7 +73,7 @@ function Dashboard() {
       {flag && (
         <div className="welcome-outer">
           <div className="welcome-inner">
-            <Heading as="h2" size="xl" textAlign="center" mt={12}>
+            <Heading as="h1" size="2xl" textAlign="center" mt={12}>
               Welcome{" "}
               <Typewriter
                 className="welcome-name"
@@ -82,24 +84,48 @@ function Dashboard() {
             </Heading>
             <Fade duration={1500} delay={218 * welcomeName.length}>
               <Heading
-                as="h4"
-                size="md"
+                as="h3"
+                size="lg"
                 textAlign="center"
                 mt={5}
                 className="welcome-quote"
               >
-                ❝The best preparation for good work tomorrow <br />
-                is to do good work today.❞
+                ❝Never let success get to your head <br />
+                and never let failure get to your heart.❞
+              </Heading>
+              <Heading
+                as="h6"
+                size="sm"
+                textAlign="center"
+                mt={5}
+                className="welcome-quote"
+              >
+                <i>--Drake</i>
               </Heading>
             </Fade>
+          </div>
+
+          <div className="down-btn">
+            <IconButton
+              className="drop-btn-icon"
+              variant="outline"
+              colorScheme="red"
+              fontSize="20px"
+              icon={<ChevronDownIcon />}
+              onClick={() => {
+                let a = document.getElementById("homepage-comp");
+                let d = document.getElementById("dashboard-comp");
+                a.scrollTop = d.offsetTop - 50;
+              }}
+            />
           </div>
         </div>
       )}
 
-      <Heading textAlign="center" mt={10}>
+      <Heading textAlign="center" mt={10} id="dashboard-comp">
         Dashboard
       </Heading>
-      <Flex w="100%" h="80vh" justifyContent="center" gap="100px" mt="70px">
+      <Flex w="100%" h="80vh" justifyContent="center" gap="100px" mt="100px">
         <Stack
           border="1px"
           h={"64"}

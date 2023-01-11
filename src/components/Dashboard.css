@@ -2,6 +2,8 @@
     display: grid; 
     place-items: center; 
     width: 100%;
+    margin-top: 140px;
+    margin-bottom: 150px;
 }
 
 .welcome-inner{
@@ -18,4 +20,23 @@
 
 .welcome-quote{
     color: black;
+}
+
+#homepage-comp{
+    scroll-behavior: smooth;
+}
+
+.down-btn{
+    display: grid;
+    place-items: center;
+    width: 100%;
+    margin-top: 170px;
+}
+
+button.chakra-button.drop-btn-icon.css-1uqd4og{
+    border-radius: 20px;
+    font-size: 30px;
+}
+button.chakra-button.drop-btn-icon.css-1uqd4og:focus{
+    outline: none;
 }
