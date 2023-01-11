@@ -1,0 +1,21 @@
+.welcome-outer{
+    display: grid; 
+    place-items: center; 
+    width: 100%;
+}
+
+.welcome-inner{
+    width: 80%;
+}
+
+.Typewriter{
+    color: #ec3239;
+    font-weight: 700;
+    padding: 0 7px;
+    border-radius: 5px;
+    display: inline;
+}
+
+.welcome-quote{
+    color: black;
+}
