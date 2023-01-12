@@ -37,6 +37,24 @@ function JobContent() {
   const [searchStatus, setSearchStatus] = useState("");
   const [jobId, setJobId] = useState("");
 
+  const capitalizeFirstLetter = (s) => {
+    if (s === undefined) {
+      return "";
+    } else {
+      let a = s?.split(" ");
+      for (let i = 0; i < a?.length; i++) {
+        a[i] = a[i][0]?.toUpperCase() + a[i]?.substring(1).toLowerCase();
+      }
+      let aResult = a.join(" ");
+      return aResult;
+    }
+  };
+  const getPlaceName = (str) => {
+    let [ccode, s] = str.split("_");
+    s = capitalizeFirstLetter(s);
+    return s;
+  };
+
   const handleUpdateJobStatus = async (id, status) => {
     setLoading(true);
     try {
@@ -303,10 +321,14 @@ function JobContent() {
                         <Tr key={job._id} fontSize="sm">
                           <Td>{job._id}</Td>
                           <Td>{job.title}</Td>
-                          <Td>{job.domain.name}</Td>
-                          <Td>{job.state + " " + job.country}</Td>
+                          <Td>{capitalizeFirstLetter(job.domain.name)}</Td>
+                          <Td>
+                            {getPlaceName(job.state) +
+                              ", " +
+                              getPlaceName(job.country)}
+                          </Td>
                           <Td>{55}</Td>
-                          <Td>{job.status}</Td>
+                          <Td>{capitalizeFirstLetter(job.status)}</Td>
                           <Td>
                             <Stack spacing={5} align="center" direction="row">
                               <Button
@@ -341,11 +363,15 @@ function JobContent() {
                       return (
                         <Tr key={job._id} fontSize="sm">
                           <Td>{job._id}</Td>
-                          <Td>{job.title}</Td>
-                          <Td>{job.domain?.name}</Td>
-                          <Td>{job.state + " " + job.country}</Td>
+                          <Td>{job.title.toUpperCase()}</Td>
+                          <Td>{capitalizeFirstLetter(job.domain?.name)}</Td>
+                          <Td>
+                            {getPlaceName(job.state) +
+                              ", " +
+                              getPlaceName(job.country)}
+                          </Td>
                           <Td>{55}</Td>
-                          <Td>{job.status}</Td>
+                          <Td>{capitalizeFirstLetter(job.status)}</Td>
                           <Td>
                             <Stack spacing={3} align="center" direction="row">
                               <Button

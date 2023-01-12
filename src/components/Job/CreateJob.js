@@ -35,6 +35,28 @@ function CreateJob() {
   const [country_code, setCountryCode] = useState("");
   const [hybrid, setHybrid] = useState(false);
 
+  const capitalizeFirstLetter = (s) => {
+    if (s === undefined) {
+      return "";
+    } else {
+      let a = s?.split(" ");
+      for (let i = 0; i < a?.length; i++) {
+        a[i] = a[i][0]?.toUpperCase() + a[i]?.substring(1).toLowerCase();
+      }
+      let aResult = a.join(" ");
+      return aResult;
+    }
+  };
+
+  // to convert from "us_united states" to "UN_United States"
+  const transformName = (str) => {
+    let [ccode, s] = str.split("_");
+    ccode = ccode.toUpperCase();
+
+    let result = [ccode, capitalizeFirstLetter(s)].join("_");
+    // console.log(result);
+    return result;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -167,15 +189,20 @@ function CreateJob() {
                 onChange={(e) => {
                   let country_code = e.target.value.split("_")[0];
                   let country = e.target.value.split("_")[1];
-                  setCountry(country);
+                  setCountry(transformName(country_code + "_" + country));
                   setCountryCode(country_code);
                 }}
               >
-                {Country.getAllCountries().map((country, i) => (
-                  <option key={i} value={country.isoCode + "_" + country.name}>
-                    {country.name}
-                  </option>
-                ))}
+                {Country.getAllCountries().map((country, i) => {
+                  return (
+                    <option
+                      key={i}
+                      value={country.isoCode + "_" + country.name}
+                    >
+                      {country.name}
+                    </option>
+                  );
+                })}
               </Select>
               <Select
                 focusBorderColor="#790202"
@@ -185,7 +212,8 @@ function CreateJob() {
                 onChange={(e) => {
                   let state_code = e.target.value.split("_")[0];
                   let state = e.target.value.split("_")[1];
-                  setState(state);
+                  console.log(state_code + "_" + state);
+                  setState(transformName(state_code + "_" + state));
                   setStateCode(state_code);
                 }}
               >
@@ -201,7 +229,7 @@ function CreateJob() {
                 bg="white"
                 placeholder="Select City"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => setCity(capitalizeFirstLetter(e.target.value))}
               >
                 {City.getCitiesOfState(country_code, state_code).map(
                   (city, i) => (

@@ -34,7 +34,30 @@ function UpdateJob(props) {
   const [state_code, setStateCode] = useState("");
   const [country_code, setCountryCode] = useState("");
   const [hybrid, setHybrid] = useState(false);
+  const [readyToLoad, setReadyToLoad] = useState(false);
 
+  const capitalizeFirstLetter = (s) => {
+    if (s === undefined) {
+      return "";
+    } else {
+      let a = s?.split(" ");
+      for (let i = 0; i < a?.length; i++) {
+        a[i] = a[i][0]?.toUpperCase() + a[i]?.substring(1).toLowerCase();
+      }
+      let aResult = a.join(" ");
+      return aResult;
+    }
+  };
+
+  // to convert from "us_united states" to "UN_United States"
+  const transformName = (str) => {
+    let [ccode, s] = str.split("_");
+    ccode = ccode.toUpperCase();
+
+    let result = [ccode, capitalizeFirstLetter(s)].join("_");
+    // console.log(result);
+    return result;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -110,15 +133,16 @@ function UpdateJob(props) {
           duration: 2000,
           isClosable: true,
         });
-        setCity(data.data.city);
-        setCountry(data.data.country);
+        console.log(data.data);
+        setCity(capitalizeFirstLetter(data.data.city));
+        setCountry(transformName(data.data.country));
         setCountryCode(data.data.country_code);
         setJobDesc(data.data.description);
         setJobTitle(data.data.title);
         setRemote(data.data.remote);
         setUrgent(data.data.highPriority);
         setHybrid(data.data.hybrid);
-        setState(data.data.state);
+        setState(transformName(data.data.state));
         setStateCode(data.data.state_code);
         setSelectedDomain(data.data.domain);
       }
@@ -128,7 +152,11 @@ function UpdateJob(props) {
   };
   useEffect(() => {
     handleFetchAllDomains();
-    handleCurrentJob();
+    handleCurrentJob().then(() => {
+      console.log(readyToLoad);
+      setReadyToLoad(true);
+      console.log(readyToLoad);
+    });
   }, []);
   useEffect(() => {}, [country, state, city]);
 
@@ -147,161 +175,169 @@ function UpdateJob(props) {
             <Heading textAlign="center" mt={8}>
               EDIT JOB POST
             </Heading>
-            <Stack align="center">
-              <Input
-                focusBorderColor="#790202"
-                borderWidth={2}
-                value={jobTitle}
-                bg="white"
-                type="text"
-                placeholder="Job Title"
-                w={"2xl"}
-                onChange={(e) => setJobTitle(e.target.value)}
-              />
-              <Textarea
-                maxW={"2xl"}
-                focusBorderColor="#790202"
-                borderWidth={2}
-                bg="white"
-                cols={10}
-                value={jobDesc}
-                placeholder="Job Description"
-                mt="3"
-                onChange={(e) => setJobDesc(e.target.value)}
-              />
-              <Flex alignItems={"center"} mt="3" gap={2}>
-                <Select
+            {readyToLoad && (
+              <Stack align="center">
+                <Input
                   focusBorderColor="#790202"
                   borderWidth={2}
-                  value={selectedDomain}
+                  value={jobTitle}
                   bg="white"
-                  placeholder="Select Domain"
-                  textTransform="capitalize"
-                  onChange={(e) => setSelectedDomain(e.target.value)}
-                >
-                  {domains &&
-                    domains.map((domain, i) => (
-                      <option key={i} value={domain._id}>
-                        {domain.name}
+                  type="text"
+                  placeholder="Job Title"
+                  w={"2xl"}
+                  onChange={(e) => setJobTitle(e.target.value)}
+                />
+                <Textarea
+                  maxW={"2xl"}
+                  focusBorderColor="#790202"
+                  borderWidth={2}
+                  bg="white"
+                  cols={10}
+                  value={jobDesc}
+                  placeholder="Job Description"
+                  mt="3"
+                  onChange={(e) => setJobDesc(e.target.value)}
+                />
+                <Flex alignItems={"center"} mt="3" gap={2}>
+                  <Select
+                    focusBorderColor="#790202"
+                    borderWidth={2}
+                    value={selectedDomain}
+                    bg="white"
+                    placeholder="Select Domain"
+                    textTransform="capitalize"
+                    onChange={(e) => setSelectedDomain(e.target.value)}
+                  >
+                    {domains &&
+                      domains.map((domain, i) => (
+                        <option key={i} value={domain._id}>
+                          {domain.name}
+                        </option>
+                      ))}
+                  </Select>
+                  <Select
+                    focusBorderColor="#790202"
+                    borderWidth={2}
+                    value={country}
+                    bg="white"
+                    placeholder="Select Country"
+                    onChange={(e) => {
+                      let country_code = e.target.value.split("_")[0];
+                      let country = e.target.value.split("_")[1];
+                      setCountry(transformName(country_code + "_" + country));
+                      setCountryCode(country_code);
+                      console.log(country, country_code);
+                    }}
+                  >
+                    {Country.getAllCountries().map((country, i) => (
+                      <option
+                        key={i}
+                        value={country.isoCode + "_" + country.name}
+                      >
+                        {country.name}
                       </option>
                     ))}
-                </Select>
-                <Select
-                  focusBorderColor="#790202"
-                  borderWidth={2}
-                  value={country}
-                  bg="white"
-                  placeholder="Select Country"
-                  onChange={(e) => {
-                    let country_code = e.target.value.split("_")[0];
-                    let country = e.target.value.split("_")[1];
-                    setCountry(country);
-                    setCountryCode(country_code);
-                    console.log(country, country_code);
-                  }}
-                >
-                  {Country.getAllCountries().map((country, i) => (
-                    <option
-                      key={i}
-                      value={country.isoCode + "_" + country.name}
-                    >
-                      {country.name}
-                    </option>
-                  ))}
-                </Select>
-                <Select
-                  focusBorderColor="#790202"
-                  value={state}
-                  borderWidth={2}
-                  bg="white"
-                  placeholder="Select State"
-                  onChange={(e) => {
-                    let state_code = e.target.value.split("_")[0];
-                    let state = e.target.value.split("_")[1];
-                    setState(state);
-                    setStateCode(state_code);
-                    console.log(state, state_code);
-                  }}
-                >
-                  {State.getStatesOfCountry(country_code).map((state, i) => (
-                    <option key={i} value={state.isoCode + "_" + state.name}>
-                      {state.name}
-                    </option>
-                  ))}
-                </Select>
-                <Select
-                  focusBorderColor="#790202"
-                  borderWidth={2}
-                  value={city}
-                  bg="white"
-                  placeholder="Select City"
-                  onChange={(e) => setCity(e.target.value)}
-                >
-                  {City.getCitiesOfState(country_code, state_code).map(
-                    (city, i) => (
-                      <option key={i} value={city.name}>
-                        {city.name}
+                  </Select>
+                  <Select
+                    focusBorderColor="#790202"
+                    value={state}
+                    borderWidth={2}
+                    bg="white"
+                    placeholder="Select State"
+                    onChange={(e) => {
+                      let state_code = e.target.value.split("_")[0];
+                      let state = e.target.value.split("_")[1];
+                      setState(transformName(state_code + "_" + state));
+                      setStateCode(state_code);
+                    }}
+                  >
+                    {State.getStatesOfCountry(country_code).map((state, i) => (
+                      <option key={i} value={state.isoCode + "_" + state.name}>
+                        {state.name}
                       </option>
-                    )
-                  )}
-                </Select>
-              </Flex>
-              <Flex mt="3" gap={5}>
-                <Checkbox
-                  checked={urgent ? true : false}
-                  focusBorderColor="#790202"
-                  borderWidth={2}
-                  p={2}
-                  bg="white"
-                  onChange={(e) => setUrgent(e.target.checked)}
-                  borderRadius="9px"
-                  colorScheme="red"
-                >
-                  Is Urgent Opening
-                </Checkbox>
-                <Checkbox
-                  checked={remote ? true : false}
-                  focusBorderColor="#790202"
-                  borderWidth={2}
-                  p={2}
-                  bg="white"
-                  onChange={(e) => setRemote(e.target.checked)}
-                  borderRadius="9px"
-                  colorScheme="red"
-                >
-                  Is Remote
-                </Checkbox>
-                <Checkbox
-                  checked={hybrid ? true : false}
-                  focusBorderColor="#790202"
-                  borderWidth={2}
-                  p={2}
-                  bg="white"
-                  onChange={(e) => setHybrid(e.target.checked)}
-                  borderRadius="9px"
-                  colorScheme="red"
-                >
-                  Is Hybrid
-                </Checkbox>
-              </Flex>
-              <Flex>
-                <Button
-                  color="black"
-                  border="1px solid black"
-                  transitionDuration="400ms"
-                  mx="auto"
-                  type="submit"
-                  w="xl"
-                  _hover={{
-                    backgroundColor: "#790202",
-                    color: "white",
-                    boxShadow: "dark-lg",
-                  }}
-                >
-                  UPDATE
-                </Button>
-              </Flex>
-            </Stack>
+                    ))}
+                  </Select>
+                  <Select
+                    focusBorderColor="#790202"
+                    borderWidth={2}
+                    value={city}
+                    bg="white"
+                    placeholder="Select City"
+                    onChange={(e) =>
+                      setCity(capitalizeFirstLetter(e.target.value))
+                    }
+                  >
+                    {City.getCitiesOfState(country_code, state_code).map(
+                      (city, i) => (
+                        <option key={i} value={city.name}>
+                          {city.name}
+                        </option>
+                      )
+                    )}
+                  </Select>
+                </Flex>
+                <Flex mt="3" gap={5}>
+                  <Checkbox
+                    defaultChecked={urgent}
+                    checked={urgent}
+                    focusBorderColor="#790202"
+                    borderWidth={2}
+                    p={2}
+                    bg="white"
+                    onChange={(e) => {
+                      setUrgent(e.target.checked);
+                    }}
+                    borderRadius="9px"
+                    colorScheme="red"
+                  >
+                    Is Urgent Opening
+                  </Checkbox>
+                  <Checkbox
+                    defaultChecked={remote}
+                    checked={remote}
+                    focusBorderColor="#790202"
+                    borderWidth={2}
+                    p={2}
+                    bg="white"
+                    onChange={(e) => setRemote(e.target.checked)}
+                    borderRadius="9px"
+                    colorScheme="red"
+                  >
+                    Is Remote
+                  </Checkbox>
+                  <Checkbox
+                    defaultChecked={hybrid}
+                    checked={hybrid}
+                    focusBorderColor="#790202"
+                    borderWidth={2}
+                    p={2}
+                    bg="white"
+                    onChange={(e) => setHybrid(e.target.checked)}
+                    borderRadius="9px"
+                    colorScheme="red"
+                  >
+                    Is Hybrid
+                  </Checkbox>
+                </Flex>
+                <Flex>
+                  <Button
+                    color="black"
+                    border="1px solid black"
+                    transitionDuration="400ms"
+                    mx="auto"
+                    type="submit"
+                    w="xl"
+                    _hover={{
+                      backgroundColor: "#790202",
+                      color: "white",
+                      boxShadow: "dark-lg",
+                    }}
+                  >
+                    UPDATE
+                  </Button>
+                </Flex>
+              </Stack>
+            )}
           </Stack>
         </FormControl>
       </form>
