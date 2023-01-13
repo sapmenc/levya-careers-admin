@@ -14,7 +14,7 @@ import "./Dashboard.css";
 import Typewriter from "typewriter-effect";
 import Fade from "react-reveal/Fade";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Link } from "../properties.js";
+import { LogoLink } from "../properties.js";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
@@ -66,7 +66,7 @@ function Dashboard() {
   return (
     <Box w="100%" overflowX="hidden" id="homepage-comp">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
 
       {flag && (

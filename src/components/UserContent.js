@@ -12,7 +12,6 @@ import {
   Th,
   Thead,
   Table,
-  Switch,
   Image,
   Modal,
   ModalOverlay,
@@ -26,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { deleteUser, fetchAllUsers } from "../api";
 import { useNavigate } from "react-router-dom";
-import { Link } from "../properties.js";
+import { LogoLink } from "../properties.js";
 
 function UserContentTemp() {
   let token = localStorage.getItem("auth");
@@ -138,7 +137,7 @@ function UserContentTemp() {
         </ModalContent>
       </Modal>
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         User Management
@@ -197,10 +196,6 @@ function UserContentTemp() {
                           >
                             Delete
                           </Button>
-                          <Switch
-                            isChecked={user.status === "active" ? true : false}
-                            colorScheme="red.300"
-                          />
                         </Stack>
                       </Td>
                     </Tr>

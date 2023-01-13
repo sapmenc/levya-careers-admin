@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editUserProfile, getUserById } from "../../api";
-import { Link } from "../../properties.js";
+import { LogoLink } from "../../properties.js";
 
 function CreateUser() {
   const param = useParams();
@@ -93,7 +93,7 @@ function CreateUser() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         Edit user

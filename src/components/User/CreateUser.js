@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../api";
-import { Link } from "../../properties.js";
+import { LogoLink } from "../../properties.js";
 
 function CreateUser() {
   const toast = useToast();
@@ -65,7 +65,7 @@ function CreateUser() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         Create a user

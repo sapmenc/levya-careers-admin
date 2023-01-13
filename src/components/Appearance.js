@@ -21,7 +21,7 @@ import bg6 from "../assets/backgrounds/t6.jpg";
 import bg7 from "../assets/backgrounds/t7.jpg";
 import bg8 from "../assets/backgrounds/t8.jpg";
 import { fetchAllAppearance, fetchAppliedAppearance } from "../api";
-import { Link } from "../properties";
+import { LogoLink } from "../properties";
 
 function Appearance() {
   const data = [
@@ -103,7 +103,7 @@ function Appearance() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         Appearance

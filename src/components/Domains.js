@@ -22,7 +22,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { MinusCircle } from "react-feather";
 import { addDomain, deleteDomain, fetchAllDomains } from "../api";
-import { Link } from "../properties.js";
+import { LogoLink } from "../properties.js";
 
 function Domains() {
   let token = localStorage.getItem("auth");
@@ -187,7 +187,7 @@ function Domains() {
         </ModalContent>
       </Modal>
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         All Domains

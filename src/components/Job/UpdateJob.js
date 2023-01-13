@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
 import { Country, State, City } from "country-state-city";
 import { fetchAllDomains, fetchJobById, updateJob } from "../../api";
 import { useNavigate } from "react-router-dom";
-import { Link } from "../../properties.js";
+import { LogoLink } from "../../properties.js";
 
 function UpdateJob(props) {
   const { jid } = props;
@@ -167,7 +167,7 @@ function UpdateJob(props) {
         <FormControl>
           <Stack spacing={10} align="center" width="70%" marginX="auto">
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-              <Image src={Link} maxWidth="250px" height="auto" />
+              <Image src={LogoLink} maxWidth="250px" height="auto" />
             </Stack>
             <Heading textAlign="center" mt={8}>
               EDIT JOB POST

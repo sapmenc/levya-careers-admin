@@ -21,7 +21,7 @@ import { Search } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { fetchAllDomains, fetchAllJobs, updateJob } from "../api";
 import Fuse from "fuse.js";
-import { Link } from "../properties.js";
+import { LogoLink } from "../properties.js";
 
 function JobContent() {
   let token = localStorage.getItem("auth");
@@ -184,7 +184,7 @@ function JobContent() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image src={Link} maxWidth="250px" height="auto" />
+        <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         All Job Posts
