@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Stack,
-  Select,
   Heading,
   useToast,
   TableContainer,
@@ -13,7 +12,6 @@ import {
   Th,
   Thead,
   Table,
-  Input,
   Switch,
   Image,
   Modal,
@@ -28,7 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { deleteUser, fetchAllUsers } from "../api";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "../properties.js";
 
 function UserContentTemp() {
   let token = localStorage.getItem("auth");
@@ -130,11 +128,7 @@ function UserContentTemp() {
           </ModalBody>
 
           <ModalFooter>
-            <Button
-              colorScheme="red"
-              mr={3}
-              onClick={() => finalDeleteUser()}
-            >
+            <Button colorScheme="red" mr={3} onClick={() => finalDeleteUser()}>
               Delete
             </Button>
             <Button colorScheme="red" mr={3} onClick={onClose}>
@@ -144,11 +138,7 @@ function UserContentTemp() {
         </ModalContent>
       </Modal>
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         User Management
@@ -200,7 +190,7 @@ function UserContentTemp() {
                           </Button>
                           <Button
                             onClick={() => {
-                              handleDeleteUser(user._id)
+                              handleDeleteUser(user._id);
                             }}
                             bgColor="#790202"
                             color="white"

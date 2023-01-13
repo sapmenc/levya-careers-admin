@@ -22,6 +22,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { MinusCircle } from "react-feather";
 import { addDomain, deleteDomain, fetchAllDomains } from "../api";
+import { Link } from "../properties.js";
 
 function Domains() {
   let token = localStorage.getItem("auth");
@@ -186,11 +187,7 @@ function Domains() {
         </ModalContent>
       </Modal>
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         All Domains

@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../api";
+import { Link } from "../../properties.js";
 
 function CreateUser() {
   const toast = useToast();
@@ -64,11 +65,7 @@ function CreateUser() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         Create a user
@@ -101,8 +98,12 @@ function CreateUser() {
           onChange={(e) => setPassword(e.target.value)}
           focusBorderColor="#790202"
         />
-        <Select placeholder="Role" w="md" bg="white" focusBorderColor="#790202" 
-        onChange={(e) => setRole(e.target.value)}
+        <Select
+          placeholder="Role"
+          w="md"
+          bg="white"
+          focusBorderColor="#790202"
+          onChange={(e) => setRole(e.target.value)}
         >
           <option value="admin">Admin</option>
           <option value="user">User</option>

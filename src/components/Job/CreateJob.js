@@ -17,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import { Country, State, City } from "country-state-city";
 import { addJob, fetchAllDomains } from "../../api";
 import { useNavigate } from "react-router-dom";
+import { Link } from "../../properties.js";
 
 function CreateJob() {
   const token = localStorage.getItem("auth");
@@ -137,11 +138,7 @@ function CreateJob() {
         <FormControl>
           <Stack align="center" maxW="70%" marginX="auto" spacing={10}>
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-              <Image
-                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-                maxWidth="250px"
-                height="auto"
-              />
+              <Image src={Link} maxWidth="250px" height="auto" />
             </Stack>
             <Heading textAlign="center" mt={8}>
               NEW JOB POST

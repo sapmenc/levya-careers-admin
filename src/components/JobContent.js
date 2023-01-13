@@ -14,7 +14,6 @@ import {
   Table,
   Input,
   Switch,
-  Spinner,
   Image,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -22,6 +21,7 @@ import { Search } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { fetchAllDomains, fetchAllJobs, updateJob } from "../api";
 import Fuse from "fuse.js";
+import { Link } from "../properties.js";
 
 function JobContent() {
   let token = localStorage.getItem("auth");
@@ -184,11 +184,7 @@ function JobContent() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         All Job Posts

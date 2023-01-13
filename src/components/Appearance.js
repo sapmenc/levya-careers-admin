@@ -21,6 +21,7 @@ import bg6 from "../assets/backgrounds/t6.jpg";
 import bg7 from "../assets/backgrounds/t7.jpg";
 import bg8 from "../assets/backgrounds/t8.jpg";
 import { fetchAllAppearance, fetchAppliedAppearance } from "../api";
+import { Link } from "../properties";
 
 function Appearance() {
   const data = [
@@ -94,7 +95,7 @@ function Appearance() {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
   useEffect(() => {
     handleFetchAppliedAppearance();
     handleFetchAllAppearance();
@@ -102,11 +103,7 @@ function Appearance() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         Appearance

@@ -14,10 +14,13 @@ import "./Dashboard.css";
 import Typewriter from "typewriter-effect";
 import Fade from "react-reveal/Fade";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Link } from "../properties.js";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   let token = localStorage.getItem("auth");
   const [jobs, setJobs] = useState([]);
+  const navigate = useNavigate();
   const [welcomeName, setWelcomeName] = useState("Saransh Khulbe");
   const [flag, setFlag] = useState(0); //telling whether we got the welcome details or not
   const toast = useToast();
@@ -63,11 +66,7 @@ function Dashboard() {
   return (
     <Box w="100%" overflowX="hidden" id="homepage-comp">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
 
       {flag && (
@@ -143,6 +142,13 @@ function Dashboard() {
             top="-16"
             fontWeight="bold"
             fontSize="5xl"
+            cursor="pointer"
+            onClick={() => {
+              return navigate("/jobs");
+            }}
+            _hover={{
+              boxShadow: "dark-lg",
+            }}
           >
             {jobs?.length}
           </Circle>
@@ -165,6 +171,13 @@ function Dashboard() {
             top="-16"
             fontWeight="bold"
             fontSize="5xl"
+            cursor="pointer"
+            onClick={() => {
+              return navigate("/jobs");
+            }}
+            _hover={{
+              boxShadow: "dark-lg",
+            }}
           >
             5
           </Circle>

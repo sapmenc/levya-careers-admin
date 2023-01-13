@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editUserProfile, fetchCurrentUser, getUserById } from "../../api";
+import { editUserProfile, getUserById } from "../../api";
+import { Link } from "../../properties.js";
 
 function CreateUser() {
   const param = useParams();
@@ -74,6 +75,7 @@ function CreateUser() {
           duration: 2000,
           isClosable: true,
         });
+        console.log(data);
         setEmail(data.email);
         setName(data.name);
         setRole(data.role);
@@ -91,11 +93,7 @@ function CreateUser() {
   return (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
-        <Image
-          src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
-          maxWidth="250px"
-          height="auto"
-        />
+        <Image src={Link} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8}>
         Edit user
@@ -119,7 +117,7 @@ function CreateUser() {
           onChange={(e) => setEmail(e.target.value)}
           focusBorderColor="#790202"
         />
-        {/* <Input
+        <Input
           w="md"
           bg="white"
           type="password"
@@ -127,8 +125,12 @@ function CreateUser() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           focusBorderColor="#ED3237"
-        /> */}
-        <Select placeholder="Role" w="md" bg="white" focusBorderColor="#790202"
+        />
+        <Select
+          placeholder="Role"
+          w="md"
+          bg="white"
+          focusBorderColor="#790202"
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
