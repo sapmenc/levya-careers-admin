@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { signinUser } from "../api";
+import { LogoLink } from "../properties.js";
 
 function Login() {
   const navigate = useNavigate();
@@ -146,7 +147,7 @@ function Login() {
             </Button>
             <Stack direction="row" w="100%" justify="end">
               <Image
-                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
+                src={LogoLink}
                 alt="Levya"
                 w="100px"
                 h="30px"
@@ -188,7 +189,7 @@ function Login() {
             </Button>
             <Stack direction="row" w="100%" justify="end">
               <Image
-                src="https://ik.imagekit.io/o0spphqdc/Ample_Logo_BOFaUuOQn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1671344685069"
+                src={LogoLink}
                 alt="Levya"
                 w="100px"
                 h="30px"
