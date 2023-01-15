@@ -75,9 +75,10 @@ function CreateUser() {
           duration: 2000,
           isClosable: true,
         });
-        console.log(data);
+        console.log(data.password);
         setEmail(data.email);
         setName(data.name);
+        setPassword(data.password);
         setRole(data.role);
         setStatus(data.status);
       }
