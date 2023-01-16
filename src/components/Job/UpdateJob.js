@@ -62,14 +62,7 @@ function UpdateJob(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (
-        !jobTitle ||
-        !jobDesc ||
-        !selectedDomain ||
-        !country ||
-        !state ||
-        !city
-      ) {
+      if (!jobTitle || !jobDesc || !selectedDomain || !country || !state) {
         return toast({
           title: "Error",
           description: "Please fill all the fields",
