@@ -34,6 +34,7 @@ function CreateUser() {
         email: email,
         role: role,
         status: status,
+        password: password
       };
       const { data } = await editUserProfile(token, body);
       if (data.error) {
@@ -48,7 +49,7 @@ function CreateUser() {
       if (data.status) {
         toast({
           title: "User Created",
-          description: "User has been created successfully",
+          description: "User has been updated successfully",
           status: "success",
           duration: 2000,
           isClosable: true,
