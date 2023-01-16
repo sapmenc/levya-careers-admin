@@ -7,8 +7,10 @@ import {
   Select,
   Box,
   Image,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Grid } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../api";
 import { LogoLink } from "../../properties.js";
@@ -21,6 +23,7 @@ function CreateUser() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const [status, setStatus] = useState("active");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleUserCreation = async (e) => {
     try {
@@ -70,55 +73,74 @@ function CreateUser() {
       <Heading textAlign="center" mt={8}>
         Create a user
       </Heading>
-      <Stack m={5} p={5} spacing={5} align="center" w={"100%"}>
-        <Input
-          w="md"
-          bg="white"
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          focusBorderColor="#790202"
-        />
-        <Input
-          w="md"
-          bg="white"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          focusBorderColor="#790202"
-        />
-        <Input
-          w="md"
-          bg="white"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          focusBorderColor="#790202"
-        />
-        <Select
-          placeholder="Role"
-          w="md"
-          bg="white"
-          focusBorderColor="#790202"
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-        </Select>
-        <Button
-          onClick={handleUserCreation}
-          _hover={{
-            backgroundColor: "#790202",
-            color: "white",
-            boxShadow: "dark-lg",
-          }}
-        >
-          Create User
-        </Button>
-      </Stack>
+      <Flex justifyContent="center" alignItems="center">
+        <Stack m={5} p={5} spacing={5} align="center" w={"50%"}>
+          <Input
+            w="md"
+            bg="white"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            focusBorderColor="#790202"
+          />
+          <Input
+            w="md"
+            bg="white"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            focusBorderColor="#790202"
+          />
+          <Flex flexDirection="column" gap="5px">
+            <Input
+              w="md"
+              bg="white"
+              type={`${showPassword === false ? "password" : "text"}`}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              focusBorderColor="#790202"
+            />
+            <Button
+              width="25%"
+              alignSelf="flex-end"
+              variant="outline"
+              colorScheme="red"
+              bg="white"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+              _focus={{
+                outline: "none",
+              }}
+            >
+              {showPassword === false ? "show" : "hide"}
+            </Button>
+          </Flex>
+          <Select
+            placeholder="Role"
+            w="md"
+            bg="white"
+            focusBorderColor="#790202"
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </Select>
+          <Button
+            onClick={handleUserCreation}
+            _hover={{
+              backgroundColor: "#790202",
+              color: "white",
+              boxShadow: "dark-lg",
+            }}
+          >
+            Create User
+          </Button>
+        </Stack>
+      </Flex>
     </Box>
   );
 }

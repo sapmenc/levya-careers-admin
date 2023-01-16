@@ -7,6 +7,7 @@ import {
   Select,
   Box,
   Image,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,6 +24,7 @@ function CreateUser() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const [status, setStatus] = useState("active");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleUserUpdation = async (e) => {
     try {
@@ -118,15 +120,31 @@ function CreateUser() {
           onChange={(e) => setEmail(e.target.value)}
           focusBorderColor="#790202"
         />
-        <Input
-          w="md"
-          bg="white"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          focusBorderColor="#ED3237"
-        />
+        <Flex flexDirection="column" gap="5px">
+          <Input
+            w="md"
+            bg="white"
+            type={`${showPassword === false ? "password" : "text"}`}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            focusBorderColor="#ED3237"
+          />
+          <Button
+            width="25%"
+            alignSelf="flex-end"
+            variant="outline"
+            colorScheme="red"
+            bg="white"
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+            _focus={{
+              outline: "none",
+            }}
+          >
+            {showPassword === false ? "show" : "hide"}
+          </Button>
+        </Flex>
         <Select
           placeholder="Role"
           w="md"

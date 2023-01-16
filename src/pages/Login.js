@@ -6,6 +6,7 @@ import {
   Input,
   Stack,
   useToast,
+  Flex,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { signinUser } from "../api";
@@ -14,6 +15,7 @@ import { LogoLink } from "../properties.js";
 function Login() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
   const toast = useToast();
@@ -115,16 +117,32 @@ function Login() {
               placeholder="Email"
               fontWeight="extrabold"
             />
+
             <Input
               px={5}
               py={2}
               variant="unstyled"
               border={"1px solid #790202"}
               ref={passwordRef}
-              type="password"
+              type={`${showPassword === false ? "password" : "text"}`}
               placeholder="Password"
               fontWeight="extrabold"
             />
+            <Button
+              width="25%"
+              alignSelf="flex-end"
+              variant="outline"
+              colorScheme="red"
+              bg="white"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+              _focus={{
+                outline: "none",
+              }}
+            >
+              {showPassword === false ? "show" : "hide"}
+            </Button>
             <Button
               variant="unstyled"
               bg="white"
