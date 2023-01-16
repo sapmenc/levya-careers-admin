@@ -9,9 +9,7 @@ function EditJobpage(props) {
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }
-  return (
-      <UpdateJob jid={jid} />
-  );
+  return <UpdateJob jid={jid} />;
 }
 
 export default EditJobpage;
