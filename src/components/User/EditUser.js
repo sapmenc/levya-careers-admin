@@ -48,7 +48,7 @@ function CreateUser() {
       }
       if (data.status) {
         toast({
-          title: "User Created",
+          title: "User Updated",
           description: "User has been updated successfully",
           status: "success",
           duration: 2000,
