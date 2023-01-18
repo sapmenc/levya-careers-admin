@@ -13,11 +13,12 @@ import {
   background,
   Image,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Country, State, City } from "country-state-city";
 import { addJob, fetchAllDomains } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { LogoLink } from "../../properties.js";
+import JoditEditor from "jodit-react";
 
 function CreateJob() {
   const token = localStorage.getItem("auth");
@@ -35,6 +36,8 @@ function CreateJob() {
   const [state_code, setStateCode] = useState("");
   const [country_code, setCountryCode] = useState("");
   const [hybrid, setHybrid] = useState(false);
+
+  const editor = useRef(null);
 
   const capitalizeFirstLetter = (s) => {
     if (s === undefined) {
@@ -145,7 +148,7 @@ function CreateJob() {
               w={"2xl"}
               onChange={(e) => setJobTitle(e.target.value)}
             />
-            <Textarea
+            {/* <Textarea
               maxW={"2xl"}
               focusBorderColor="#790202"
               borderWidth={2}
@@ -154,6 +157,13 @@ function CreateJob() {
               placeholder="Job Description"
               mt="3"
               onChange={(e) => setJobDesc(e.target.value)}
+            /> */}
+            <JoditEditor
+              ref={editor}
+              value={jobDesc}
+              onChange={(newContent) => {
+                setJobDesc(newContent);
+              }}
             />
             <Flex alignItems={"center"} mt="3" gap={2}>
               <Select
