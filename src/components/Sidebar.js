@@ -1,6 +1,13 @@
 import { Box, Divider, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Command, Clipboard, Server, LogOut, UserPlus, Image as ImageIcon } from "react-feather";
+import {
+  Command,
+  Clipboard,
+  Server,
+  LogOut,
+  UserPlus,
+  Image as ImageIcon,
+} from "react-feather";
 import { NavLink, useNavigate } from "react-router-dom";
 import { fetchCurrentUser } from "../api";
 import "./sidebar.css";
@@ -66,7 +73,9 @@ function Sidebar() {
                 id="users"
                 className="list"
                 onClick={() => {
-                  document.getElementById("users").classList.add("activeModule");
+                  document
+                    .getElementById("users")
+                    .classList.add("activeModule");
                 }}
               >
                 <span className="icon">
@@ -75,28 +84,30 @@ function Sidebar() {
                 <span className="title">User Management</span>
               </li>
             </NavLink>
-            <NavLink to="/domains">
+            <NavLink to="/jobs">
               <li
-                id="domains"
+                id="jobs"
                 className="list"
                 onClick={() => {
-                  document.getElementById("domains").classList.add("activeModule");
+                  document.getElementById("jobs").classList.add("activeModule");
                 }}
               >
                 <span className="icon">
-                  <Server color="#FFF" />
+                  <Clipboard color="#FFF" />
                 </span>
-                <span className="title">Domains</span>
+                <span className="title">Job Posts</span>
               </li>
             </NavLink>
           </>
         )}
-        <NavLink to='/appearance'>
+        <NavLink to="/appearance">
           <li
             id="appearance"
             className="list"
             onClick={() => {
-              document.getElementById("appearance").classList.add("activeModule");
+              document
+                .getElementById("appearance")
+                .classList.add("activeModule");
             }}
           >
             <span className="icon">
@@ -105,18 +116,18 @@ function Sidebar() {
             <span className="title">Appearance</span>
           </li>
         </NavLink>
-        <NavLink to="/jobs">
+        <NavLink to="/domains">
           <li
-            id="jobs"
+            id="domains"
             className="list"
             onClick={() => {
-              document.getElementById("jobs").classList.add("activeModule");
+              document.getElementById("domains").classList.add("activeModule");
             }}
           >
             <span className="icon">
-              <Clipboard color="#FFF" />
+              <Server color="#FFF" />
             </span>
-            <span className="title">Job Posts</span>
+            <span className="title">Domains</span>
           </li>
         </NavLink>
         <Divider />
