@@ -18,6 +18,8 @@ import { fetchAllDomains, fetchJobById, updateJob } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { LogoLink } from "../../properties.js";
 import JoditEditor from "jodit-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function UpdateJob(props) {
   const { jid } = props;
@@ -191,11 +193,31 @@ function UpdateJob(props) {
                   mt="3"
                   onChange={(e) => setJobDesc(e.target.value)}
                 /> */}
-                <JoditEditor
+                {/* <JoditEditor
                   ref={editor}
                   value={jobDesc}
                   onChange={(newContent) => {
                     setJobDesc(newContent);
+                  }}
+                /> */}
+                <CKEditor
+                  editor={ClassicEditor}
+                  data="<p>Hello from CKEditor 5!</p>"
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    console.log("Editor is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    // console.log({ event, editor, data });
+                    console.log(typeof data);
+                    setJobDesc(editor.getData());
+                  }}
+                  onBlur={(event, editor) => {
+                    console.log("Blur.", editor);
+                  }}
+                  onFocus={(event, editor) => {
+                    console.log("Focus.", editor);
                   }}
                 />
                 <Flex alignItems={"center"} mt="3" gap={2}>
