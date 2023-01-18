@@ -1,4 +1,5 @@
 .navigation {
+    z-index: 50;
     position: relative;
     height: 92%;
     width: 70px;
