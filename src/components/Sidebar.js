@@ -84,22 +84,22 @@ function Sidebar() {
                 <span className="title">User Management</span>
               </li>
             </NavLink>
-            <NavLink to="/jobs">
-              <li
-                id="jobs"
-                className="list"
-                onClick={() => {
-                  document.getElementById("jobs").classList.add("activeModule");
-                }}
-              >
-                <span className="icon">
-                  <Clipboard color="#FFF" />
-                </span>
-                <span className="title">Job Posts</span>
-              </li>
-            </NavLink>
           </>
         )}
+        <NavLink to="/jobs">
+          <li
+            id="jobs"
+            className="list"
+            onClick={() => {
+              document.getElementById("jobs").classList.add("activeModule");
+            }}
+          >
+            <span className="icon">
+              <Clipboard color="#FFF" />
+            </span>
+            <span className="title">Job Posts</span>
+          </li>
+        </NavLink>
         <NavLink to="/appearance">
           <li
             id="appearance"
@@ -116,20 +116,28 @@ function Sidebar() {
             <span className="title">Appearance</span>
           </li>
         </NavLink>
-        <NavLink to="/domains">
-          <li
-            id="domains"
-            className="list"
-            onClick={() => {
-              document.getElementById("domains").classList.add("activeModule");
-            }}
-          >
-            <span className="icon">
-              <Server color="#FFF" />
-            </span>
-            <span className="title">Domains</span>
-          </li>
-        </NavLink>
+
+        {userRole === "admin" && (
+          <>
+            <NavLink to="/domains">
+              <li
+                id="domains"
+                className="list"
+                onClick={() => {
+                  document
+                    .getElementById("domains")
+                    .classList.add("activeModule");
+                }}
+              >
+                <span className="icon">
+                  <Server color="#FFF" />
+                </span>
+                <span className="title">Domains</span>
+              </li>
+            </NavLink>
+          </>
+        )}
+
         <Divider />
         <li
           className="list"
