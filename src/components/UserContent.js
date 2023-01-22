@@ -23,7 +23,7 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@chakra-ui/react";
-import { deleteUser, fetchAllUsers } from "../api";
+import { deleteUser, fetchAllUsers, fetchCurrentUser } from "../api";
 import { useNavigate } from "react-router-dom";
 import { LogoLink } from "../properties.js";
 
@@ -33,7 +33,7 @@ function UserContentTemp() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const [fetchedUsers, setFetchedUsers] = useState([]);
-
+  const [currentUser,setCurrentUser] = useState()
   const [userId, setUserId] = useState("");
 
   const handleDeleteUser = (id) => {
@@ -108,9 +108,35 @@ function UserContentTemp() {
       });
     }
   };
-  useEffect(() => {
-    handleFetchAllUsers();
-  }, []);
+  const handleGetCurrentUser = async () =>{
+    try{
+      const { data } = await fetchCurrentUser(token);
+      if (data.error) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        setCurrentUser(data.data);
+      }
+    }
+    catch(err){
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  }
+    useEffect(() => {
+      handleFetchAllUsers();
+      handleGetCurrentUser();
+    }, []);
   return (
     <Box w="100%" overflowX="hidden">
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -169,6 +195,7 @@ function UserContentTemp() {
               </Thead>
               <Tbody>
                 {fetchedUsers?.map((user) => {
+                  if(user?._id != currentUser?._id)
                   return (
                     <Tr key={user._id}>
                       <Td>{user._id}</Td>
