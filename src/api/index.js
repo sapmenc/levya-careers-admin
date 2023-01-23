@@ -102,17 +102,3 @@ export const fetchAllAppearance = async (token) =>
       Authorization: `Bearer ${token}`
     }
   });
-
-export const fetchAppliedAppearance = async (token) =>
-  API.get('/appearance/applied', {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-export const updateAppearance = async (token, id) =>
-  API.patch(`/appearance/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });

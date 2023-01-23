@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -20,10 +20,11 @@ import bg5 from "../assets/backgrounds/t5.png";
 import bg6 from "../assets/backgrounds/t6.jpg";
 import bg7 from "../assets/backgrounds/t7.jpg";
 import bg8 from "../assets/backgrounds/t8.jpg";
-import { fetchAllAppearance, fetchAppliedAppearance } from "../api";
+import { fetchAllAppearance } from "../api";
 import { LogoLink } from "../properties";
 
 function Appearance() {
+  const [appearances, setAppearances] = useState([]);
   const data = [
     {
       id: 1,
@@ -79,25 +80,17 @@ function Appearance() {
   };
   const handleFetchAllAppearance = async () => {
     try {
-      const { data } = await fetchAllAppearance();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handleFetchAppliedAppearance = async () => {
-    try {
-      const { data } = await fetchAppliedAppearance();
-      if (data) {
-        let bg = document.getElementById("bg");
-        bg.style.backgroundImage = `url(${data.data.image}})`;
-        bg.style.backgroundSize = "cover";
+      const token = localStorage.getItem("auth");
+      const { data } = await fetchAllAppearance(token);
+      if (data.error) {
+        console.log(data.message);
       }
+      setAppearances(data.data);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    handleFetchAppliedAppearance();
     handleFetchAllAppearance();
   }, []);
   return (
