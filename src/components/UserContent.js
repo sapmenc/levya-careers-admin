@@ -33,7 +33,7 @@ function UserContentTemp() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const [fetchedUsers, setFetchedUsers] = useState([]);
-  const [currentUser,setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState()
   const [userId, setUserId] = useState("");
 
   const handleDeleteUser = (id) => {
@@ -108,8 +108,8 @@ function UserContentTemp() {
       });
     }
   };
-  const handleGetCurrentUser = async () =>{
-    try{
+  const handleGetCurrentUser = async () => {
+    try {
       const { data } = await fetchCurrentUser(token);
       if (data.error) {
         toast({
@@ -123,7 +123,7 @@ function UserContentTemp() {
         setCurrentUser(data.data);
       }
     }
-    catch(err){
+    catch (err) {
       toast({
         title: "Error",
         description: err.message,
@@ -133,10 +133,10 @@ function UserContentTemp() {
       });
     }
   }
-    useEffect(() => {
-      handleFetchAllUsers();
-      handleGetCurrentUser();
-    }, []);
+  useEffect(() => {
+    handleFetchAllUsers();
+    handleGetCurrentUser();
+  }, []);
   return (
     <Box w="100%" overflowX="hidden">
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -195,7 +195,6 @@ function UserContentTemp() {
               </Thead>
               <Tbody>
                 {fetchedUsers?.map((user) => {
-                  if(user?._id != currentUser?._id)
                   return (
                     <Tr key={user._id}>
                       <Td>{user._id}</Td>
@@ -211,6 +210,7 @@ function UserContentTemp() {
                             }}
                             bgColor="#790202"
                             color="white"
+                            disabled={currentUser._id === user._id}
                           >
                             Edit
                           </Button>
@@ -220,6 +220,7 @@ function UserContentTemp() {
                             }}
                             bgColor="#790202"
                             color="white"
+                            disabled={currentUser._id === user._id}
                           >
                             Delete
                           </Button>
