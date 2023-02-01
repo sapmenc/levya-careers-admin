@@ -6,7 +6,7 @@ import AccessDenied from "../components/AccessDenied";
 import { useEffect, useState } from "react";
 import { fetchCurrentUser } from "../api";
 
-function CreateUserPage() {
+function CreateUserPage({ textColor }) {
   const [userRole, setUserRole] = useState("user");
   const [readyToRender, setReadyToRender] = useState(false);
   let token = localStorage.getItem("auth");
@@ -26,10 +26,10 @@ function CreateUserPage() {
     readyToRender &&
     (userRole === "admin" ? (
       <>
-        <CreateUser />
+        <CreateUser textColor={textColor} />
       </>
     ) : (
-      <AccessDenied />
+      <AccessDenied textColor={textColor} />
     ))
   );
 }

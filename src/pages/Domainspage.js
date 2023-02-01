@@ -3,13 +3,13 @@ import React from "react";
 import Domains from "../components/Domains";
 import Sidebar from "../components/Sidebar";
 
-function Domainspage() {
+function Domainspage({ textColor }) {
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }
   return (
     <>
-      <Domains />
+      <Domains textColor={textColor} />
     </>
   );
 }

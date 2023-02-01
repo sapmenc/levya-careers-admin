@@ -23,7 +23,7 @@ import { fetchAllDomains, fetchAllJobs, updateJob } from "../api";
 import Fuse from "fuse.js";
 import { LogoLink } from "../properties.js";
 
-function JobContent() {
+function JobContent({ textColor }) {
   let token = localStorage.getItem("auth");
   const navigate = useNavigate();
   const toast = useToast();
@@ -186,7 +186,7 @@ function JobContent() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
-      <Heading textAlign="center" mt={8}>
+      <Heading textAlign="center" mt={8} color={textColor}>
         All Job Posts
       </Heading>
       <Stack m="2" direction="row" justify="end">

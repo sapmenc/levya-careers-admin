@@ -24,7 +24,7 @@ import { MinusCircle } from "react-feather";
 import { addDomain, deleteDomain, fetchAllDomains } from "../api";
 import { LogoLink } from "../properties.js";
 
-function Domains() {
+function Domains({ textColor }) {
   let token = localStorage.getItem("auth");
   const toast = useToast();
   const [domains, setDomains] = useState([]);
@@ -189,7 +189,7 @@ function Domains() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
-      <Heading textAlign="center" mt={8}>
+      <Heading textAlign="center" mt={8} color={textColor}>
         All Domains
       </Heading>
       <SimpleGrid m={2} p={2} w="100%" columns={2}>

@@ -3,13 +3,13 @@ import React from "react";
 import JobContent from "../components/JobContent";
 import Sidebar from "../components/Sidebar";
 
-function Jobspage() {
+function Jobspage({ textColor }) {
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }
   return (
     <>
-      <JobContent />
+      <JobContent textColor={textColor} />
     </>
   );
 }

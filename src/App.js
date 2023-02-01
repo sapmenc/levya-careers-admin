@@ -20,9 +20,9 @@ var locationName = "notFound";
 function App() {
   const token = localStorage.getItem("auth");
   const location = useLocation();
-  const [user, setUser] = useState({})
-  const [textColor, setTextColor] = useState("#000000");
-  const [appearance, setAppearance] = useState([])
+  const [user, setUser] = useState({});
+  const [textColor, setTextColor] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState("");
   let module = "dashboard";
   useEffect(() => {
     let activeModuleElements = Object.values(
@@ -76,32 +76,41 @@ function App() {
       const appearance = user?.appearance;
       const textColor = user?.textColor;
       if (appearance) {
-        document.getElementById("bg").style.backgroundImage = `url(${appearance.image})`;
+        document.getElementById(
+          "bg"
+        ).style.backgroundImage = `url(${appearance.image})`;
       }
       if (textColor) {
         document.getElementById("bg").style.color = textColor;
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
+    setTextColor(data.data.textColor);
+    setBackgroundImage(data.data.appearance.image);
 
     if (data.error) {
       window.location.href = "/login";
     }
-    setUser(data.data)
+    setUser(data.data);
   };
   useEffect(() => {
-    getCurrentUser()
-    applyDefaultTheme()
-  }, [])
+    getCurrentUser();
+    applyDefaultTheme();
+  }, []);
+
+  useEffect(() => {
+    document.getElementById(
+      "bg"
+    ).style.backgroundImage = `url(${backgroundImage})`;
+  }, [backgroundImage]);
   return (
-    <Flex bg={"#e9ebf0"} h="100vh" justifyContent="flex-start" id="bg">
+    <Flex h="100vh" justifyContent="flex-start" id="bg">
       {location.pathname.split("/")[location.pathname.split("/").length - 1] ===
-        "login" ? (
+      "login" ? (
         <></>
       ) : (
         <>
@@ -112,13 +121,38 @@ function App() {
         <Route path="/" element={<Homepage textColor={textColor} />} />
         <Route path="/login" element={<Login textColor={textColor} />} />
         <Route path="/jobs" element={<Jobspage textColor={textColor} />} />
-        <Route path="/domains" element={<Domainspage textColor={textColor} />} />
-        <Route path="/createjob" element={<CreateJobpage textColor={textColor} />} />
-        <Route path="/editjob/:id" element={<EditJobpage textColor={textColor} />} />
+        <Route
+          path="/domains"
+          element={<Domainspage textColor={textColor} />}
+        />
+        <Route
+          path="/createjob"
+          element={<CreateJobpage textColor={textColor} />}
+        />
+        <Route
+          path="/editjob/:id"
+          element={<EditJobpage textColor={textColor} />}
+        />
         <Route path="/users" element={<Userspage textColor={textColor} />} />
-        <Route path="/createuser" element={<CreateUserpage textColor={textColor} />} />
-        <Route path="/edituser/:id" element={<EditUserpage textColor={textColor} />} />
-        <Route path="/appearance" element={<Appearancepage textColor={textColor} />} />
+        <Route
+          path="/createuser"
+          element={<CreateUserpage textColor={textColor} />}
+        />
+        <Route
+          path="/edituser/:id"
+          element={<EditUserpage textColor={textColor} />}
+        />
+        <Route
+          path="/appearance"
+          element={
+            <Appearancepage
+              textColor={textColor}
+              setTextColor={setTextColor}
+              backgroundImage={backgroundImage}
+              setBackgroundImage={setBackgroundImage}
+            />
+          }
+        />
         <Route path="*" element={<Heading>Page Not Found</Heading>} />
       </Routes>
     </Flex>

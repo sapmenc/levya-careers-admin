@@ -22,7 +22,7 @@ import JoditEditor from "jodit-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-function CreateJob() {
+function CreateJob({textColor}) {
   const token = localStorage.getItem("auth");
   const toast = useToast();
   const navigate = useNavigate();
@@ -138,7 +138,7 @@ function CreateJob() {
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
               <Image src={LogoLink} maxWidth="250px" height="auto" />
             </Stack>
-            <Heading textAlign="center" mt={8}>
+            <Heading textAlign="center" mt={8} color={textColor}>
               NEW JOB POST
             </Heading>
             <Input

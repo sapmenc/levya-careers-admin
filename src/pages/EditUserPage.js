@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { fetchCurrentUser } from "../api";
 import { useParams } from "react-router-dom";
 
-function EditUserPage() {
+function EditUserPage({ textColor }) {
   const param = useParams();
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const [userRole, setUserRole] = useState("user");
   const [readyToRender, setReadyToRender] = useState(false);
   let token = localStorage.getItem("auth");
@@ -29,10 +29,10 @@ function EditUserPage() {
     readyToRender &&
     (userRole === "admin" && user?._id != param?.id ? (
       <>
-        <EditUser />
+        <EditUser textColor={textColor} />
       </>
     ) : (
-      <AccessDenied />
+      <AccessDenied textColor={textColor} />
     ))
   );
 }

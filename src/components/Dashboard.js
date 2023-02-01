@@ -17,14 +17,14 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { LogoLink } from "../properties.js";
 import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
+function Dashboard({ textColor }) {
   let token = localStorage.getItem("auth");
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
   const [welcomeName, setWelcomeName] = useState("Saransh Khulbe");
   const [flag, setFlag] = useState(0); //telling whether we got the welcome details or not
   const toast = useToast();
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
 
@@ -33,7 +33,7 @@ function Dashboard() {
     }
     setWelcomeName(data.data.name);
 
-    setUser(data.data)
+    setUser(data.data);
     setFlag(1);
   };
 
@@ -75,7 +75,13 @@ function Dashboard() {
       {flag && (
         <div className="welcome-outer">
           <div className="welcome-inner">
-            <Heading as="h1" size="2xl" textAlign="center" mt={12}>
+            <Heading
+              as="h1"
+              size="2xl"
+              textAlign="center"
+              mt={12}
+              color={textColor}
+            >
               Welcome{" "}
               <Typewriter
                 className="welcome-name"
@@ -91,6 +97,7 @@ function Dashboard() {
                 textAlign="center"
                 mt={5}
                 className="welcome-quote"
+                color={textColor}
               >
                 ❝Never let success get to your head <br />
                 and never let failure get to your heart.❞
@@ -101,6 +108,7 @@ function Dashboard() {
                 textAlign="center"
                 mt={5}
                 className="welcome-quote"
+                color={textColor}
               >
                 <i>--Drake</i>
               </Heading>
@@ -124,7 +132,7 @@ function Dashboard() {
         </div>
       )}
 
-      <Heading textAlign="center" mt={10} id="dashboard-comp">
+      <Heading textAlign="center" mt={10} id="dashboard-comp" color={textColor}>
         Dashboard
       </Heading>
       <Flex w="100%" h="80vh" justifyContent="center" gap="100px" mt="100px">
@@ -155,7 +163,7 @@ function Dashboard() {
           >
             {jobs?.length}
           </Circle>
-          <Heading>Job Posts</Heading>
+          <Heading color={textColor}>Job Posts</Heading>
         </Stack>
         <Stack
           border="1px"
@@ -184,7 +192,7 @@ function Dashboard() {
           >
             5
           </Circle>
-          <Heading>Applicants</Heading>
+          <Heading color={textColor}>Applicants</Heading>
         </Stack>
       </Flex>
     </Box>

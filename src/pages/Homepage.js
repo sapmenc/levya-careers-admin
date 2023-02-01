@@ -4,13 +4,13 @@ import { fetchCurrentUser } from "../api";
 import Dashboard from "../components/Dashboard";
 import Sidebar from "../components/Sidebar";
 
-function Homepage(props) {
+function Homepage({ textColor }) {
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }
   return (
     <>
-      <Dashboard />
+      <Dashboard textColor={textColor} />
     </>
   );
 }

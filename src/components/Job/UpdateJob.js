@@ -22,7 +22,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function UpdateJob(props) {
-  const { jid } = props;
+  const jid = props.jid;
   const token = localStorage.getItem("auth");
   const toast = useToast();
   const navigate = useNavigate();
@@ -167,7 +167,7 @@ function UpdateJob(props) {
             <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
               <Image src={LogoLink} maxWidth="250px" height="auto" />
             </Stack>
-            <Heading textAlign="center" mt={8}>
+            <Heading textAlign="center" mt={8} textColor={props.textColor}>
               EDIT JOB POST
             </Heading>
             {readyToLoad && (

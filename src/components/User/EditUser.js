@@ -14,7 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editUserProfile, getUserById } from "../../api";
 import { LogoLink } from "../../properties.js";
 
-function CreateUser() {
+function EditUser({ textColor }) {
   const param = useParams();
   const token = localStorage.getItem("auth");
   const toast = useToast();
@@ -34,7 +34,7 @@ function CreateUser() {
         email: email,
         role: role,
         status: status,
-        password: password
+        password: password,
       };
       const { data } = await editUserProfile(token, body);
       if (data.error) {
@@ -99,7 +99,7 @@ function CreateUser() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
-      <Heading textAlign="center" mt={8}>
+      <Heading textAlign="center" mt={8} color={textColor}>
         Edit user
       </Heading>
       <Stack m={5} p={5} spacing={5} align="center" w={"100%"}>
@@ -172,4 +172,4 @@ function CreateUser() {
   );
 }
 
-export default CreateUser;
+export default EditUser;

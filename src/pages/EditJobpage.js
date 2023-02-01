@@ -4,12 +4,12 @@ import { Flex } from "@chakra-ui/react";
 import UpdateJob from "../components/Job/UpdateJob";
 import { useParams } from "react-router-dom";
 
-function EditJobpage(props) {
+function EditJobpage({ textColor }) {
   const jid = useParams();
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }
-  return <UpdateJob jid={jid} />;
+  return <UpdateJob jid={jid} textColor={textColor} />;
 }
 
 export default EditJobpage;

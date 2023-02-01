@@ -27,13 +27,13 @@ import { deleteUser, fetchAllUsers, fetchCurrentUser } from "../api";
 import { useNavigate } from "react-router-dom";
 import { LogoLink } from "../properties.js";
 
-function UserContent() {
+function UserContent({ textColor }) {
   let token = localStorage.getItem("auth");
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const [fetchedUsers, setFetchedUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState();
   const [userId, setUserId] = useState("");
 
   const handleDeleteUser = (id) => {
@@ -122,8 +122,7 @@ function UserContent() {
       } else {
         setCurrentUser(data.data);
       }
-    }
-    catch (err) {
+    } catch (err) {
       toast({
         title: "Error",
         description: err.message,
@@ -132,7 +131,7 @@ function UserContent() {
         isClosable: true,
       });
     }
-  }
+  };
   useEffect(() => {
     handleFetchAllUsers();
     handleGetCurrentUser();
@@ -165,7 +164,7 @@ function UserContent() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
-      <Heading textAlign="center" mt={8}>
+      <Heading textAlign="center" mt={8} color={textColor}>
         User Management
       </Heading>
       <Stack m="2" direction="row" justify="end">
@@ -210,7 +209,7 @@ function UserContent() {
                             }}
                             bgColor="#790202"
                             color="white"
-                          // disabled={currentUser?._id === user?._id}
+                            // disabled={currentUser?._id === user?._id}
                           >
                             Edit
                           </Button>

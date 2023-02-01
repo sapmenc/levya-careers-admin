@@ -5,7 +5,7 @@ import UserContent from "../components/UserContent";
 import { fetchCurrentUser } from "../api";
 import AccessDenied from "../components/AccessDenied";
 
-function Userspage() {
+function Userspage({ textColor }) {
   const [userRole, setUserRole] = useState("user");
   const [readyToRender, setReadyToRender] = useState(false);
   let token = localStorage.getItem("auth");
@@ -28,10 +28,10 @@ function Userspage() {
     readyToRender &&
     (userRole === "admin" ? (
       <>
-        <UserContent />
+        <UserContent textColor={textColor} />
       </>
     ) : (
-      <AccessDenied />
+      <AccessDenied textColor={textColor} />
     ))
   );
 }

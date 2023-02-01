@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../api";
 import { LogoLink } from "../../properties.js";
 
-function CreateUser() {
+function CreateUser({ textColor }) {
   const toast = useToast();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -70,7 +70,7 @@ function CreateUser() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
-      <Heading textAlign="center" mt={8}>
+      <Heading textAlign="center" mt={8} color={textColor}>
         Create a user
       </Heading>
       <Stack m={5} p={5} spacing={5} align="center" w={"100%"}>
