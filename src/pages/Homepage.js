@@ -4,7 +4,7 @@ import { fetchCurrentUser } from "../api";
 import Dashboard from "../components/Dashboard";
 import Sidebar from "../components/Sidebar";
 
-function Homepage() {
+function Homepage(props) {
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
   }

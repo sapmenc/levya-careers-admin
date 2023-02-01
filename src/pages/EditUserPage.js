@@ -4,8 +4,11 @@ import EditUser from "../components/User/EditUser";
 import AccessDenied from "../components/AccessDenied";
 import { useEffect, useState } from "react";
 import { fetchCurrentUser } from "../api";
+import { useParams } from "react-router-dom";
 
 function EditUserPage() {
+  const param = useParams();
+  const [user, setUser] = useState({})
   const [userRole, setUserRole] = useState("user");
   const [readyToRender, setReadyToRender] = useState(false);
   let token = localStorage.getItem("auth");
@@ -14,6 +17,7 @@ function EditUserPage() {
     if (data.error) {
       window.location.href = "/login";
     }
+    setUser(data.data);
     setUserRole(data.data.role);
   };
   useEffect(() => {
@@ -23,7 +27,7 @@ function EditUserPage() {
   }, []);
   return (
     readyToRender &&
-    (userRole === "admin" ? (
+    (userRole === "admin" && user?._id != param?.id ? (
       <>
         <EditUser />
       </>

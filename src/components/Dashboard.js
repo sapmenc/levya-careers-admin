@@ -24,13 +24,16 @@ function Dashboard() {
   const [welcomeName, setWelcomeName] = useState("Saransh Khulbe");
   const [flag, setFlag] = useState(0); //telling whether we got the welcome details or not
   const toast = useToast();
+  const [user, setUser] = useState({})
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
+
     if (data.error) {
       window.location.href = "/login";
     }
     setWelcomeName(data.data.name);
 
+    setUser(data.data)
     setFlag(1);
   };
 

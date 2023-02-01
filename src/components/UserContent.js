@@ -27,7 +27,7 @@ import { deleteUser, fetchAllUsers, fetchCurrentUser } from "../api";
 import { useNavigate } from "react-router-dom";
 import { LogoLink } from "../properties.js";
 
-function UserContentTemp() {
+function UserContent() {
   let token = localStorage.getItem("auth");
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -210,7 +210,7 @@ function UserContentTemp() {
                             }}
                             bgColor="#790202"
                             color="white"
-                            disabled={currentUser._id === user._id}
+                          // disabled={currentUser?._id === user?._id}
                           >
                             Edit
                           </Button>
@@ -220,7 +220,7 @@ function UserContentTemp() {
                             }}
                             bgColor="#790202"
                             color="white"
-                            disabled={currentUser._id === user._id}
+                            disabled={currentUser?._id === user?._id}
                           >
                             Delete
                           </Button>
@@ -238,4 +238,4 @@ function UserContentTemp() {
   );
 }
 
-export default UserContentTemp;
+export default UserContent;

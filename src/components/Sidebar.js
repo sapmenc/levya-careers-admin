@@ -21,7 +21,7 @@ function Sidebar() {
     if (data.error) {
       window.location.href = "/login";
     }
-    setUserRole(data.data.role);
+    setUserRole(data?.data?.role);
   };
   useEffect(() => {
     getCurrentUser();

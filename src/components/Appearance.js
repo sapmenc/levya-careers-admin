@@ -10,73 +10,84 @@ import {
   Image,
   Radio,
   RadioGroup,
+  useToast,
 } from "@chakra-ui/react";
 
-import bg1 from "../assets/backgrounds/t1.jpg";
-import bg2 from "../assets/backgrounds/t2.jpg";
-import bg3 from "../assets/backgrounds/t3.jpg";
-import bg4 from "../assets/backgrounds/t4.jpg";
-import bg5 from "../assets/backgrounds/t5.png";
-import bg6 from "../assets/backgrounds/t6.jpg";
-import bg7 from "../assets/backgrounds/t7.jpg";
-import bg8 from "../assets/backgrounds/t8.jpg";
-import { fetchAllAppearance } from "../api";
+import { editUserProfile, fetchAllAppearance, fetchCurrentUser } from "../api";
 import { LogoLink } from "../properties";
 
 function Appearance() {
+  const toast = useToast();
   const [appearances, setAppearances] = useState([]);
-  const data = [
-    {
-      id: 1,
-      image: bg1,
-      alt: "bg1",
-    },
-    {
-      id: 2,
-      image: bg2,
-      alt: "bg2",
-    },
-    {
-      id: 3,
-      image: bg3,
-      alt: "bg3",
-    },
-    {
-      id: 4,
-      image: bg4,
-      alt: "bg4",
-    },
-    {
-      id: 5,
-      image: bg5,
-      alt: "bg5",
-    },
-    {
-      id: 6,
-      image: bg6,
-      alt: "bg6",
-    },
-    {
-      id: 7,
-      image: bg7,
-      alt: "bg7",
-    },
-    {
-      id: 8,
-      image: bg8,
-      alt: "bg8",
-    },
-  ];
-  const changeBackground = (id) => {
-    let bg = document.getElementById("bg");
-    bg.style.backgroundImage = `url(${data[id - 1].image})`;
-    bg.style.backgroundSize = "cover";
+  const [textColor, setTextColor] = useState("#000000");
+  const [user, setUser] = useState({})
+  const token = localStorage.getItem("auth");
+
+  const changeBackground = async (id) => {
+    try {
+      let body = {
+        id: user?._id,
+        appearance: id
+      }
+      const token = localStorage.getItem("auth");
+      const { data } = await editUserProfile(token, body);
+      if (data.status) {
+        return toast({
+          title: "Success",
+          description: "Background changed successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    }
+    catch (err) {
+      console.log(err);
+      return toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
+  const changeTextColor = async (color) => {
+    try {
+      const token = localStorage.getItem("auth");
+      let body = {
+        id: user?._id,
+        textColor: color
+      }
+      console.log(body);
+      try {
+        const { data } = await editUserProfile(token, body);
+        if (data.status) {
+          return toast({
+            title: "Success",
+            description: "Text color changed successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+    catch (err) {
+      console.log(err);
+      return toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  }
   const resetBackground = () => {
-    let bg = document.getElementById("bg");
-    console.log(bg);
-    bg.style.backgroundImage = "none";
-    bg.style.backgroundColor = "#e9ebf0";
   };
   const handleFetchAllAppearance = async () => {
     try {
@@ -90,8 +101,17 @@ function Appearance() {
       console.log(err);
     }
   };
+  const getCurrentUser = async () => {
+
+    const { data } = await fetchCurrentUser(token);
+    if (data.error) {
+      window.location.href = "/login";
+    }
+    setUser(data.data);
+  };
   useEffect(() => {
-    handleFetchAllAppearance();
+    handleFetchAllAppearance()
+    getCurrentUser()
   }, []);
   return (
     <Box w="100%" overflowX="hidden">
@@ -121,9 +141,9 @@ function Appearance() {
         </Flex>
         <Stack justify="center" w="90%" marginX={"auto"}>
           <SimpleGrid columns={4} spacing={5}>
-            {data.map((item) => {
+            {appearances.map((item) => {
               return (
-                <GridItem key={item.id}>
+                <GridItem key={item._id}>
                   <Image
                     onClick={() => changeBackground(item.id)}
                     cursor={"pointer"}
@@ -155,12 +175,14 @@ function Appearance() {
             </Heading>
           </Flex>
           <Flex>
-            <RadioGroup defaultValue="dark" _focus="none">
+            <RadioGroup
+              onChange={(color) => changeTextColor(color)}
+              defaultValue="dark">
               <Stack spacing={10} direction="row">
-                <Radio colorScheme="red" value="light">
+                <Radio colorScheme="red" value="#ffffff">
                   Light
                 </Radio>
-                <Radio colorScheme="red" value="dark">
+                <Radio colorScheme="red" value="#000000">
                   Dark
                 </Radio>
               </Stack>
@@ -168,7 +190,7 @@ function Appearance() {
           </Flex>
         </Flex>
       </Stack>
-    </Box>
+    </Box >
   );
 }
 
