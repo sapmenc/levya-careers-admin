@@ -24,6 +24,7 @@ function Appearance({ textColor, setTextColor }) {
 
   const changeBackground = async (_id, image) => {
     document.getElementById("bg").style.backgroundImage = `url(${image})`;
+    document.getElementById("bg").style.backgroundSize = "cover";
     // write change background in backend logic here
   };
   const changeTextColor = async (color) => {
@@ -65,7 +66,10 @@ function Appearance({ textColor, setTextColor }) {
       });
     }
   };
-  const resetBackground = () => {};
+  const resetAppearance = () => {
+    changeTextColor("#000000");
+    changeBackground("");
+  };
   const handleFetchAllAppearance = async () => {
     try {
       const token = localStorage.getItem("auth");
@@ -110,7 +114,7 @@ function Appearance({ textColor, setTextColor }) {
               size="md"
               backgroundColor="#828282"
               textColor="white"
-              onClick={() => resetBackground()}
+              onClick={() => resetAppearance()}
             >
               Reset
             </Button>
@@ -152,7 +156,7 @@ function Appearance({ textColor, setTextColor }) {
             </Heading>
           </Flex>
           <Flex>
-            {textColor && (
+            {(textColor === "#ffffff" || textColor === "#000000") && (
               <RadioGroup
                 onChange={(color) => changeTextColor(color)}
                 defaultValue={textColor}

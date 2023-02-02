@@ -306,6 +306,7 @@ function JobContent({ textColor }) {
                   <Th>Job Domain</Th>
                   <Th>Job Location</Th>
                   <Th>Job Applicants</Th>
+                  <Th>Created By</Th>
                   <Th>Job Status</Th>
                   <Th>Job Action</Th>
                 </Tr>
@@ -324,6 +325,7 @@ function JobContent({ textColor }) {
                               getPlaceName(job.country)}
                           </Td>
                           <Td>{55}</Td>
+                          <Td>Keyur Shinde</Td> {/* job.created_by*/}
                           <Td>{capitalizeFirstLetter(job.status)}</Td>
                           <Td>
                             <Stack spacing={5} align="center" direction="row">
@@ -367,6 +369,7 @@ function JobContent({ textColor }) {
                               getPlaceName(job.country)}
                           </Td>
                           <Td>{55}</Td>
+                          <Td>Keyur Shinde</Td> {/* job.created_by*/}
                           <Td>{capitalizeFirstLetter(job.status)}</Td>
                           <Td>
                             <Stack spacing={3} align="center" direction="row">
