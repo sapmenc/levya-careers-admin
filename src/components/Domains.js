@@ -20,9 +20,10 @@ import {
   Image,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { MinusCircle } from "react-feather";
+
 import { addDomain, deleteDomain, fetchAllDomains } from "../api";
 import { LogoLink } from "../properties.js";
+import Domain from "./Domain";
 
 function Domains({ textColor }) {
   let token = localStorage.getItem("auth");
@@ -35,6 +36,7 @@ function Domains({ textColor }) {
     setDomainId(id);
     onOpen();
   };
+
   const finalDeleteDomain = async () => {
     if (domainId === "") {
       return toast({
@@ -225,30 +227,11 @@ function Domains({ textColor }) {
           >
             {domains.length > 0 &&
               domains?.map((domain, index) => (
-                <Stack
-                  px={4}
-                  py={2}
-                  bg="secondary"
-                  w="100%"
-                  justify="space-between"
+                <Domain
+                  domain={domain}
                   key={index}
-                  direction="row"
-                  borderRadius="50px"
-                >
-                  <Text
-                    flexGrow="1"
-                    textTransform="capitalize"
-                    color="white"
-                    fontWeight="bold"
-                  >
-                    {domain.name}
-                  </Text>
-                  <MinusCircle
-                    onClick={() => handleDeleteDomain(domain._id)}
-                    color="white"
-                    cursor="pointer"
-                  />
-                </Stack>
+                  handleDeleteDomain={handleDeleteDomain}
+                />
               ))}
           </Stack>
         </GridItem>
