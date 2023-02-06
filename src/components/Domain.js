@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -21,8 +21,45 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { MinusCircle } from "react-feather";
+import { updateDomain } from "../api";
+import { useNavigate } from "react-router-dom";
 function Domain({ domain, handleDeleteDomain }) {
+  const toast = useToast();
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [domainName, setDomainName] = useState('')
+  const handleUpdateDomain = async (e) => {
+    e.preventDefault()
+    try {
+      const token = localStorage.getItem('auth')
+      const id = domain._id
+      let body = {
+        name: domainName
+      }
+      const { data } = await updateDomain(token, id, body)
+      if (data.status) {
+        toast({
+          title: "Domain Updated",
+          description: "Domain has been updated successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        onClose();
+        //refresh the page
+        window.location.reload()
+      }
+    }
+    catch (err) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+  }
   return (
     <Stack
       px={4}
@@ -57,7 +94,11 @@ function Domain({ domain, handleDeleteDomain }) {
           <ModalHeader>Edit Domain</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input focusBorderColor="#790202" />
+            <Input
+              type='text'
+              value={domainName}
+              onChange={(e) => setDomainName(e.target.value)}
+              focusBorderColor="#790202" />
           </ModalBody>
 
           <ModalFooter>
@@ -65,10 +106,9 @@ function Domain({ domain, handleDeleteDomain }) {
               variant="outline"
               colorScheme="red"
               bg="white"
-              onClick={() => {
+              onClick={(e) => {
                 // Edit Functionality Implementation
-
-                onClose();
+                handleUpdateDomain(e);
               }}
             >
               Save

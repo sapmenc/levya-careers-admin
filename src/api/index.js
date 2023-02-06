@@ -55,6 +55,13 @@ export const deleteDomain = async (token, id) =>
     }
   });
 
+export const updateDomain = async (token, id, body) =>
+  API.patch(`/domains/${id}`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
 export const signinUser = async (body) =>
   API.post('/signin', body);
 

@@ -15,14 +15,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState, useRef } from "react";
 import { Country, State, City } from "country-state-city";
-import { addJob, fetchAllDomains } from "../../api";
+import { addJob, fetchAllDomains, fetchCurrentUser, getUserById } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { LogoLink } from "../../properties.js";
 import JoditEditor from "jodit-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-function CreateJob({textColor}) {
+function CreateJob({ textColor }) {
   const token = localStorage.getItem("auth");
   const toast = useToast();
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ function CreateJob({textColor}) {
   const [state_code, setStateCode] = useState("");
   const [country_code, setCountryCode] = useState("");
   const [hybrid, setHybrid] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const editor = useRef(null);
 
@@ -87,6 +88,7 @@ function CreateJob({textColor}) {
         state_code: state_code,
         country: country,
         country_code: country_code,
+        createdBy: userId,
       };
       const { data } = await addJob(body, token);
 
@@ -123,12 +125,37 @@ function CreateJob({textColor}) {
         });
         setDomains(data.data);
       }
-    } catch (error) {}
+    } catch (error) { }
+  };
+  const handleFetchCurrentUser = async () => {
+    try {
+      const token = localStorage.getItem("auth")
+      const { data } = await fetchCurrentUser(token)
+      if (data.status) {
+        // toast({
+        //   title: "Success",
+        //   description: "User details fetched successfully",
+        //   status: "success",
+        //   duration: 2000,
+        //   isClosable: true,
+        // });
+        // console.log(data.password);
+        // setEmail(data.email);
+        // setName(data.name);
+        // setPassword(data.password);
+        // setRole(data.role);
+        // setStatus(data.status);
+        setUserId(data.data._id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
-    handleFetchAllDomains();
+    handleFetchAllDomains()
+    handleFetchCurrentUser()
   }, []);
-  useEffect(() => {}, [country, state, city]);
+  useEffect(() => { }, [country, state, city]);
 
   return (
     <Box w="100%" overflowX="hidden">
