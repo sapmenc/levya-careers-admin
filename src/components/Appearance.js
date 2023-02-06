@@ -26,6 +26,25 @@ function Appearance({ textColor, setTextColor }) {
     document.getElementById("bg").style.backgroundImage = `url(${image})`;
     document.getElementById("bg").style.backgroundSize = "cover";
     // write change background in backend logic here
+    try {
+      const token = localStorage.getItem("auth");
+      let body = {
+        id: user?._id,
+        appearance: _id,
+      };
+      const { data } = await editUserProfile(token, body);
+      if (data.status) {
+        return toast({
+          title: "Success",
+          description: "Theme changed successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+    }
+    catch (err) { }
   };
   const changeTextColor = async (color) => {
     if (textColor === color) {
@@ -38,7 +57,6 @@ function Appearance({ textColor, setTextColor }) {
         id: user?._id,
         textColor: color,
       };
-      console.log(body);
       try {
         const { data } = await editUserProfile(token, body);
         if (data.status) {
@@ -53,9 +71,16 @@ function Appearance({ textColor, setTextColor }) {
         }
       } catch (err) {
         console.log(err);
+        return toast({
+          title: "Error",
+          description: "Something went wrong",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
       }
     } catch (err) {
-      console.log(err);
       return toast({
         title: "Error",
         description: "Something went wrong",
