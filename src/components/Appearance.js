@@ -43,8 +43,7 @@ function Appearance({ textColor, setTextColor }) {
           position: "top-right",
         });
       }
-    }
-    catch (err) { }
+    } catch (err) {}
   };
   const changeTextColor = async (color) => {
     if (textColor === color) {
@@ -93,7 +92,7 @@ function Appearance({ textColor, setTextColor }) {
   };
   const resetAppearance = () => {
     changeTextColor("#000000");
-    changeBackground("");
+    changeBackground("", "");
   };
   const handleFetchAllAppearance = async () => {
     try {
