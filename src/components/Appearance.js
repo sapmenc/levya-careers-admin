@@ -43,7 +43,7 @@ function Appearance({ textColor, setTextColor }) {
           position: "top-right",
         });
       }
-    } catch (err) {}
+    } catch (err) { }
   };
   const changeTextColor = async (color) => {
     if (textColor === color) {
@@ -90,9 +90,36 @@ function Appearance({ textColor, setTextColor }) {
       });
     }
   };
-  const resetAppearance = () => {
-    changeTextColor("#000000");
-    changeBackground("", "");
+  const resetAppearance = async () => {
+    const _id = "63e545b172e82dd7bf4640df"
+    try {
+      const token = localStorage.getItem("auth");
+      let body = {
+        id: user?._id,
+        appearance: _id,
+      };
+      const { data } = await editUserProfile(token, body);
+      if (data.status) {
+        return toast({
+          title: "Success",
+          description: "Theme reset successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+    } catch (err) {
+      return toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+
   };
   const handleFetchAllAppearance = async () => {
     try {
@@ -147,19 +174,20 @@ function Appearance({ textColor, setTextColor }) {
         <Stack justify="center" w="90%" marginX={"auto"}>
           <SimpleGrid columns={4} spacing={5}>
             {appearances.map((item) => {
-              return (
-                <GridItem key={item._id}>
-                  <Image
-                    onClick={() => changeBackground(item._id, item.image)}
-                    cursor={"pointer"}
-                    borderRadius={"lg"}
-                    src={item.image}
-                    alt={item.alt}
-                    w={"320px"}
-                    h={"140px"}
-                  />
-                </GridItem>
-              );
+              if (item._id !== "63e545b172e82dd7bf4640df")
+                return (
+                  <GridItem key={item._id}>
+                    <Image
+                      onClick={() => changeBackground(item._id, item.image)}
+                      cursor={"pointer"}
+                      borderRadius={"lg"}
+                      src={item.image}
+                      alt={item.alt}
+                      w={"320px"}
+                      h={"140px"}
+                    />
+                  </GridItem>
+                );
             })}
           </SimpleGrid>
         </Stack>
