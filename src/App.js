@@ -14,6 +14,7 @@ import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Appearancepage from "./pages/Appearancepage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import { fetchCurrentUser } from "./api";
 
 var locationName = "notFound";
@@ -110,7 +111,9 @@ function App() {
   return (
     <Flex h="100vh" justifyContent="flex-start" id="bg">
       {location.pathname.split("/")[location.pathname.split("/").length - 1] ===
-      "login" ? (
+        "login" ||
+      location.pathname.split("/")[location.pathname.split("/").length - 1] ===
+        "forgotPassword" ? (
         <></>
       ) : (
         <>
@@ -152,6 +155,10 @@ function App() {
               setBackgroundImage={setBackgroundImage}
             />
           }
+        />
+        <Route
+          path="/forgotPassword"
+          element={<ForgotPasswordPage textColor={textColor} />}
         />
         <Route path="*" element={<Heading>Page Not Found</Heading>} />
       </Routes>

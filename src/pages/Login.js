@@ -7,6 +7,7 @@ import {
   Stack,
   useToast,
   Flex,
+  Link,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { signinUser } from "../api";
@@ -117,32 +118,36 @@ function Login() {
               placeholder="Email"
               fontWeight="extrabold"
             />
-
-            <Input
-              px={5}
-              py={2}
-              variant="unstyled"
-              border={"1px solid #790202"}
-              ref={passwordRef}
-              type={`${showPassword === false ? "password" : "text"}`}
-              placeholder="Password"
-              fontWeight="extrabold"
-            />
-            <Button
-              width="25%"
-              alignSelf="flex-end"
-              variant="outline"
-              colorScheme="red"
-              bg="white"
-              onClick={() => {
-                setShowPassword(!showPassword);
-              }}
-              _focus={{
-                outline: "none",
-              }}
-            >
-              {showPassword === false ? "show" : "hide"}
-            </Button>
+            <Flex justifyContent="space-between" width="100%" gap={2}>
+              <Input
+                px={5}
+                py={2}
+                variant="unstyled"
+                border={"1px solid #790202"}
+                ref={passwordRef}
+                type={`${showPassword === false ? "password" : "text"}`}
+                placeholder="Password"
+                fontWeight="extrabold"
+              />
+              <Button
+                width="25%"
+                alignSelf="flex-end"
+                variant="outline"
+                colorScheme="red"
+                bg="white"
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+                _focus={{
+                  outline: "none",
+                }}
+              >
+                {showPassword === false ? "show" : "hide"}
+              </Button>
+            </Flex>
+            <Link color="red.600" href="/forgotPassword" alignSelf="end">
+              Forgot password?
+            </Link>
             <Button
               variant="unstyled"
               bg="white"
