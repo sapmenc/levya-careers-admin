@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useState, useReducer } from "react";
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   Textarea,
   Heading,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import {
   defaultExperience,
@@ -18,7 +19,6 @@ import {
   educationReducer,
 } from "./todUtilities";
 import moment from "moment";
-import "./tod.css";
 
 function Tod() {
   const [experiences, dispatchExperience] = useReducer(experiencesReducer, [
@@ -28,6 +28,9 @@ function Tod() {
     defaultEducation,
   ]);
   const toast = useToast();
+
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleSubmit = () => {
     console.log("submitted");
@@ -44,6 +47,18 @@ function Tod() {
     >
       <Box w="90%" h="100%" bg="white" p={5}>
         <form onSubmit={handleSubmit}>
+          <FormControl isRequired>
+            <FormLabel>Candidate Name</FormLabel>
+            <Input bg="white" color="black" focusBorderColor="#790202" />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel>Candidate Name</FormLabel>
+            <Select placeholder="Select option" focusBorderColor="#790202">
+              <option value="option1">Frontend Developer</option>
+              <option value="option2">Backend Developer</option>
+              <option value="option3">DevOps Engineer</option>
+            </Select>
+          </FormControl>
           {/* Experience */}
           <Box>
             <Heading as="h3" size="lg" mb={5}>
