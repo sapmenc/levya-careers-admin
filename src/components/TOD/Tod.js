@@ -19,6 +19,7 @@ import {
   experiencesReducer,
   educationReducer,
 } from "./todUtilities";
+import { Country, State, City } from "country-state-city";
 import moment from "moment";
 import { transform } from "framer-motion";
 
@@ -127,6 +128,9 @@ function Tod() {
                   );
                 })}
               </Flex>
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Preferred Location</FormLabel>
             </FormControl>
           </Flex>
           {/* Experience */}
