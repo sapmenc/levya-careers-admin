@@ -17,6 +17,7 @@ export const defaultEducation = {
   endDate: "",
   description: null,
 };
+
 export const experiencesReducer = (state, action) => {
   switch (action.type) {
     case "ADD_EXPERIENCE":

@@ -11,6 +11,7 @@ import {
   Heading,
   useToast,
   Select,
+  Text,
 } from "@chakra-ui/react";
 import {
   defaultExperience,
@@ -19,6 +20,7 @@ import {
   educationReducer,
 } from "./todUtilities";
 import moment from "moment";
+import { transform } from "framer-motion";
 
 function Tod() {
   const [experiences, dispatchExperience] = useReducer(experiencesReducer, [
@@ -27,10 +29,13 @@ function Tod() {
   const [education, dispatchEducation] = useReducer(educationReducer, [
     defaultEducation,
   ]);
+
   const toast = useToast();
 
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
+  const [skills, setSkills] = useState(new Set([]));
+  const [currSkill, setCurrSkill] = useState("");
 
   const handleSubmit = () => {
     console.log("submitted");
@@ -44,21 +49,86 @@ function Tod() {
       bg="white"
       m={10}
       borderRadius={5}
+      py={10}
     >
       <Box w="90%" h="100%" bg="white" p={5}>
+        <Heading textAlign="center" my={5}>
+          New Profile
+        </Heading>
         <form onSubmit={handleSubmit}>
-          <FormControl isRequired>
-            <FormLabel>Candidate Name</FormLabel>
-            <Input bg="white" color="black" focusBorderColor="#790202" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel>Candidate Name</FormLabel>
-            <Select placeholder="Select option" focusBorderColor="#790202">
-              <option value="option1">Frontend Developer</option>
-              <option value="option2">Backend Developer</option>
-              <option value="option3">DevOps Engineer</option>
-            </Select>
-          </FormControl>
+          <Flex flexDirection="column" gap={5} mb={10}>
+            <FormControl isRequired>
+              <FormLabel>Candidate Name</FormLabel>
+              <Input bg="white" color="black" focusBorderColor="#790202" />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Candidate Name</FormLabel>
+              <Select placeholder="Select option" focusBorderColor="#790202">
+                <option value="option1">Frontend Developer</option>
+                <option value="option2">Backend Developer</option>
+                <option value="option3">DevOps Engineer</option>
+              </Select>
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Also skilled at [Max 2] </FormLabel>
+              <Flex gap={2}>
+                <Input
+                  value={currSkill || ""}
+                  isDisabled={skills.size >= 2}
+                  placeholder={skills.size >= 2 ? "Max limit reached" : ""}
+                  bg="white"
+                  color="black"
+                  focusBorderColor="#790202"
+                  onChange={(e) => {
+                    setCurrSkill(e.target.value);
+                  }}
+                />
+                <Button
+                  isDisabled={currSkill === ""}
+                  onClick={() => {
+                    let tempSet = new Set([...skills]);
+                    tempSet.add(currSkill);
+                    setCurrSkill("");
+                    setSkills(tempSet);
+                  }}
+                >
+                  + Add Skill
+                </Button>
+              </Flex>
+              <Flex gap={2} mt={3}>
+                {Array.from(skills).map((skill) => {
+                  return (
+                    <Flex
+                      bg="red.300"
+                      color="white"
+                      gap={2}
+                      p={2}
+                      borderRadius={5}
+                      alignItems="center"
+                    >
+                      <Text fontWeight="bold">{skill}</Text>
+
+                      <Text
+                        fontSize="lg"
+                        cursor="pointer"
+                        onClick={() => {
+                          let tempSet = new Set([...skills]);
+                          tempSet.delete(skill);
+                          setSkills(tempSet);
+                        }}
+                        _hover={{
+                          fontWeight: "bold",
+                          transform: "scale(1.05)",
+                        }}
+                      >
+                        ⓧ
+                      </Text>
+                    </Flex>
+                  );
+                })}
+              </Flex>
+            </FormControl>
+          </Flex>
           {/* Experience */}
           <Box>
             <Heading as="h3" size="lg" mb={5}>
