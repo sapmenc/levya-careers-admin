@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Appearancepage from "./pages/Appearancepage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import TodPage from "./pages/TodPage";
+import TodTitlesPage from "./pages/TodTitlesPage";
 import { fetchCurrentUser } from "./api";
 
 var locationName = "notFound";
@@ -44,6 +46,8 @@ function App() {
       "appearance",
       "createuser",
       "edituser",
+      "tod",
+      "todTitle",
     ];
 
     for (let i = locationPath.length - 1; i >= 0; i--) {
@@ -159,6 +163,11 @@ function App() {
         <Route
           path="/forgotPassword"
           element={<ForgotPasswordPage textColor={textColor} />}
+        />
+        <Route path="/tod" element={<TodPage textColor={textColor} />} />
+        <Route
+          path="/todTitles"
+          element={<TodTitlesPage textColor={textColor} />}
         />
         <Route path="*" element={<Heading>Page Not Found</Heading>} />
       </Routes>

@@ -6,6 +6,8 @@ import {
   Server,
   LogOut,
   UserPlus,
+  Users,
+  Package,
   Image as ImageIcon,
 } from "react-feather";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -133,6 +135,38 @@ function Sidebar() {
                   <Server color="#FFF" />
                 </span>
                 <span className="title">Domains</span>
+              </li>
+            </NavLink>
+            <NavLink to="/tod">
+              <li
+                id="tod"
+                className="list"
+                onClick={() => {
+                  navigate("/tod");
+                  document.getElementById("tod").classList.add("activeModule");
+                }}
+              >
+                <span className="icon">
+                  <Users color="#FFF" />
+                </span>
+                <span className="title">Tod</span>
+              </li>
+            </NavLink>
+            <NavLink to="/todTitles">
+              <li
+                id="todTitles"
+                className="list"
+                onClick={() => {
+                  navigate("/todTitles");
+                  document
+                    .getElementById("todTitles")
+                    .classList.add("activeModule");
+                }}
+              >
+                <span className="icon">
+                  <Package color="#FFF" />
+                </span>
+                <span className="title">Tod Titles</span>
               </li>
             </NavLink>
           </>
