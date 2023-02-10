@@ -69,7 +69,7 @@ function Tod() {
                 <option value="option3">DevOps Engineer</option>
               </Select>
             </FormControl>
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel>Also skilled at [Max 2] </FormLabel>
               <Flex gap={2}>
                 <Input
