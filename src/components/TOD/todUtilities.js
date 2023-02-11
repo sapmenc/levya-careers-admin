@@ -54,20 +54,32 @@ export const educationReducer = (state, action) => {
   }
 };
 
-const defaultLocation = {
-  id: Date.now(),
-  country: "",
-  state: "",
-  city: "",
-};
-export const preferredLocationReducer = (state, action) => {
+export const defaultPreferredLocations = [
+  {
+    country: "",
+    state: "",
+    city: "",
+  },
+];
+
+export const preferredLocationsReducer = (state, action) => {
   switch (action.type) {
     case "ADD_LOCATION":
-      return [...state, { defaultLocation, id: Date.now() }];
+      return [
+        ...state,
+        {
+          country: "",
+          state: "",
+          city: "",
+        },
+      ];
     case "UPDATE_LOCATION":
-      return state.map((location) => {
-        if (location.id === action.payload.id) {
-          return { ...location, ...action.payload.updates };
+      return state.map((location, i) => {
+        if (i === action.index) {
+          return {
+            ...location,
+            [action.field]: action.payload,
+          };
         }
         return location;
       });

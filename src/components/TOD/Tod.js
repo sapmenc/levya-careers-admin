@@ -21,8 +21,10 @@ import {
 import {
   defaultExperience,
   defaultEducation,
+  defaultPreferredLocations,
   experiencesReducer,
   educationReducer,
+  preferredLocationsReducer,
 } from "./todUtilities";
 import { Country, State, City } from "country-state-city";
 import moment from "moment";
@@ -35,6 +37,10 @@ function Tod() {
   const [education, dispatchEducation] = useReducer(educationReducer, [
     defaultEducation,
   ]);
+  const [preferredLocations, dispatchPreferredLocations] = useReducer(
+    preferredLocationsReducer,
+    defaultPreferredLocations
+  );
 
   const toast = useToast();
 
@@ -46,6 +52,7 @@ function Tod() {
   const handleSubmit = () => {
     console.log("submitted");
   };
+  console.log(Country.getAllCountries());
 
   return (
     <Flex
@@ -136,6 +143,92 @@ function Tod() {
             </FormControl>
             <FormControl isRequired>
               <FormLabel>Preferred Location</FormLabel>
+              {/* <Box>
+                {preferredLocations.map((location, i) => {
+                  const { country, state, city } = location;
+                  const countries = Country.getAllCountries();
+                  const states = country ? State.getAllStates() : [];
+                  const cities = state ? City.getAllCities() : [];
+
+                  return (
+                    <Box key={i} mt={4}>
+                      <FormControl>
+                        <FormLabel>Country</FormLabel>
+                        <Select
+                          //   value={}
+                          onChange={(e) => {
+                            // defaultPreferredLocations({
+                            //   type: "UPDATE_LOCATION",
+                            //   index: i,
+                            //   field: "country",
+                            //   payload: e.target.value,
+                            // })
+                          }}
+                        >
+                          <option value="">Select a country</option>
+                          {countries.map((c) => (
+                            <option key={c.id} value={c.name}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      {country && (
+                        <FormControl mt={4}>
+                          <FormLabel>State</FormLabel>
+                          <Select
+                            value={state}
+                            onChange={(e) => {
+                              //   defaultPreferredLocations({
+                              //     type: "UPDATE_LOCATION",
+                              //     index: i,
+                              //     field: "state",
+                              //     payload: e.target.value,
+                              //   })
+                            }}
+                          >
+                            <option value="">Select a state</option>
+                            {states.map((s) => (
+                              <option key={s.id} value={s.name}>
+                                {s.name}
+                              </option>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      )}
+                      {state && (
+                        <FormControl mt={4}>
+                          <FormLabel>City</FormLabel>
+                          <Select
+                            value={city}
+                            onChange={(e) => {
+                              //   dispatchPreferredLocations({
+                              //     type: "UPDATE_LOCATION",
+                              //     index: i,
+                              //     field: "city",
+                              //     payload: e.target.value,
+                              //   })
+                            }}
+                          >
+                            <option value="">Select a city</option>
+                            {cities.map((c) => (
+                              <option key={c.id}>{c.name}</option>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      )}
+                    </Box>
+                  );
+                })}
+                <Button
+                  mt={4}
+                  onClick={() =>
+                    dispatchPreferredLocations({ type: "ADD_LOCATION" })
+                  }
+                >
+                  Add Location
+                </Button>
+              </Box> */}
             </FormControl>
           </Flex>
           <Tabs variant="soft-rounded" colorScheme="red">
