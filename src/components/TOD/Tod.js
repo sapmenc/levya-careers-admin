@@ -1,6 +1,6 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 
-import Form from "./Form/Form";
+import Form from "./todNewProfileForm/Form";
 
 function Tod() {
   return (

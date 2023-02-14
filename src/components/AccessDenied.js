@@ -1,8 +1,9 @@
-import React from "react";
-import { Flex, Box, Stack, Image, Heading } from "@chakra-ui/react";
-import { LogoLink } from "../properties";
+import { Box, Heading, Image, Stack } from "@chakra-ui/react";
 
-function AccessDenied({textColor}) {
+import { LogoLink } from "../properties";
+import React from "react";
+
+function AccessDenied({ textColor }) {
   return (
     <Box w="100%" overflowX="hidden" id="homepage-comp">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
