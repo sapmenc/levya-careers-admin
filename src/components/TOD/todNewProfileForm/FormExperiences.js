@@ -1,16 +1,17 @@
-import React from "react";
 import {
   Box,
-  Heading,
+  Button,
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
+  Heading,
   Input,
-  Checkbox,
-  Button,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
+
+import React from "react";
 import moment from "moment";
 
 function FormExperiences({ experiences, dispatchExperiences }) {
@@ -29,10 +30,10 @@ function FormExperiences({ experiences, dispatchExperiences }) {
           borderRadius={10}
           overflow="hidden"
         >
-          <Heading as="h4" size="md" mb={5}>
+          <Heading as="h4" size="md" mb={8}>
             Experience {index + 1}
           </Heading>
-          <Flex flexDirection="column" gap={3}>
+          <Flex flexDirection="column" gap={6}>
             <FormControl isRequired>
               <FormLabel>Company Name</FormLabel>
               <Input

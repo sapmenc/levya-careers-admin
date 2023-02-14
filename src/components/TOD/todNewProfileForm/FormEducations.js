@@ -1,16 +1,17 @@
-import React from "react";
 import {
   Box,
-  Heading,
+  Button,
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
+  Heading,
   Input,
-  Checkbox,
-  Button,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
+
+import React from "react";
 import moment from "moment";
 
 function FormEducations({ educations, dispatchEducations }) {
@@ -22,10 +23,10 @@ function FormEducations({ educations, dispatchEducations }) {
       </Heading>
       {educations.map((edu, index) => (
         <Box key={edu.id} mb={4} bg="gray.200" p={5} borderRadius={10}>
-          <Heading as="h4" size="md" mb={5}>
+          <Heading as="h4" size="md" mb={8}>
             Education {index + 1}
           </Heading>
-          <Flex flexDirection="column" gap={3}>
+          <Flex flexDirection="column" gap={6}>
             <FormControl isRequired>
               <FormLabel>Instituion</FormLabel>
               <Input
@@ -83,73 +84,38 @@ function FormEducations({ educations, dispatchEducations }) {
                 }}
               />
             </FormControl>
-            <FormControl>
-              <Flex alignItems="center">
-                <FormLabel>Currently Persuing</FormLabel>
-                <Checkbox
-                  isChecked={edu.isCurrentlyPersuing || false}
-                  outline="none"
-                  border="none"
-                  borderRadius={2}
-                  colorScheme="red"
-                  bg="white"
-                  focusBorderColor="#790202"
-                  onChange={(e) => {
-                    dispatchEducations({
-                      type: "UPDATE_EDUCATION",
-                      payload: {
-                        id: edu.id,
-                        updates: {
-                          isCurrentlyPersuing: e.target.checked,
-                        },
-                      },
-                    });
-                    // console.log(education);
-                  }}
-                />
-              </Flex>
-            </FormControl>
-            <Flex gap={2} justifyContent="flex-start">
-              <FormControl isRequired>
-                <FormLabel>Start Date</FormLabel>
-                <Input
-                  // value={}
-                  bg="white"
-                  color="black"
-                  focusBorderColor="#790202"
-                  type="date"
-                  maxW="sm"
-                  onChange={(e) => {
-                    if (
-                      moment().format("YYYY-MM-DD") < e.target.value ||
-                      (edu.endDate !== "" && e.target.value > edu.endDate)
-                    ) {
-                      toast({
-                        title: "Error",
-                        description: "Enter a valid start date",
-                        status: "error",
-                        duration: 1000,
-                        isClosable: true,
-                      });
-                      e.target.value = "";
-                    } else {
+            <Flex flexDir="column">
+              <FormControl>
+                <Flex alignItems="center">
+                  <FormLabel>Currently Persuing</FormLabel>
+                  <Checkbox
+                    isChecked={edu.isCurrentlyPersuing || false}
+                    outline="none"
+                    border="none"
+                    borderRadius={2}
+                    colorScheme="red"
+                    bg="white"
+                    focusBorderColor="#790202"
+                    onChange={(e) => {
                       dispatchEducations({
                         type: "UPDATE_EDUCATION",
                         payload: {
                           id: edu.id,
-                          updates: { startDate: e.target.value },
+                          updates: {
+                            isCurrentlyPersuing: e.target.checked,
+                          },
                         },
                       });
-                    }
-                  }}
-                />
+                      // console.log(education);
+                    }}
+                  />
+                </Flex>
               </FormControl>
-              {!edu.isCurrentlyPersuing && (
+              <Flex gap={2} justifyContent="flex-start">
                 <FormControl isRequired>
-                  <FormLabel>End Date</FormLabel>
+                  <FormLabel>Start Date</FormLabel>
                   <Input
-                    //   value={}
-                    isDisabled={edu.startDate === ""}
+                    // value={}
                     bg="white"
                     color="black"
                     focusBorderColor="#790202"
@@ -158,11 +124,11 @@ function FormEducations({ educations, dispatchEducations }) {
                     onChange={(e) => {
                       if (
                         moment().format("YYYY-MM-DD") < e.target.value ||
-                        e.target.value < edu.startDate
+                        (edu.endDate !== "" && e.target.value > edu.endDate)
                       ) {
                         toast({
                           title: "Error",
-                          description: "Enter a valid end date",
+                          description: "Enter a valid start date",
                           status: "error",
                           duration: 1000,
                           isClosable: true,
@@ -173,21 +139,58 @@ function FormEducations({ educations, dispatchEducations }) {
                           type: "UPDATE_EDUCATION",
                           payload: {
                             id: edu.id,
-                            updates: { endDate: e.target.value },
+                            updates: { startDate: e.target.value },
                           },
                         });
                       }
-
-                      console.log(e.target.value);
-                      // const date = moment(e.target.value, "YYYY-MM-DD");
-
-                      // console.log("year", date.year());
-                      // console.log("month", date.format("MMMM"));
-                      // console.log("date", date.date());
                     }}
                   />
                 </FormControl>
-              )}
+                {!edu.isCurrentlyPersuing && (
+                  <FormControl isRequired>
+                    <FormLabel>End Date</FormLabel>
+                    <Input
+                      //   value={}
+                      isDisabled={edu.startDate === ""}
+                      bg="white"
+                      color="black"
+                      focusBorderColor="#790202"
+                      type="date"
+                      maxW="sm"
+                      onChange={(e) => {
+                        if (
+                          moment().format("YYYY-MM-DD") < e.target.value ||
+                          e.target.value < edu.startDate
+                        ) {
+                          toast({
+                            title: "Error",
+                            description: "Enter a valid end date",
+                            status: "error",
+                            duration: 1000,
+                            isClosable: true,
+                          });
+                          e.target.value = "";
+                        } else {
+                          dispatchEducations({
+                            type: "UPDATE_EDUCATION",
+                            payload: {
+                              id: edu.id,
+                              updates: { endDate: e.target.value },
+                            },
+                          });
+                        }
+
+                        console.log(e.target.value);
+                        // const date = moment(e.target.value, "YYYY-MM-DD");
+
+                        // console.log("year", date.year());
+                        // console.log("month", date.format("MMMM"));
+                        // console.log("date", date.date());
+                      }}
+                    />
+                  </FormControl>
+                )}
+              </Flex>
             </Flex>
             <FormControl isRequired>
               <FormLabel>Job Description</FormLabel>

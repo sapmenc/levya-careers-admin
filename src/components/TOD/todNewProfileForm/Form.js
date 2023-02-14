@@ -15,12 +15,13 @@ import {
   educationsReducer,
   experiencesReducer,
   preferredLocationsReducer,
-} from "../todUtilities.js";
+} from "./todUtilities.js";
 import { useReducer, useState } from "react";
 
 import FormEducations from "./FormEducations";
 import FormExperiences from "./FormExperiences";
 import FormName from "./FormName";
+import FormPreferredLocations from "./FormPreferredLocations.js";
 import FormProfileTitle from "./FormProfileTitle";
 import FormSkills from "./FormSkills";
 
@@ -40,6 +41,7 @@ function Form() {
         <FormName setName={setName} />
         <FormProfileTitle setProfileTitle={setProfileTitle} />
         <FormSkills skills={skills} setSkills={setSkills} />
+        <FormPreferredLocations />
         <Tabs variant="soft-rounded" colorScheme="red">
           <TabList display="flex" justifyContent="center">
             <Tab>Experience</Tab>
