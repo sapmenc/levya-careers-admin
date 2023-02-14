@@ -165,7 +165,7 @@ function Domains({ textColor }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <CloseButton />
+            <CloseButton onClick={onClose} />
           </ModalHeader>
           <ModalBody>
             <Text>

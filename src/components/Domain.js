@@ -19,24 +19,26 @@ import {
   useToast,
   CloseButton,
   Image,
+  Flex,
 } from "@chakra-ui/react";
-import { MinusCircle } from "react-feather";
+import { MinusCircle, Edit } from "react-feather";
 import { updateDomain } from "../api";
 import { useNavigate } from "react-router-dom";
+import "./Domain.css";
 function Domain({ domain, handleDeleteDomain }) {
   const toast = useToast();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [domainName, setDomainName] = useState('')
+  const [domainName, setDomainName] = useState("");
   const handleUpdateDomain = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem('auth')
-      const id = domain._id
+      const token = localStorage.getItem("auth");
+      const id = domain._id;
       let body = {
-        name: domainName
-      }
-      const { data } = await updateDomain(token, id, body)
+        name: domainName,
+      };
+      const { data } = await updateDomain(token, id, body);
       if (data.status) {
         toast({
           title: "Domain Updated",
@@ -47,19 +49,18 @@ function Domain({ domain, handleDeleteDomain }) {
         });
         onClose();
         //refresh the page
-        window.location.reload()
+        window.location.reload();
       }
-    }
-    catch (err) {
+    } catch (err) {
       toast({
         title: "Error",
         description: "Something went wrong",
         status: "error",
         duration: 2000,
         isClosable: true,
-      })
+      });
     }
-  }
+  };
   return (
     <Stack
       px={4}
@@ -79,15 +80,22 @@ function Domain({ domain, handleDeleteDomain }) {
       >
         {domain.name}
       </Text>
-      <Button onClick={onOpen} variant="outline" colorScheme="red" bg="white">
-        Edit
-      </Button>
-
-      <MinusCircle
-        onClick={() => handleDeleteDomain(domain._id)}
-        color="white"
-        cursor="pointer"
-      />
+      <Flex gap="10px">
+        <Edit
+          className="domain-icon"
+          onClick={onOpen}
+          color="white"
+          cursor="pointer"
+          height="20px"
+        />
+        <MinusCircle
+          className="domain-icon"
+          onClick={() => handleDeleteDomain(domain._id)}
+          color="white"
+          cursor="pointer"
+          height="20px"
+        />
+      </Flex>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -95,10 +103,11 @@ function Domain({ domain, handleDeleteDomain }) {
           <ModalCloseButton />
           <ModalBody>
             <Input
-              type='text'
+              type="text"
               value={domainName}
               onChange={(e) => setDomainName(e.target.value)}
-              focusBorderColor="#790202" />
+              focusBorderColor="#790202"
+            />
           </ModalBody>
 
           <ModalFooter>
