@@ -36,7 +36,7 @@ export const experiencesReducer = (state, action) => {
   }
 };
 
-export const educationReducer = (state, action) => {
+export const educationsReducer = (state, action) => {
   switch (action.type) {
     case "ADD_EDUCATION":
       return [...state, { ...defaultEducation, id: Date.now() }];

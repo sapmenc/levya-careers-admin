@@ -1,23 +1,24 @@
-import { Heading } from "@chakra-ui/react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import CreateUserpage from "./pages/CreateUserPage";
-import EditUserpage from "./pages/EditUserPage";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import Appearancepage from "./pages/Appearancepage";
 import CreateJobpage from "./pages/CreateJobpage";
+import CreateUserpage from "./pages/CreateUserPage";
 import Domainspage from "./pages/Domainspage";
+import EditJobpage from "./pages/EditJobpage";
+import EditUserpage from "./pages/EditUserPage";
+import { Flex } from "@chakra-ui/react";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import { Heading } from "@chakra-ui/react";
 import Homepage from "./pages/Homepage";
 import Jobspage from "./pages/Jobspage";
 import Login from "./pages/Login";
-import Userspage from "./pages/Userspage";
 import Sidebar from "./components/Sidebar";
-import EditJobpage from "./pages/EditJobpage";
-import { Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Appearancepage from "./pages/Appearancepage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import TodPage from "./pages/TodPage";
 import TodTitlesPage from "./pages/TodTitlesPage";
+import Userspage from "./pages/Userspage";
 import { fetchCurrentUser } from "./api";
+import { useLocation } from "react-router-dom";
 
 var locationName = "notFound";
 function App() {
