@@ -22,8 +22,9 @@ import FormExperiences from "./FormExperiences";
 import FormName from "./FormName";
 import FormPreferredLocations from "./preferredLocation/FormPreferredLocations.js";
 import FormPrimaryLocation from "./FormPrimaryLocation.js";
-import FormProfileTitle from "./FormProfileTitle";
+import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
+import FormTodTitle from "./FormTodTitle";
 
 function Form() {
   const [name, setName] = useState("");
@@ -63,6 +64,7 @@ function Form() {
       <Flex flexDir="column" gap={7}>
         <FormName setName={setName} />
         <FormProfileTitle setProfileTitle={setProfileTitle} />
+        <FormTodTitle setTodTitle={setTodTitle} />
         <FormSkills skills={skills} setSkills={setSkills} />
         <FormPrimaryLocation
           primaryLocation={primaryLocation}

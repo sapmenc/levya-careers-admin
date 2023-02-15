@@ -19,7 +19,7 @@ import {
 import { Edit, MinusCircle } from "react-feather";
 import React, { useState } from "react";
 
-import { LogoLink } from "../../properties.js";
+import { LogoLink } from "../../../properties.js";
 import { Search } from "react-feather";
 
 function Tod({ textColor }) {

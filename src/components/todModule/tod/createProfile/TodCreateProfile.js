@@ -1,8 +1,9 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Stack } from "@chakra-ui/react";
 
-import React from "react";
+import Form from "./createProfileForm/Form";
+import { LogoLink } from "../../../../properties";
 
-function TodTitles() {
+function Tod() {
   return (
     <Flex
       w="100%"
@@ -22,12 +23,16 @@ function TodTitles() {
         overflowX="hidden"
         overflowY="scroll"
       >
+        <Stack w="100%" justifyContent="center" alignItems="center" mb={8}>
+          <Image src={LogoLink} maxWidth="250px" height="auto" />
+        </Stack>
         <Heading textAlign="center" my={5}>
           Create New Profile
         </Heading>
+        <Form />
       </Box>
     </Flex>
   );
 }
 
-export default TodTitles;
+export default Tod;
