@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   CloseButton,
-  Flex,
   GridItem,
   Heading,
   Image,
@@ -17,7 +16,6 @@ import {
   Stack,
   Text,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 

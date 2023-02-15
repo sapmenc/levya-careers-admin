@@ -1,12 +1,11 @@
 import {
-  Box,
-  Button,
-  Flex,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
+ Button,
+ Flex,
+ Tab,
+ TabList,
+ TabPanel,
+ TabPanels,
+ Tabs,
 } from "@chakra-ui/react";
 import {
   defaultEducation,
