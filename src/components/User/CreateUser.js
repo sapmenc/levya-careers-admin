@@ -10,7 +10,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Grid } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../api";
 import { LogoLink } from "../../properties.js";

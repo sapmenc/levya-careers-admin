@@ -36,7 +36,7 @@ export const experiencesReducer = (state, action) => {
   }
 };
 
-export const educationReducer = (state, action) => {
+export const educationsReducer = (state, action) => {
   switch (action.type) {
     case "ADD_EDUCATION":
       return [...state, { ...defaultEducation, id: Date.now() }];
@@ -54,24 +54,33 @@ export const educationReducer = (state, action) => {
   }
 };
 
-const defaultLocation = {
-  id: Date.now(),
-  country: "",
-  state: "",
-  city: "",
-};
-export const preferredLocationReducer = (state, action) => {
+export const preferredLocationsReducer = (state = [], action) => {
   switch (action.type) {
-    case "ADD_LOCATION":
-      return [...state, { defaultLocation, id: Date.now() }];
-    case "UPDATE_LOCATION":
-      return state.map((location) => {
-        if (location.id === action.payload.id) {
-          return { ...location, ...action.payload.updates };
+    case "ADD_LOCATION": {
+      let found = false;
+      for (let obj of state) {
+        if (
+          JSON.stringify(obj.locationData) ===
+          JSON.stringify({ ...action.locationData })
+        ) {
+          found = true;
+          break;
         }
-        return location;
+      }
+      if (!found) {
+        state.push({
+          id: Date.now(),
+          locationData: { ...action.locationData },
+        });
+      }
+
+      return [...state];
+    }
+    case "REMOVE_LOCATION": {
+      state = state.filter((obj) => {
+        return action.id !== obj.id;
       });
-    default:
-      return state;
+      return [...state];
+    }
   }
 };
