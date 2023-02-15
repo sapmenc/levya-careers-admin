@@ -21,10 +21,12 @@ import React, { useState } from "react";
 
 import { LogoLink } from "../../../properties.js";
 import { Search } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 function Tod({ textColor }) {
   const [result, setResult] = useState([1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 4]);
   const [domains, setDomains] = useState([]);
+  const navigate = useNavigate();
 
   return (
     <Box w="100%" overflowX="hidden">
@@ -35,7 +37,14 @@ function Tod({ textColor }) {
         All TOD Profiles
       </Heading>
       <Stack m="2" direction="row" justify="end">
-        <Button variant="outline" colorScheme="red" bg="white">
+        <Button
+          variant="outline"
+          colorScheme="red"
+          bg="white"
+          onClick={() => {
+            return navigate("/tod/createProfile");
+          }}
+        >
           Add Profile
         </Button>
       </Stack>
