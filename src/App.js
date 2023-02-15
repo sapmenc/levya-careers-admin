@@ -14,6 +14,7 @@ import Homepage from "./pages/Homepage";
 import Jobspage from "./pages/Jobspage";
 import Login from "./pages/Login";
 import Sidebar from "./components/Sidebar";
+import TodCreateProfilePage from "./pages/TodCreateProfilePage";
 import TodPage from "./pages/TodPage";
 import TodTitlesPage from "./pages/TodTitlesPage";
 import Userspage from "./pages/Userspage";
@@ -166,6 +167,10 @@ function App() {
           element={<ForgotPasswordPage textColor={textColor} />}
         />
         <Route path="/tod" element={<TodPage textColor={textColor} />} />
+        <Route
+          path="/tod/createProfile"
+          element={<TodCreateProfilePage textColor={textColor} />}
+        />
         <Route
           path="/todTitles"
           element={<TodTitlesPage textColor={textColor} />}
