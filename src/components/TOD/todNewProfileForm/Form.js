@@ -11,7 +11,6 @@ import {
 import {
   defaultEducation,
   defaultExperience,
-  defaultPreferredLocations,
   educationsReducer,
   experiencesReducer,
   preferredLocationsReducer,
@@ -21,7 +20,8 @@ import { useReducer, useState } from "react";
 import FormEducations from "./FormEducations";
 import FormExperiences from "./FormExperiences";
 import FormName from "./FormName";
-import FormPreferredLocations from "./FormPreferredLocations.js";
+import FormPreferredLocations from "./preferredLocation/FormPreferredLocations.js";
+import FormPrimaryLocation from "./FormPrimaryLocation.js";
 import FormProfileTitle from "./FormProfileTitle";
 import FormSkills from "./FormSkills";
 
@@ -29,19 +29,45 @@ function Form() {
   const [name, setName] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
   const [skills, setSkills] = useState(new Set([]));
+  const [primaryLocation, setPrimaryLocation] = useState(null);
   const [experiences, dispatchExperiences] = useReducer(experiencesReducer, [
     defaultExperience,
   ]);
   const [educations, dispatchEducations] = useReducer(educationsReducer, [
     defaultEducation,
   ]);
+  const [preferredLocations, dispatchPreferredLocations] = useReducer(
+    preferredLocationsReducer,
+    []
+  );
+
+  const handlePublish = () => {
+    const body = {
+      name: name,
+      primaryLocation: primaryLocation,
+      preferredLocations: preferredLocations,
+      experiences: experiences,
+      profileTitle: profileTitle,
+      skills: skills,
+      educations: educations,
+      status: true,
+    };
+    console.log(body);
+  };
   return (
     <Flex flexDir="column" gap={5}>
-      <Flex flexDir="column" gap={5}>
+      <Flex flexDir="column" gap={7}>
         <FormName setName={setName} />
         <FormProfileTitle setProfileTitle={setProfileTitle} />
         <FormSkills skills={skills} setSkills={setSkills} />
-        <FormPreferredLocations />
+        <FormPrimaryLocation
+          primaryLocation={primaryLocation}
+          setPrimaryLocation={setPrimaryLocation}
+        />
+        <FormPreferredLocations
+          preferredLocations={preferredLocations}
+          dispatchPreferredLocations={dispatchPreferredLocations}
+        />
         <Tabs variant="soft-rounded" colorScheme="red">
           <TabList display="flex" justifyContent="center">
             <Tab>Experience</Tab>
@@ -81,6 +107,7 @@ function Form() {
             bg: "#ba1117",
             color: "white",
           }}
+          onClick={handlePublish}
         >
           PUBLISH
         </Button>

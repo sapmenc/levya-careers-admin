@@ -1,5 +1,6 @@
-import React from "react";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
+
+import React from "react";
 
 function FormProfileTitle({ setProfileTitle }) {
   return (
@@ -12,9 +13,9 @@ function FormProfileTitle({ setProfileTitle }) {
           setProfileTitle(e.target.value);
         }}
       >
-        <option value="option1">Frontend Developer</option>
-        <option value="option2">Backend Developer</option>
-        <option value="option3">DevOps Engineer</option>
+        <option value="Frontend Developer">Frontend Developer</option>
+        <option value="Backend Developer">Backend Developer</option>
+        <option value="DevOps Engineer">DevOps Engineer</option>
       </Select>
     </FormControl>
   );
