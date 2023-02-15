@@ -1,10 +1,11 @@
-import React from "react";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+
+import React from "react";
 
 function FormName({ setName }) {
   return (
     <FormControl isRequired>
-      <FormLabel>Candidate Name</FormLabel>
+      <FormLabel fontWeight="bold">Candidate Name</FormLabel>
       <Input
         bg="white"
         color="black"

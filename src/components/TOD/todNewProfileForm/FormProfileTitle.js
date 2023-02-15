@@ -5,7 +5,7 @@ import React from "react";
 function FormProfileTitle({ setProfileTitle }) {
   return (
     <FormControl isRequired>
-      <FormLabel>Profile Title</FormLabel>
+      <FormLabel fontWeight="bold">Profile Title</FormLabel>
       <Select
         placeholder="Select option"
         focusBorderColor="#790202"

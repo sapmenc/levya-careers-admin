@@ -1,19 +1,19 @@
-import React, { useState } from "react";
 import {
+  Button,
+  Flex,
   FormControl,
   FormLabel,
   Input,
-  Flex,
-  Button,
   Text,
 } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 function FormSkills({ skills, setSkills }) {
   const [currSkill, setCurrSkill] = useState("");
 
   return (
     <FormControl>
-      <FormLabel>Also skilled at [Max 2] </FormLabel>
+      <FormLabel fontWeight="bold">Also skilled at [Max 2] </FormLabel>
       <Flex gap={2}>
         <Input
           value={currSkill || ""}
