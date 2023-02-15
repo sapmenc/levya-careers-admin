@@ -26,7 +26,7 @@ import Title from "./Title.js";
 import { fetchAllTitles } from "../../../api/index.js";
 
 function TodTitles({ textColor }) {
-  const [titles, setTitles] = useState([]);
+  const [titles, setTitles] = useState(["sdjfndj", "hbdsk"]);
   const [setNewDomain, setNewTitle] = useState("");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -99,7 +99,7 @@ function TodTitles({ textColor }) {
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8} color={textColor}>
-        All titles
+        All TOD Titles
       </Heading>
       <SimpleGrid m={2} p={2} w="100%" columns={2}>
         <GridItem w="50%" mx="auto">
@@ -109,7 +109,7 @@ function TodTitles({ textColor }) {
               bg="white"
               type="text"
               value={setNewDomain}
-              placeholder="New Domain Title"
+              placeholder="New TOD Title"
               onChange={(e) => setNewTitle(e.target.value)}
               size="sm"
               focusBorderColor="#790202"
@@ -128,11 +128,11 @@ function TodTitles({ textColor }) {
             border="1px solid gray"
           >
             {titles.length > 0 &&
-              titles?.map((domain, index) => (
+              titles?.map((title, index) => (
                 <Title
-                  domain={domain}
+                  title={title}
                   key={index}
-                  // handleDeleteDomain={handleDeleteDomain}
+                  // handleDeleteTitle={handleDeleteTitle}
                 />
               ))}
           </Stack>
