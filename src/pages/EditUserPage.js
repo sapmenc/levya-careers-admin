@@ -27,7 +27,7 @@ function EditUserPage({ textColor }) {
   }, []);
   return (
     readyToRender &&
-    (userRole === "admin" && user?._id != param?.id ? (
+    (userRole === "admin" ? (
       <>
         <EditUser textColor={textColor} />
       </>
