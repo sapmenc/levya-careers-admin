@@ -49,7 +49,7 @@ function App() {
       "createuser",
       "edituser",
       "tod",
-      "todTitle",
+      "todTitles",
     ];
 
     for (let i = locationPath.length - 1; i >= 0; i--) {
@@ -74,6 +74,9 @@ function App() {
     )
       module = "users";
     else if (locationName === "appearance") module = "appearance";
+    else if (locationName === "tod" || locationName === "createProfile")
+      module = "tod";
+    else if (locationName === "todTitles") module = "todTitles";
     let element = document.getElementById(module);
     element?.classList.add("activeModule");
   }, [location]);
