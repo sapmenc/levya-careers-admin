@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Flex,
   GridItem,
   Heading,
-  SimpleGrid,
-  Stack,
-  Flex,
   Image,
   Radio,
   RadioGroup,
+  SimpleGrid,
+  Stack,
   useToast,
 } from "@chakra-ui/react";
-
+import React, { useEffect, useState } from "react";
 import { editUserProfile, fetchAllAppearance, fetchCurrentUser } from "../api";
+
 import { LogoLink } from "../properties";
 
 function Appearance({ textColor, setTextColor }) {
@@ -43,7 +43,7 @@ function Appearance({ textColor, setTextColor }) {
           position: "top-right",
         });
       }
-    } catch (err) { }
+    } catch (err) {}
   };
   const changeTextColor = async (color) => {
     if (textColor === color) {
@@ -91,12 +91,17 @@ function Appearance({ textColor, setTextColor }) {
     }
   };
   const resetAppearance = async () => {
-    const _id = "63e545b172e82dd7bf4640df"
+    document.getElementById("bg").style.backgroundImage =
+      "url(https://ik.imagekit.io/o0spphqdc/appearances/3433814_Jvyzikg8yy.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675969906813)";
+    document.getElementById("bg").style.backgroundSize = "cover";
+    setTextColor("#000000");
+    const _id = "63e545b172e82dd7bf4640df";
     try {
       const token = localStorage.getItem("auth");
       let body = {
         id: user?._id,
         appearance: _id,
+        textColor: "#000000",
       };
       const { data } = await editUserProfile(token, body);
       if (data.status) {
@@ -119,7 +124,6 @@ function Appearance({ textColor, setTextColor }) {
         position: "top-right",
       });
     }
-
   };
   const handleFetchAllAppearance = async () => {
     try {

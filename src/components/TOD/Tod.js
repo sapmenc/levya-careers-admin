@@ -22,7 +22,7 @@ import React, { useState } from "react";
 import { LogoLink } from "../../properties.js";
 import { Search } from "react-feather";
 
-function Tod() {
+function Tod({ textColor }) {
   const [result, setResult] = useState([1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 4]);
   const [domains, setDomains] = useState([]);
 
@@ -31,7 +31,7 @@ function Tod() {
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
-      <Heading textAlign="center" mt={8}>
+      <Heading textAlign="center" mt={8} color={textColor}>
         All TOD Profiles
       </Heading>
       <Stack m="2" direction="row" justify="end">
