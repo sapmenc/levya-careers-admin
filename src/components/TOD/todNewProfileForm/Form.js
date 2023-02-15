@@ -28,6 +28,7 @@ import FormSkills from "./FormSkills";
 function Form() {
   const [name, setName] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
+  const [todTitle, setTodTitle] = useState("");
   const [skills, setSkills] = useState(new Set([]));
   const [primaryLocation, setPrimaryLocation] = useState(null);
   const [experiences, dispatchExperiences] = useReducer(experiencesReducer, [
@@ -48,9 +49,12 @@ function Form() {
       preferredLocations: preferredLocations,
       experiences: experiences,
       profileTitle: profileTitle,
+      todTitle: todTitle,
       skills: skills,
       educations: educations,
-      status: true,
+      status: "active",
+      keywords: new Set([]),
+      yearsOfExperience: 0,
     };
     console.log(body);
   };

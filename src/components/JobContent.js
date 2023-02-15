@@ -1,27 +1,28 @@
 import {
   Box,
   Button,
-  Stack,
-  Select,
   Heading,
-  useToast,
+  Image,
+  Input,
+  Select,
+  Stack,
+  Switch,
+  Table,
   TableContainer,
-  Td,
-  Tr,
   Tbody,
+  Td,
   Th,
   Thead,
-  Table,
-  Input,
-  Switch,
-  Image,
+  Tr,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Search } from "react-feather";
-import { useNavigate } from "react-router-dom";
 import { fetchAllDomains, fetchAllJobs, updateJob } from "../api";
+
 import Fuse from "fuse.js";
 import { LogoLink } from "../properties.js";
+import { Search } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 function JobContent({ textColor }) {
   let token = localStorage.getItem("auth");
@@ -218,7 +219,7 @@ function JobContent({ textColor }) {
               setJobId(e.target.value);
             }}
             value={jobId}
-            placeholder="job id"
+            placeholder="Job ID"
             focusBorderColor="#292929cf"
           />
           <Input
