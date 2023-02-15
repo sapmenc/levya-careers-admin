@@ -53,3 +53,34 @@ export const educationsReducer = (state, action) => {
       return state;
   }
 };
+
+export const preferredLocationsReducer = (state = [], action) => {
+  switch (action.type) {
+    case "ADD_LOCATION": {
+      let found = false;
+      for (let obj of state) {
+        if (
+          JSON.stringify(obj.locationData) ===
+          JSON.stringify({ ...action.locationData })
+        ) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        state.push({
+          id: Date.now(),
+          locationData: { ...action.locationData },
+        });
+      }
+
+      return [...state];
+    }
+    case "REMOVE_LOCATION": {
+      state = state.filter((obj) => {
+        return action.id !== obj.id;
+      });
+      return [...state];
+    }
+  }
+};
