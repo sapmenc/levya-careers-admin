@@ -39,7 +39,7 @@ function Tod() {
           Add Profile
         </Button>
       </Stack>
-      <Stack align="center" h="70vh" overflow={"auto"}>
+      <Stack align="center" h="70vh">
         <Stack
           bg="secondary"
           p={5}
