@@ -10,6 +10,7 @@ function FormEmail({ setEmail }) {
         bg="white"
         color="black"
         focusBorderColor="#790202"
+        type="email"
         onChange={(e) => {
           setEmail(e.target.value);
         }}
