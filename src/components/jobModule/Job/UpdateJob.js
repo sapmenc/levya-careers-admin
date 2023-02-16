@@ -132,7 +132,6 @@ function UpdateJob(props) {
           duration: 2000,
           isClosable: true,
         });
-        console.log(data.data);
         setCity(capitalizeFirstLetter(data.data.city));
         setCountry(transformName(data.data.country));
         setCountryCode(data.data.country_code);

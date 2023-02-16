@@ -27,7 +27,7 @@ import FormPrimaryLocation from "./FormPrimaryLocation.js";
 import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
-import { editProfile } from "../../../../../api/index.js";
+import { editProfile, fetchProfileById } from "../../../../../api/index.js";
 
 function Form() {
   const token = localStorage.getItem("auth");
@@ -50,7 +50,7 @@ function Form() {
     []
   );
 
-  const handleEditProfile =async () => {
+  const handleEditProfile = async () => {
     const body = {
       name: name,
       mobile: mobile,
@@ -66,16 +66,26 @@ function Form() {
       keywords: new Set([]),
       yearsOfExperience: 0,
     };
-    try{
-      const {data} = await editProfile(token, body);
+    try {
+      const { data } = await editProfile(token, body);
       console.log(data);
     }
-    catch(err){
+    catch (err) {
 
       console.log(err);
     }
     console.log(body);
   };
+  const handleFetchCurrenProfile = async () => {
+    // extract pid from url
+    const pid = "123"
+    try {
+      const { data } = await fetchProfileById(token, pid);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <Flex flexDir="column" gap={5}>
       <Flex flexDir="column" gap={7}>
