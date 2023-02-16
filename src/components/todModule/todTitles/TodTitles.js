@@ -16,15 +16,16 @@ import {
   Stack,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { LogoLink } from "../../../properties.js";
 import Title from "./Title.js";
 import { fetchAllTitles } from "../../../api/index.js";
 
 function TodTitles({ textColor }) {
-  const [titles, setTitles] = useState(["sdjfndj", "hbdsk"]);
+  const [titles, setTitles] = useState([]);
   const [setNewDomain, setNewTitle] = useState("");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,42 +33,48 @@ function TodTitles({ textColor }) {
   //   setDomainId(id);
   //   onOpen();
   // };
-  const handleAddTitle = async () => {};
+  const handleAddTitle = async () => { };
 
-  // let token = localStorage.getItem("auth");
-  // const toast = useToast();
-  // const handleFetchAllTitles = async () => {
-  //   try {
-  //     const { data } = await fetchAllTitles(token);
-  //     if (data.error) {
-  //       toast({
-  //         title: "Error",
-  //         description: data.message,
-  //         status: "error",
-  //         duration: 2000,
-  //         isClosable: true,
-  //       });
-  //     } else {
-  //       toast({
-  //         title: "Success",
-  //         description: data.message,
-  //         status: "success",
-  //         duration: 2000,
-  //         isClosable: true,
-  //       });
-  //       console.log(data.data);
-  //       setTitles(data.data);
-  //     }
-  //   } catch (error) {
-  //     return toast({
-  //       title: "Error",
-  //       description: error,
-  //       status: "error",
-  //       duration: 2000,
-  //       isClosable: true,
-  //     });
-  //   }
-  // };
+  let token = localStorage.getItem("auth");
+  const toast = useToast();
+  const handleFetchAllTitles = async () => {
+    try {
+      const { data } = await fetchAllTitles(token);
+      console.log(data);
+      if (data.error) {
+        toast({
+          title: "Error",
+          description: "Error while fetching titles",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Titles fetched successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        setTitles(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return toast({
+        title: "Error",
+        description: "error",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleFetchAllTitles();
+  }, [])
+
   return (
     <Box w="100%" overflowX="hidden">
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -125,14 +132,14 @@ function TodTitles({ textColor }) {
             borderRadius="15px"
             border="1px solid gray"
           >
-            {titles.length > 0 &&
+            {/* {titles.length > 0 &&
               titles?.map((title, index) => (
                 <Title
                   title={title}
                   key={index}
-                  // handleDeleteTitle={handleDeleteTitle}
+                // handleDeleteTitle={handleDeleteTitle}
                 />
-              ))}
+              ))} */}
           </Stack>
         </GridItem>
       </SimpleGrid>

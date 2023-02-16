@@ -107,18 +107,72 @@ export const fetchAllAppearance = async (token) =>
     },
   });
 
-export const fetchAllTitles = async (token) => {
+export const fetchAllTitles = async (token) =>
   API.get("/title", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-};
 
-export const fetchTitleById = async (token, id) => {
+export const createTitle = async (token, body) =>
+  API.post("/title", body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const fetchTitleById = async (token, id) =>
   API.get(`/title/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-};
+
+export const editTitle = async (token, id, body) =>
+  API.patch(`/title/${id}`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const deleteTitle = async (token, id) =>
+  API.delete(`/title/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const fetchAllProfiles = async (token, body) =>
+  API.get("/profile", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const fetchProfileById = async (token, id) =>
+  API.get(`/profile/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const createProfile = async (token, body) =>
+  API.post("/profile", body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const editProfile = async (token, id, body) =>
+  API.patch(`/profile/${id}`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const deleteProfile = async (token, id) =>
+  API.delete(`/profile/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
