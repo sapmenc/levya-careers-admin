@@ -1,0 +1,13 @@
+@keyframes loading {
+    0%{
+        opacity: 1;
+    }
+   
+    100%{
+        opacity: 0.5;
+    }
+}
+
+.loading{
+    animation: loading 1s infinite alternate;
+}

@@ -20,6 +20,7 @@ import React, { useEffect, useState } from "react";
 import { fetchAllDomains, fetchAllJobs, updateJob } from "../api";
 
 import Fuse from "fuse.js";
+import Loader from "./loader/Loader";
 import { LogoLink } from "../properties.js";
 import { Search } from "react-feather";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +34,7 @@ function JobContent({ textColor }) {
   const [domains, setDomains] = useState([]);
   const [isSelectedActive, setIsSelectedActive] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchDomain, setSearchDomain] = useState("");
   const [searchStatus, setSearchStatus] = useState("");
@@ -179,10 +181,16 @@ function JobContent({ textColor }) {
     setResultJobs(r);
   };
   useEffect(() => {
-    handleFetchAllJobs();
-    handleFetchAllDomains();
+    setIsLoading(true);
+    handleFetchAllJobs().then(() => {
+      handleFetchAllDomains().then(() => {
+        setIsLoading(false);
+      });
+    });
   }, [resultJobs]);
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />

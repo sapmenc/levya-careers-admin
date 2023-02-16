@@ -1,17 +1,19 @@
 import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
   Input,
+  Select,
   Stack,
   useToast,
-  Button,
-  Heading,
-  Select,
-  Box,
-  Image,
-  Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { editUserProfile, getUserById } from "../../api";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Loader from "../loader/Loader";
 import { LogoLink } from "../../properties.js";
 
 function EditUser({ textColor }) {
@@ -25,6 +27,7 @@ function EditUser({ textColor }) {
   const [role, setRole] = useState("user");
   const [status, setStatus] = useState("active");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUserUpdation = async (e) => {
     try {
@@ -91,10 +94,15 @@ function EditUser({ textColor }) {
   };
 
   useEffect(() => {
-    handleFetchCurrentUser();
+    setIsLoading(true);
+    handleFetchCurrentUser().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />

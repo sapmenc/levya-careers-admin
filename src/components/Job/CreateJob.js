@@ -1,26 +1,33 @@
 import {
   Box,
-  Select,
-  Input,
-  Textarea,
-  Heading,
-  Flex,
-  Checkbox,
   Button,
+  Checkbox,
+  Flex,
   FormControl,
-  useToast,
-  Stack,
-  background,
+  Heading,
   Image,
+  Input,
+  Select,
+  Stack,
+  Textarea,
+  background,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useState, useRef } from "react";
-import { Country, State, City } from "country-state-city";
-import { addJob, fetchAllDomains, fetchCurrentUser, getUserById } from "../../api";
-import { useNavigate } from "react-router-dom";
-import { LogoLink } from "../../properties.js";
-import JoditEditor from "jodit-react";
+import { City, Country, State } from "country-state-city";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  addJob,
+  fetchAllDomains,
+  fetchCurrentUser,
+  getUserById,
+} from "../../api";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import JoditEditor from "jodit-react";
+import Loader from "../loader/Loader";
+import { LogoLink } from "../../properties.js";
+import { useNavigate } from "react-router-dom";
 
 function CreateJob({ textColor }) {
   const token = localStorage.getItem("auth");
@@ -39,6 +46,7 @@ function CreateJob({ textColor }) {
   const [country_code, setCountryCode] = useState("");
   const [hybrid, setHybrid] = useState(false);
   const [userId, setUserId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const editor = useRef(null);
 
@@ -125,12 +133,12 @@ function CreateJob({ textColor }) {
         });
         setDomains(data.data);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleFetchCurrentUser = async () => {
     try {
-      const token = localStorage.getItem("auth")
-      const { data } = await fetchCurrentUser(token)
+      const token = localStorage.getItem("auth");
+      const { data } = await fetchCurrentUser(token);
       if (data.status) {
         // toast({
         //   title: "Success",
@@ -152,12 +160,20 @@ function CreateJob({ textColor }) {
     }
   };
   useEffect(() => {
+    setIsLoading(true);
     handleFetchAllDomains()
-    handleFetchCurrentUser()
+      .then(() => {
+        handleFetchCurrentUser();
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
   }, []);
-  useEffect(() => { }, [country, state, city]);
+  useEffect(() => {}, [country, state, city]);
 
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <form onSubmit={handleSubmit}>
         <FormControl>

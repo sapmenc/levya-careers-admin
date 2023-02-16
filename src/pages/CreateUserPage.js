@@ -1,14 +1,16 @@
+import { useEffect, useState } from "react";
+
+import AccessDenied from "../components/AccessDenied";
+import CreateUser from "../components/User/CreateUser";
 import { Flex } from "@chakra-ui/react";
+import Loader from "../components/loader/Loader";
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import CreateUser from "../components/User/CreateUser";
-import AccessDenied from "../components/AccessDenied";
-import { useEffect, useState } from "react";
 import { fetchCurrentUser } from "../api";
 
 function CreateUserPage({ textColor }) {
   const [userRole, setUserRole] = useState("user");
-  const [readyToRender, setReadyToRender] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   let token = localStorage.getItem("auth");
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
@@ -18,19 +20,19 @@ function CreateUserPage({ textColor }) {
     setUserRole(data.data.role);
   };
   useEffect(() => {
+    setIsLoading(true);
     getCurrentUser().then(() => {
-      setReadyToRender(true);
+      setIsLoading(false);
     });
   }, []);
-  return (
-    readyToRender &&
-    (userRole === "admin" ? (
-      <>
-        <CreateUser textColor={textColor} />
-      </>
-    ) : (
-      <AccessDenied textColor={textColor} />
-    ))
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : userRole === "admin" ? (
+    <>
+      <CreateUser textColor={textColor} />
+    </>
+  ) : (
+    <AccessDenied textColor={textColor} />
   );
 }
 

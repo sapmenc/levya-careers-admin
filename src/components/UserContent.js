@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Stack,
+  CloseButton,
   Heading,
-  useToast,
-  TableContainer,
-  Td,
-  Tr,
-  Tbody,
-  Th,
-  Thead,
-  Table,
   Image,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  CloseButton,
   ModalBody,
-  Text,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { deleteUser, fetchAllUsers, fetchCurrentUser } from "../api";
-import { useNavigate } from "react-router-dom";
+
+import Loader from "./loader/Loader";
 import { LogoLink } from "../properties.js";
+import { useNavigate } from "react-router-dom";
 
 function UserContent({ textColor }) {
   let token = localStorage.getItem("auth");
@@ -35,6 +37,7 @@ function UserContent({ textColor }) {
   const [fetchedUsers, setFetchedUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [userId, setUserId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteUser = (id) => {
     setUserId(id);
@@ -133,10 +136,16 @@ function UserContent({ textColor }) {
     }
   };
   useEffect(() => {
-    handleFetchAllUsers();
-    handleGetCurrentUser();
+    setIsLoading(true);
+    handleFetchAllUsers().then(() => {
+      handleGetCurrentUser().then(() => {
+        setIsLoading(false);
+      });
+    });
   }, []);
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />

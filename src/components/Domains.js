@@ -1,29 +1,30 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Box,
   Button,
+  CloseButton,
   GridItem,
   Heading,
+  Image,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SimpleGrid,
   Stack,
   Text,
+  useDisclosure,
   useToast,
-  CloseButton,
-  Image,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-
 import { addDomain, deleteDomain, fetchAllDomains } from "../api";
-import { LogoLink } from "../properties.js";
+
 import Domain from "./Domain";
+import Loader from "./loader/Loader";
+import { LogoLink } from "../properties.js";
 
 function Domains({ textColor }) {
   let token = localStorage.getItem("auth");
@@ -32,6 +33,7 @@ function Domains({ textColor }) {
   const [newDomain, setNewDomain] = useState("");
   const [domainId, setDomainId] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
   const handleDeleteDomain = (id) => {
     setDomainId(id);
     onOpen();
@@ -157,9 +159,14 @@ function Domains({ textColor }) {
     setNewDomain("");
   };
   useEffect(() => {
-    handleFetchAllDomains();
+    setIsLoading(true);
+    handleFetchAllDomains().then(() => {
+      setIsLoading(false);
+    });
   }, []);
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />

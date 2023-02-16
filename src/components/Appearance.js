@@ -14,12 +14,14 @@ import {
 import React, { useEffect, useState } from "react";
 import { editUserProfile, fetchAllAppearance, fetchCurrentUser } from "../api";
 
+import Loader from "./loader/Loader";
 import { LogoLink } from "../properties";
 
 function Appearance({ textColor, setTextColor }) {
   const toast = useToast();
   const [appearances, setAppearances] = useState([]);
   const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("auth");
 
   const changeBackground = async (_id, image) => {
@@ -145,11 +147,19 @@ function Appearance({ textColor, setTextColor }) {
     setUser(data.data);
   };
   useEffect(() => {
-    handleFetchAllAppearance();
-    getCurrentUser();
+    setIsLoading(true);
+    handleFetchAllAppearance()
+      .then(() => {
+        getCurrentUser();
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />

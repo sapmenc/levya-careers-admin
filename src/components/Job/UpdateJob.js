@@ -1,25 +1,27 @@
 import {
   Box,
-  Select,
-  Input,
-  Textarea,
-  Heading,
-  Flex,
-  Checkbox,
   Button,
+  Checkbox,
+  Flex,
   FormControl,
-  useToast,
-  Stack,
+  Heading,
   Image,
+  Input,
+  Select,
+  Stack,
+  Textarea,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useState, useRef } from "react";
-import { Country, State, City } from "country-state-city";
+import { City, Country, State } from "country-state-city";
+import React, { useEffect, useRef, useState } from "react";
 import { fetchAllDomains, fetchJobById, updateJob } from "../../api";
-import { useNavigate } from "react-router-dom";
-import { LogoLink } from "../../properties.js";
-import JoditEditor from "jodit-react";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import JoditEditor from "jodit-react";
+import Loader from "../loader/Loader";
+import { LogoLink } from "../../properties.js";
+import { useNavigate } from "react-router-dom";
 
 function UpdateJob(props) {
   const jid = props.jid;
@@ -38,7 +40,7 @@ function UpdateJob(props) {
   const [state_code, setStateCode] = useState("");
   const [country_code, setCountryCode] = useState("");
   const [hybrid, setHybrid] = useState(false);
-  const [readyToLoad, setReadyToLoad] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const editor = useRef(null);
 
@@ -150,16 +152,18 @@ function UpdateJob(props) {
     }
   };
   useEffect(() => {
-    handleFetchAllDomains();
-    handleCurrentJob().then(() => {
-      console.log(readyToLoad);
-      setReadyToLoad(true);
-      console.log(readyToLoad);
+    setIsLoading(true);
+    handleFetchAllDomains().then(() => {
+      handleCurrentJob().then(() => {
+        setIsLoading(false);
+      });
     });
   }, []);
   useEffect(() => {}, [country, state, city]);
 
-  return (
+  return isLoading ? (
+    <Loader textColor={props.textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <form onSubmit={handleSubmit}>
         <FormControl>
@@ -170,7 +174,7 @@ function UpdateJob(props) {
             <Heading textAlign="center" mt={8} textColor={props.textColor}>
               EDIT JOB POST
             </Heading>
-            {readyToLoad && (
+            {!isLoading && (
               <Stack align="center">
                 <Input
                   focusBorderColor="#790202"

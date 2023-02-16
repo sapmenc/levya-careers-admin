@@ -1,20 +1,23 @@
+import "./Dashboard.css";
+
 import {
+  Box,
   Circle,
   Flex,
   Heading,
+  IconButton,
+  Image,
   Stack,
   useToast,
-  Image,
-  Box,
-  IconButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { fetchAllJobs, fetchCurrentUser } from "../api";
-import "./Dashboard.css";
-import Typewriter from "typewriter-effect";
-import Fade from "react-reveal/Fade";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import Fade from "react-reveal/Fade";
+import Loader from "./loader/Loader";
 import { LogoLink } from "../properties.js";
+import Typewriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard({ textColor }) {
@@ -25,6 +28,8 @@ function Dashboard({ textColor }) {
   const [flag, setFlag] = useState(0); //telling whether we got the welcome details or not
   const toast = useToast();
   const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
 
@@ -63,10 +68,18 @@ function Dashboard({ textColor }) {
     }
   };
   useEffect(() => {
-    getCurrentUser();
-    handleFetchAllJobs();
+    setIsLoading(true);
+    getCurrentUser()
+      .then(() => {
+        handleFetchAllJobs();
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
   }, []);
-  return (
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : (
     <Box w="100%" overflowX="hidden" id="homepage-comp">
       <Stack w="100%" justifyContent="center" alignItems="center" mt={8}>
         <Image src={LogoLink} maxWidth="250px" height="auto" />

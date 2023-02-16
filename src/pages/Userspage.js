@@ -1,13 +1,15 @@
-import React from "react";
 import { useEffect, useState } from "react";
+
+import AccessDenied from "../components/AccessDenied";
+import Loader from "../components/loader/Loader";
+import React from "react";
 import Sidebar from "../components/Sidebar";
 import UserContent from "../components/UserContent";
 import { fetchCurrentUser } from "../api";
-import AccessDenied from "../components/AccessDenied";
 
 function Userspage({ textColor }) {
   const [userRole, setUserRole] = useState("user");
-  const [readyToRender, setReadyToRender] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   let token = localStorage.getItem("auth");
   if (localStorage.getItem("auth") === null) {
     window.location.href = "/login";
@@ -20,19 +22,19 @@ function Userspage({ textColor }) {
     setUserRole(data.data.role);
   };
   useEffect(() => {
+    setIsLoading(true);
     getCurrentUser().then(() => {
-      setReadyToRender(true);
+      setIsLoading(false);
     });
   }, []);
-  return (
-    readyToRender &&
-    (userRole === "admin" ? (
-      <>
-        <UserContent textColor={textColor} />
-      </>
-    ) : (
-      <AccessDenied textColor={textColor} />
-    ))
+  return isLoading ? (
+    <Loader textColor={textColor} />
+  ) : userRole === "admin" ? (
+    <>
+      <UserContent textColor={textColor} />
+    </>
+  ) : (
+    <AccessDenied textColor={textColor} />
   );
 }
 
