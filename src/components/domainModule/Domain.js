@@ -27,12 +27,22 @@ import React, { useState } from "react";
 
 import { updateDomain } from "../../api";
 import { useNavigate } from "react-router-dom";
+
 function Domain({ domain, handleDeleteDomain }) {
   const toast = useToast();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [domainName, setDomainName] = useState("");
   const handleUpdateDomain = async (e) => {
+    if (!domainName) {
+      toast({
+        title: "Enter a domain",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return;
+    }
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth");
