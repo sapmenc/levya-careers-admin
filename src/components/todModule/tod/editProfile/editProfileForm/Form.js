@@ -6,6 +6,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  useToast,
 } from "@chakra-ui/react";
 import {
   defaultEducation,
@@ -24,8 +25,11 @@ import FormPrimaryLocation from "./FormPrimaryLocation.js";
 import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
+import { editProfile } from "../../../../../api/index.js";
 
 function Form() {
+  const token = localStorage.getItem("auth");
+  const toast = useToast();
   const [name, setName] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
   const [todTitle, setTodTitle] = useState("");
@@ -42,7 +46,7 @@ function Form() {
     []
   );
 
-  const handlePublish = () => {
+  const handleEditProfile =async () => {
     const body = {
       name: name,
       primaryLocation: primaryLocation,
@@ -56,6 +60,14 @@ function Form() {
       keywords: new Set([]),
       yearsOfExperience: 0,
     };
+    try{
+      const {data} = await editProfile(token, body);
+      console.log(data);
+    }
+    catch(err){
+
+      console.log(err);
+    }
     console.log(body);
   };
   return (
@@ -112,9 +124,9 @@ function Form() {
             bg: "#ba1117",
             color: "white",
           }}
-          onClick={handlePublish}
+          onClick={handleEditProfile}
         >
-          PUBLISH
+          Edit
         </Button>
       </Flex>
     </Flex>
