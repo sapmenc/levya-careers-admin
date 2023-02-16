@@ -17,7 +17,9 @@ import {
 import { useReducer, useState } from "react";
 
 import FormEducations from "./FormEducations";
+import FormEmail from "./FormEmail.js";
 import FormExperiences from "./FormExperiences";
+import FormMobile from "./FormMobile.js";
 import FormName from "./FormName";
 import FormPreferredLocations from "./preferredLocation/FormPreferredLocations.js";
 import FormPrimaryLocation from "./FormPrimaryLocation.js";
@@ -27,6 +29,8 @@ import FormTodTitle from "./FormTodTitle";
 
 function Form() {
   const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
   const [todTitle, setTodTitle] = useState("");
   const [skills, setSkills] = useState(new Set([]));
@@ -45,6 +49,8 @@ function Form() {
   const handlePublish = () => {
     const body = {
       name: name,
+      mobile: mobile,
+      email: email,
       primaryLocation: primaryLocation,
       preferredLocations: preferredLocations,
       experiences: experiences,
@@ -62,6 +68,8 @@ function Form() {
     <Flex flexDir="column" gap={5}>
       <Flex flexDir="column" gap={7}>
         <FormName setName={setName} />
+        <FormMobile setMobile={setMobile} />
+        <FormEmail setEmail={setEmail} />
         <FormProfileTitle setProfileTitle={setProfileTitle} />
         <FormTodTitle setTodTitle={setTodTitle} />
         <FormSkills skills={skills} setSkills={setSkills} />
