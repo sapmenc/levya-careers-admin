@@ -23,10 +23,10 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { deleteUser, fetchAllUsers, fetchCurrentUser } from "../api";
+import { deleteUser, fetchAllUsers, fetchCurrentUser } from "../../api";
 
-import Loader from "./loader/Loader";
-import { LogoLink } from "../properties.js";
+import Loader from "../../components/utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../properties.js";
 import { useNavigate } from "react-router-dom";
 
 function UserContent({ textColor }) {

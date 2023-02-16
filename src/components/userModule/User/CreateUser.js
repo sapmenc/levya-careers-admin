@@ -1,18 +1,19 @@
 import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
   Input,
+  Select,
   Stack,
   useToast,
-  Button,
-  Heading,
-  Select,
-  Box,
-  Image,
-  Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+
+import { LogoLink } from "../../../properties.js";
+import { signupUser } from "../../../api";
 import { useNavigate } from "react-router-dom";
-import { signupUser } from "../../api";
-import { LogoLink } from "../../properties.js";
 
 function CreateUser({ textColor }) {
   const toast = useToast();

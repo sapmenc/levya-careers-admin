@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
-import AccessDenied from "../components/AccessDenied";
-import Loader from "../components/loader/Loader";
+import AccessDenied from "../components/utilityComponents/accessDenied/AccessDenied";
+import Loader from "../components/utilityComponents/loader/Loader";
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import UserContent from "../components/UserContent";
+import UserContent from "../components/userModule/UserContent";
 import { fetchCurrentUser } from "../api";
 
 function Userspage({ textColor }) {

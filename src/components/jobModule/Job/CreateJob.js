@@ -9,8 +9,6 @@ import {
   Input,
   Select,
   Stack,
-  Textarea,
-  background,
   useToast,
 } from "@chakra-ui/react";
 import { City, Country, State } from "country-state-city";
@@ -19,14 +17,12 @@ import {
   addJob,
   fetchAllDomains,
   fetchCurrentUser,
-  getUserById,
-} from "../../api";
+} from "../../../api/index.js";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import JoditEditor from "jodit-react";
-import Loader from "../loader/Loader";
-import { LogoLink } from "../../properties.js";
+import Loader from "../../utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../../properties.js";
 import { useNavigate } from "react-router-dom";
 
 function CreateJob({ textColor }) {

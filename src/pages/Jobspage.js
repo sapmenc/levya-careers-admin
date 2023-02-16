@@ -1,7 +1,5 @@
-import { Box, Flex } from "@chakra-ui/react";
+import JobContent from "../components/jobModule/JobContent";
 import React from "react";
-import JobContent from "../components/JobContent";
-import Sidebar from "../components/Sidebar";
 
 function Jobspage({ textColor }) {
   if (localStorage.getItem("auth") === null) {

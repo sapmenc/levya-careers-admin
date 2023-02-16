@@ -3,7 +3,7 @@ import "./Loader.css";
 import { Box, Flex, Heading, Image, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
-import { LogoLink } from "../../properties.js";
+import { LogoLink } from "../../../properties.js";
 
 function Loader({ textColor }) {
   const loadText = ["Loading.", "Loading..", "Loading..."];

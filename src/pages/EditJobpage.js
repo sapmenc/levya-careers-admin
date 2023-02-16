@@ -1,7 +1,5 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import { Flex } from "@chakra-ui/react";
-import UpdateJob from "../components/Job/UpdateJob";
+import UpdateJob from "../components/jobModule/Job/UpdateJob";
 import { useParams } from "react-router-dom";
 
 function EditJobpage({ textColor }) {

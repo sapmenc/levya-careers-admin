@@ -20,11 +20,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { addDomain, deleteDomain, fetchAllDomains } from "../api";
+import { addDomain, deleteDomain, fetchAllDomains } from "../../api";
 
 import Domain from "./Domain";
-import Loader from "./loader/Loader";
-import { LogoLink } from "../properties.js";
+import Loader from "../utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../properties.js";
 
 function Domains({ textColor }) {
   let token = localStorage.getItem("auth");

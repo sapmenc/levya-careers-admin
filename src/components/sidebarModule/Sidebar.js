@@ -1,18 +1,20 @@
+import "./sidebar.css";
+
 import { Box, Divider, Image } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
 import {
-  Command,
   Clipboard,
-  Server,
+  Command,
+  Image as ImageIcon,
   LogOut,
+  Package,
+  Server,
   UserPlus,
   Users,
-  Package,
-  Image as ImageIcon,
 } from "react-feather";
 import { NavLink, useNavigate } from "react-router-dom";
-import { fetchCurrentUser } from "../api";
-import "./sidebar.css";
+import React, { useEffect, useState } from "react";
+
+import { fetchCurrentUser } from "../../api";
 
 function Sidebar() {
   const [userRole, setUserRole] = useState("");

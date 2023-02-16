@@ -1,7 +1,5 @@
-import { Flex } from "@chakra-ui/react";
+import Domains from "../components/domainModule/Domains";
 import React from "react";
-import Domains from "../components/Domains";
-import Sidebar from "../components/Sidebar";
 
 function Domainspage({ textColor }) {
   if (localStorage.getItem("auth") === null) {

@@ -1,5 +1,5 @@
+import Appearance from "../components/appearanceModule/Appearance";
 import React from "react";
-import Appearance from "../components/Appearance";
 
 function Appearancepage({ textColor, setTextColor }) {
   if (localStorage.getItem("auth") === null) {

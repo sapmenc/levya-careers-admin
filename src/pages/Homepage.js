@@ -1,8 +1,5 @@
-import { Flex } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { fetchCurrentUser } from "../api";
-import Dashboard from "../components/Dashboard";
-import Sidebar from "../components/Sidebar";
+import Dashboard from "../components/dashboardModule/Dashboard";
+import React from "react";
 
 function Homepage({ textColor }) {
   if (localStorage.getItem("auth") === null) {

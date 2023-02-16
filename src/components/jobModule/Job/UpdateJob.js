@@ -9,18 +9,16 @@ import {
   Input,
   Select,
   Stack,
-  Textarea,
   useToast,
 } from "@chakra-ui/react";
 import { City, Country, State } from "country-state-city";
 import React, { useEffect, useRef, useState } from "react";
-import { fetchAllDomains, fetchJobById, updateJob } from "../../api";
+import { fetchAllDomains, fetchJobById, updateJob } from "../../../api";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import JoditEditor from "jodit-react";
-import Loader from "../loader/Loader";
-import { LogoLink } from "../../properties.js";
+import Loader from "../../utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../../properties.js";
 import { useNavigate } from "react-router-dom";
 
 function UpdateJob(props) {

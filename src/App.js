@@ -13,7 +13,7 @@ import { Heading } from "@chakra-ui/react";
 import Homepage from "./pages/Homepage";
 import Jobspage from "./pages/Jobspage";
 import Login from "./pages/Login";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/sidebarModule/Sidebar";
 import TodCreateProfilePage from "./pages/TodCreateProfilePage";
 import TodEditProfilePage from "./pages/TodEditProfilePage";
 import TodPage from "./pages/TodPage";

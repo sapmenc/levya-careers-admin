@@ -1,6 +1,6 @@
 import { Box, Heading, Image, Stack } from "@chakra-ui/react";
 
-import { LogoLink } from "../properties";
+import { LogoLink } from "../../../properties";
 import React from "react";
 
 function AccessDenied({ textColor }) {

@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 
-import AccessDenied from "../components/AccessDenied";
-import EditUser from "../components/User/EditUser";
-import { Flex } from "@chakra-ui/react";
-import Loader from "../components/loader/Loader";
+import AccessDenied from "../components/utilityComponents/accessDenied/AccessDenied";
+import EditUser from "../components/userModule/User/EditUser";
+import Loader from "../components/utilityComponents/loader/Loader.js";
 import React from "react";
 import { fetchCurrentUser } from "../api";
-import { useParams } from "react-router-dom";
 
 function EditUserPage({ textColor }) {
-  const param = useParams();
   const [user, setUser] = useState({});
   const [userRole, setUserRole] = useState("user");
   const [isLoading, setIsLoading] = useState(false);

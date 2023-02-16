@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 
-import AccessDenied from "../components/AccessDenied";
-import CreateUser from "../components/User/CreateUser";
-import { Flex } from "@chakra-ui/react";
-import Loader from "../components/loader/Loader";
+import AccessDenied from "../components/utilityComponents/accessDenied/AccessDenied";
+import CreateUser from "../components/userModule/User/CreateUser.js";
+import Loader from "../components/utilityComponents/loader/Loader";
 import React from "react";
-import Sidebar from "../components/Sidebar";
 import { fetchCurrentUser } from "../api";
 
 function CreateUserPage({ textColor }) {

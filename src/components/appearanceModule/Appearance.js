@@ -12,10 +12,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { editUserProfile, fetchAllAppearance, fetchCurrentUser } from "../api";
+import {
+  editUserProfile,
+  fetchAllAppearance,
+  fetchCurrentUser,
+} from "../../api";
 
-import Loader from "./loader/Loader";
-import { LogoLink } from "../properties";
+import Loader from "../utilityComponents/loader/Loader";
+import { LogoLink } from "../../properties";
 
 function Appearance({ textColor, setTextColor }) {
   const toast = useToast();

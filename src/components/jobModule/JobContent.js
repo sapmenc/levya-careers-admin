@@ -17,11 +17,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { fetchAllDomains, fetchAllJobs, updateJob } from "../api";
+import { fetchAllDomains, fetchAllJobs, updateJob } from "../../api";
 
 import Fuse from "fuse.js";
-import Loader from "./loader/Loader";
-import { LogoLink } from "../properties.js";
+import Loader from "../../components/utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../properties.js";
 import { Search } from "react-feather";
 import { useNavigate } from "react-router-dom";
 

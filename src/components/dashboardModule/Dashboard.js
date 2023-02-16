@@ -11,12 +11,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { fetchAllJobs, fetchCurrentUser } from "../api";
+import { fetchAllJobs, fetchCurrentUser } from "../../api";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Fade from "react-reveal/Fade";
-import Loader from "./loader/Loader";
-import { LogoLink } from "../properties.js";
+import Loader from "../utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../properties.js";
 import Typewriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
 

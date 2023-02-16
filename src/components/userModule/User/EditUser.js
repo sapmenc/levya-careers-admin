@@ -10,11 +10,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { editUserProfile, getUserById } from "../../api";
+import { editUserProfile, getUserById } from "../../../api";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Loader from "../loader/Loader";
-import { LogoLink } from "../../properties.js";
+import Loader from "../../utilityComponents/loader/Loader.js";
+import { LogoLink } from "../../../properties.js";
 
 function EditUser({ textColor }) {
   const param = useParams();

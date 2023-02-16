@@ -1,30 +1,32 @@
-import React, { useState } from "react";
+import "./Domain.css";
+
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Box,
   Button,
+  CloseButton,
+  Flex,
   GridItem,
   Heading,
+  Image,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SimpleGrid,
   Stack,
   Text,
+  useDisclosure,
   useToast,
-  CloseButton,
-  Image,
-  Flex,
 } from "@chakra-ui/react";
-import { MinusCircle, Edit } from "react-feather";
-import { updateDomain } from "../api";
+import { Edit, MinusCircle } from "react-feather";
+import React, { useState } from "react";
+
+import { updateDomain } from "../../api";
 import { useNavigate } from "react-router-dom";
-import "./Domain.css";
 function Domain({ domain, handleDeleteDomain }) {
   const toast = useToast();
   const navigate = useNavigate();
