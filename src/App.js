@@ -154,11 +154,11 @@ function App() {
         />
         <Route path="/users" element={<Userspage textColor={textColor} />} />
         <Route
-          path="/createuser"
+          path="/users/createuser"
           element={<CreateUserpage textColor={textColor} />}
         />
         <Route
-          path="/edituser/:id"
+          path="/users/edituser/:id"
           element={<EditUserpage textColor={textColor} />}
         />
         <Route

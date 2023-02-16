@@ -179,7 +179,7 @@ function UserContent({ textColor }) {
       <Stack m="2" direction="row" justify="end">
         <Button
           onClick={() => {
-            return navigate("/createuser");
+            return navigate("/users/createuser");
           }}
           variant="outline"
           colorScheme="red"
@@ -214,7 +214,7 @@ function UserContent({ textColor }) {
                         <Stack spacing={5} align="center" direction="row">
                           <Button
                             onClick={() => {
-                              return navigate(`/edituser/${user._id}`);
+                              return navigate(`/users/edituser/${user._id}`);
                             }}
                             bgColor="#790202"
                             color="white"
