@@ -22,20 +22,65 @@ import React, { useEffect, useState } from "react";
 
 import { LogoLink } from "../../../properties.js";
 import Title from "./Title.js";
-import { fetchAllTitles } from "../../../api/index.js";
+import { createTitle, fetchAllTitles } from "../../../api/index.js";
 
 function TodTitles({ textColor }) {
+  const token = localStorage.getItem("auth");
   const [titles, setTitles] = useState([]);
-  const [setNewDomain, setNewTitle] = useState("");
+  const [newTitle, setNewTitle] = useState("");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const handleDeleteTitle = (id) => {
   //   setDomainId(id);
   //   onOpen();
   // };
-  const handleAddTitle = async () => { };
+  const handleAddTitle = async () => {
+    try {
+      let body = {
+        name: 'new title'
+      }
+      if (!newTitle) {
+        return toast({
+          title: "Error",
+          description: "Please enter title",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+      const { data } = await createTitle(token, { title: setNewTitle });
+      console.log(data);
+      if (data.error) {
+        toast({
+          title: "Error",
+          description: "Error while creating title",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Title created successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        setNewTitle("");
+        handleFetchAllTitles();
+      }
+    } catch (error) {
+      console.log(error);
+      return toast({
+        title: "Error",
+        description: "error",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
 
-  let token = localStorage.getItem("auth");
   const toast = useToast();
   const handleFetchAllTitles = async () => {
     try {
@@ -113,8 +158,8 @@ function TodTitles({ textColor }) {
               rounded="md"
               bg="white"
               type="text"
-              value={setNewDomain}
-              placeholder="New TOD Title"
+              value={newTitle}
+              placeholder="Add title"
               onChange={(e) => setNewTitle(e.target.value)}
               size="sm"
               focusBorderColor="#790202"
@@ -132,14 +177,13 @@ function TodTitles({ textColor }) {
             borderRadius="15px"
             border="1px solid gray"
           >
-            {/* {titles.length > 0 &&
+            {titles.length > 0 &&
               titles?.map((title, index) => (
                 <Title
                   title={title}
                   key={index}
-                // handleDeleteTitle={handleDeleteTitle}
                 />
-              ))} */}
+              ))}
           </Stack>
         </GridItem>
       </SimpleGrid>

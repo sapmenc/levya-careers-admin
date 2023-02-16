@@ -1,24 +1,63 @@
 import {
-Button,
-Flex,
-Input,
-Modal,
-ModalBody,
-ModalCloseButton,
-ModalContent,
-ModalFooter,
-ModalHeader,
-ModalOverlay,
-Stack,
-Text,
-useDisclosure,
+  Button,
+  Flex,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { Edit, MinusCircle } from "react-feather";
 import React, { useState } from "react";
+import { deleteTitle } from "../../../api";
 
-function Title({ title, handleDeleteTitle }) {
+function Title({ title }) {
+  let token = localStorage.getItem("auth");
+  const toast = useToast()
   const [titleName, setTitleName] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleDeleteTitle = async () => {
+    try {
+      const id = title?._id;
+      const { data } = await deleteTitle(token, id);
+      if (data.error) {
+        toast({
+          title: "Error",
+          description: "Error while deleting title",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Title deleted successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        onClose();
+      }
+    }
+    catch (err) {
+      console.log(err);
+      return toast({
+        title: "Error",
+        description: "Error while deleting title",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Stack
