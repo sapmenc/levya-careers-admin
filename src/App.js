@@ -13,6 +13,7 @@ import { Heading } from "@chakra-ui/react";
 import Homepage from "./pages/Homepage";
 import Jobspage from "./pages/Jobspage";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 import Sidebar from "./components/sidebarModule/Sidebar";
 import TodCreateProfilePage from "./pages/TodCreateProfilePage";
 import TodEditProfilePage from "./pages/TodEditProfilePage";
@@ -189,7 +190,7 @@ function App() {
           path="/todTitles"
           element={<TodTitlesPage textColor={textColor} />}
         />
-        <Route path="*" element={<Heading>Page Not Found</Heading>} />
+        <Route path="*" element={<NotFound textColor={textColor} />} />
       </Routes>
     </Flex>
   );
