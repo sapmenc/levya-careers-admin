@@ -15,6 +15,7 @@ import Jobspage from "./pages/Jobspage";
 import Login from "./pages/Login";
 import Sidebar from "./components/Sidebar";
 import TodCreateProfilePage from "./pages/TodCreateProfilePage";
+import TodEditProfilePage from "./pages/TodEditProfilePage";
 import TodPage from "./pages/TodPage";
 import TodTitlesPage from "./pages/TodTitlesPage";
 import Userspage from "./pages/Userspage";
@@ -50,6 +51,8 @@ function App() {
       "edituser",
       "tod",
       "todTitles",
+      "createProfile",
+      "editProfile",
     ];
 
     for (let i = locationPath.length - 1; i >= 0; i--) {
@@ -74,7 +77,11 @@ function App() {
     )
       module = "users";
     else if (locationName === "appearance") module = "appearance";
-    else if (locationName === "tod" || locationName === "createProfile")
+    else if (
+      locationName === "tod" ||
+      locationName === "createProfile" ||
+      locationName === "editProfile"
+    )
       module = "tod";
     else if (locationName === "todTitles") module = "todTitles";
     let element = document.getElementById(module);
@@ -173,6 +180,10 @@ function App() {
         <Route
           path="/tod/createProfile"
           element={<TodCreateProfilePage textColor={textColor} />}
+        />
+        <Route
+          path="/tod/editProfile/:id"
+          element={<TodEditProfilePage textColor={textColor} />}
         />
         <Route
           path="/todTitles"

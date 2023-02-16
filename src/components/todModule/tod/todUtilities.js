@@ -29,6 +29,8 @@ export const experiencesReducer = (state, action) => {
         }
         return experience;
       });
+    case "ADD_NEW_DATA":
+      return [...action.newData];
     case "DELETE_EXPERIENCE":
       return state.filter((experience) => experience.id !== action.payload.id);
     default:
@@ -47,6 +49,8 @@ export const educationsReducer = (state, action) => {
         }
         return education;
       });
+    case "ADD_NEW_DATA":
+      return [...action.newData];
     case "DELETE_EDUCATION":
       return state.filter((education) => education.id !== action.payload.id);
     default:
@@ -76,6 +80,8 @@ export const preferredLocationsReducer = (state = [], action) => {
 
       return [...state];
     }
+    case "ADD_NEW_DATA":
+      return [...action.newData];
     case "REMOVE_LOCATION": {
       state = state.filter((obj) => {
         return action.id !== obj.id;
