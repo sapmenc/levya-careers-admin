@@ -19,13 +19,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { createTitle, fetchAllTitles } from "../../../api/index.js";
 
 import { LogoLink } from "../../../properties.js";
 import Title from "./Title.js";
-import { createTitle, fetchAllTitles } from "../../../api/index.js";
 
 function TodTitles({ textColor }) {
   const token = localStorage.getItem("auth");
+  const toast = useToast();
   const [titles, setTitles] = useState([]);
   const [newTitle, setNewTitle] = useState("");
 
@@ -35,53 +36,54 @@ function TodTitles({ textColor }) {
   //   onOpen();
   // };
   const handleAddTitle = async () => {
-    try {
-      let body = {
-        name: 'new title'
-      }
-      if (!newTitle) {
-        return toast({
-          title: "Error",
-          description: "Please enter title",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
-      }
-      const { data } = await createTitle(token, { title: setNewTitle });
-      console.log(data);
-      if (data.error) {
-        toast({
-          title: "Error",
-          description: "Error while creating title",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title: "Success",
-          description: "Title created successfully",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        setNewTitle("");
-        handleFetchAllTitles();
-      }
-    } catch (error) {
-      console.log(error);
+    if (!newTitle) {
       return toast({
         title: "Error",
-        description: "error",
+        description: "Please enter title",
         status: "error",
         duration: 2000,
         isClosable: true,
       });
+    } else {
+      try {
+        let body = {
+          name: newTitle,
+        };
+
+        const { data } = await createTitle(token, body);
+        console.log(data);
+        if (data.error) {
+          toast({
+            title: "Error",
+            description: "Error while creating title",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: "Success",
+            description: "Title created successfully",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          setNewTitle("");
+          handleFetchAllTitles();
+        }
+      } catch (error) {
+        console.log(error);
+        return toast({
+          title: "Error",
+          description: "error",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
     }
   };
 
-  const toast = useToast();
   const handleFetchAllTitles = async () => {
     try {
       const { data } = await fetchAllTitles(token);
@@ -118,7 +120,7 @@ function TodTitles({ textColor }) {
 
   useEffect(() => {
     handleFetchAllTitles();
-  }, [])
+  }, []);
 
   return (
     <Box w="100%" overflowX="hidden">
@@ -164,7 +166,12 @@ function TodTitles({ textColor }) {
               size="sm"
               focusBorderColor="#790202"
             />
-            <Button variant="outline" colorScheme="red" bg="white">
+            <Button
+              variant="outline"
+              colorScheme="red"
+              bg="white"
+              onClick={handleAddTitle}
+            >
               Add
             </Button>
           </Stack>
@@ -182,6 +189,7 @@ function TodTitles({ textColor }) {
                 <Title
                   title={title}
                   key={index}
+                  handleFetchAllTitles={handleFetchAllTitles}
                 />
               ))}
           </Stack>

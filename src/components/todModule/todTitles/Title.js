@@ -16,14 +16,15 @@ import {
 } from "@chakra-ui/react";
 import { Edit, MinusCircle } from "react-feather";
 import React, { useState } from "react";
+
 import { deleteTitle } from "../../../api";
 
-function Title({ title }) {
+function Title({ title, handleFetchAllTitles }) {
   let token = localStorage.getItem("auth");
-  const toast = useToast()
-  const [titleName, setTitleName] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const toast = useToast();
+  const [titleName, setTitleName] = useState(title.name);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const handleDeleteTitle = async () => {
     try {
       const id = title?._id;
@@ -44,10 +45,9 @@ function Title({ title }) {
           duration: 2000,
           isClosable: true,
         });
-        onClose();
+        handleFetchAllTitles();
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
       return toast({
         title: "Error",
@@ -76,25 +76,26 @@ function Title({ title }) {
         color="white"
         fontWeight="bold"
       >
-        {title}
+        {title.name}
       </Text>
       <Flex gap="10px">
         <Edit
           className="domain-icon"
-          onClick={onOpen}
+          onClick={() => setIsEditModalOpen(true)}
           color="white"
           cursor="pointer"
           height="20px"
         />
         <MinusCircle
           className="domain-icon"
-          onClick={() => handleDeleteTitle()}
+          onClick={() => setIsDeleteModalOpen(true)}
           color="white"
           cursor="pointer"
           height="20px"
         />
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      {/* Edit Modal */}
+      <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Edit Title</ModalHeader>
@@ -114,11 +115,45 @@ function Title({ title }) {
               colorScheme="red"
               bg="white"
               onClick={(e) => {
-                // Edit Functionality Implementation
                 // handleUpdateTitle(e);
+                setIsEditModalOpen(false);
               }}
             >
               Save
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* Delete Modal */}
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Delete Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              All profiles associated with the title{" "}
+              <strong>{title.name}</strong> will get deleted !!
+            </Text>
+            <Text>Do you still want to delete this title?</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="red"
+              mr={3}
+              onClick={() => {
+                handleDeleteTitle();
+                setIsDeleteModalOpen(false);
+              }}
+            >
+              Delete
+            </Button>
+            <Button mr={3} onClick={() => setIsDeleteModalOpen(false)}>
+              Close
             </Button>
           </ModalFooter>
         </ModalContent>

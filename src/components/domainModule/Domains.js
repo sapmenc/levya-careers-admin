@@ -171,9 +171,8 @@ function Domains({ textColor }) {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            <CloseButton onClick={onClose} />
-          </ModalHeader>
+          <ModalHeader>Delete Domain</ModalHeader>
+          <ModalCloseButton />
           <ModalBody>
             <Text>
               All jobs associated with this domain will get deleted !!
@@ -189,7 +188,7 @@ function Domains({ textColor }) {
             >
               Delete
             </Button>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose}>
               Close
             </Button>
           </ModalFooter>
