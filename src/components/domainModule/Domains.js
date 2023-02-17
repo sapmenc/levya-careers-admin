@@ -34,6 +34,7 @@ function Domains({ textColor }) {
   const [domainId, setDomainId] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
+  const [domainForDeletion, setDomainForDeletion] = useState(null);
   const handleDeleteDomain = (id) => {
     setDomainId(id);
     onOpen();
@@ -99,7 +100,17 @@ function Domains({ textColor }) {
           duration: 2000,
           isClosable: true,
         });
-        setDomains(data.data);
+        setDomains(
+          data?.data.sort((a, b) => {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            return 0;
+          })
+        );
       }
     } catch (error) {
       return toast({
@@ -172,10 +183,16 @@ function Domains({ textColor }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Delete Domain</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton
+            onClick={() => {
+              setDomainForDeletion(null);
+            }}
+          />
           <ModalBody>
             <Text>
-              All jobs associated with this domain will get deleted !!
+              All jobs associated with the domain{" "}
+              <strong>{`${domainForDeletion?.name} `}</strong>
+              will get deleted !!
             </Text>
             <Text>Do you still want to delete this domain?</Text>
           </ModalBody>
@@ -184,11 +201,19 @@ function Domains({ textColor }) {
             <Button
               colorScheme="red"
               mr={3}
-              onClick={() => finalDeleteDomain()}
+              onClick={() => {
+                finalDeleteDomain().then(() => setDomainForDeletion(null));
+              }}
             >
               Delete
             </Button>
-            <Button mr={3} onClick={onClose}>
+            <Button
+              mr={3}
+              onClick={() => {
+                onClose();
+                setDomainForDeletion(null);
+              }}
+            >
               Close
             </Button>
           </ModalFooter>
@@ -237,6 +262,7 @@ function Domains({ textColor }) {
                   domain={domain}
                   key={index}
                   handleDeleteDomain={handleDeleteDomain}
+                  setDomainForDeletion={setDomainForDeletion}
                 />
               ))}
           </Stack>

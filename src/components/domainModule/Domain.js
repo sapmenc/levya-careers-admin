@@ -28,7 +28,7 @@ import React, { useState } from "react";
 import { updateDomain } from "../../api";
 import { useNavigate } from "react-router-dom";
 
-function Domain({ domain, handleDeleteDomain }) {
+function Domain({ domain, handleDeleteDomain, setDomainForDeletion }) {
   const toast = useToast();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -102,7 +102,10 @@ function Domain({ domain, handleDeleteDomain }) {
         />
         <MinusCircle
           className="domain-icon"
-          onClick={() => handleDeleteDomain(domain._id)}
+          onClick={() => {
+            handleDeleteDomain(domain._id);
+            setDomainForDeletion(domain);
+          }}
           color="white"
           cursor="pointer"
           height="20px"

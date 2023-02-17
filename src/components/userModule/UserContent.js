@@ -6,6 +6,7 @@ import {
   Image,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -38,6 +39,7 @@ function UserContent({ textColor }) {
   const [currentUser, setCurrentUser] = useState();
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(null);
 
   const handleDeleteUser = (id) => {
     setUserId(id);
@@ -150,21 +152,39 @@ function UserContent({ textColor }) {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            <CloseButton />
-          </ModalHeader>
+          <ModalHeader>Delete User</ModalHeader>
+          <ModalCloseButton
+            onClick={() => {
+              setDeleteUser(null);
+            }}
+          />
           <ModalBody>
             <Text>
-              All data associated with this user profile will get deleted !!
+              All data associated with user{" "}
+              <strong>{`${deleteUser?.name} (${deleteUser?._id})`}</strong> will
+              get deleted !!
             </Text>
             <Text>Do you still want to delete this user?</Text>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={() => finalDeleteUser()}>
+            <Button
+              colorScheme="red"
+              mr={3}
+              onClick={() => {
+                finalDeleteUser();
+                setDeleteUser(null);
+              }}
+            >
               Delete
             </Button>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
+            <Button
+              mr={3}
+              onClick={() => {
+                onClose();
+                setDeleteUser(null);
+              }}
+            >
               Close
             </Button>
           </ModalFooter>
@@ -224,6 +244,7 @@ function UserContent({ textColor }) {
                           </Button>
                           <Button
                             onClick={() => {
+                              setDeleteUser(user);
                               handleDeleteUser(user._id);
                             }}
                             bgColor="#790202"

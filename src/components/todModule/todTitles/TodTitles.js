@@ -104,7 +104,17 @@ function TodTitles({ textColor }) {
           duration: 2000,
           isClosable: true,
         });
-        setTitles(data.data);
+        setTitles(
+          data?.data.sort((a, b) => {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            return 0;
+          })
+        );
       }
     } catch (error) {
       console.log(error);
