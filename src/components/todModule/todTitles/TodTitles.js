@@ -21,6 +21,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { createTitle, fetchAllTitles } from "../../../api/index.js";
 
+import Loader from "../../utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../../properties.js";
 import Title from "./Title.js";
 
@@ -29,12 +30,9 @@ function TodTitles({ textColor }) {
   const toast = useToast();
   const [titles, setTitles] = useState([]);
   const [newTitle, setNewTitle] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const handleDeleteTitle = (id) => {
-  //   setDomainId(id);
-  //   onOpen();
-  // };
   const handleAddTitle = async () => {
     if (!newTitle) {
       return toast({
@@ -130,10 +128,15 @@ function TodTitles({ textColor }) {
   };
 
   useEffect(() => {
-    handleFetchAllTitles();
+    setIsLoading(true);
+    handleFetchAllTitles().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Box w="100%" overflowX="hidden">
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
