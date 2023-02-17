@@ -115,6 +115,7 @@ function TodTitles({ textColor }) {
             return 0;
           })
         );
+        console.log(data.data);
       }
     } catch (error) {
       console.log(error);

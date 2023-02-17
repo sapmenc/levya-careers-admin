@@ -26,40 +26,41 @@ function Title({ title, handleFetchAllTitles }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleEditTitle = async () => {
-    // try {
-    //   const id = title?.id;
-    //   let body = {
-    //     name: titleName,
-    //   };
-    //   const { data } = await editTitle(token, id, body);
-    //   if (data.error) {
-    //     toast({
-    //       title: "Error",
-    //       description: "Error while editing title",
-    //       status: "error",
-    //       duration: 2000,
-    //       isClosable: true,
-    //     });
-    //   } else {
-    //     toast({
-    //       title: "Success",
-    //       description: "Title edited successfully",
-    //       status: "success",
-    //       duration: 2000,
-    //       isClosable: true,
-    //     });
-    //     handleFetchAllTitles();
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    //   return toast({
-    //     title: "Error",
-    //     description: "Error while editing title",
-    //     status: "error",
-    //     duration: 2000,
-    //     isClosable: true,
-    //   });
-    // }
+    const token = localStorage.getItem("auth");
+    try {
+      const id = title?._id;
+      let body = {
+        name: titleName,
+      };
+      const { data } = await editTitle(token, id, body);
+      if (data.error) {
+        toast({
+          title: "Error",
+          description: "Error while editing title",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Title edited successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        handleFetchAllTitles();
+      }
+    } catch (err) {
+      console.log(err);
+      return toast({
+        title: "Error",
+        description: "Error while editing title",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
   const handleDeleteTitle = async () => {
     try {
