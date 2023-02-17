@@ -9,6 +9,7 @@ function FormMobile({ setMobile }) {
       <Input
         bg="white"
         color="black"
+        type="number"
         focusBorderColor="#790202"
         onChange={(e) => {
           setMobile(e.target.value);

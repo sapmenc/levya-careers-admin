@@ -1,11 +1,13 @@
 import {
   Button,
   Flex,
+  FormControl,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
+  useToast,
 } from "@chakra-ui/react";
 import {
   defaultEducation,
@@ -14,6 +16,10 @@ import {
   experiencesReducer,
   preferredLocationsReducer,
 } from "../../todUtilities.js";
+import {
+  isValidMobile,
+  isValidateEmail,
+} from "../../../../../utitlityFunctions.js";
 import { useReducer, useState } from "react";
 
 import FormEducations from "./FormEducations";
@@ -28,6 +34,7 @@ import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
 
 function Form() {
+  const toast = useToast();
   const [name, setName] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
   const [mobile, setMobile] = useState("");
@@ -35,27 +42,220 @@ function Form() {
   const [todTitle, setTodTitle] = useState("");
   const [skills, setSkills] = useState(new Set([]));
   const [primaryLocation, setPrimaryLocation] = useState(null);
-  const [experiences, dispatchExperiences] = useReducer(experiencesReducer, [
-    defaultExperience,
-  ]);
-  const [educations, dispatchEducations] = useReducer(educationsReducer, [
-    defaultEducation,
-  ]);
+  const [experiences, dispatchExperiences] = useReducer(experiencesReducer, []);
+  const [educations, dispatchEducations] = useReducer(educationsReducer, []);
   const [preferredLocations, dispatchPreferredLocations] = useReducer(
     preferredLocationsReducer,
     []
   );
-
+  const validateForm = () => {
+    if (!name) {
+      toast({
+        title: "Candidate name required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!mobile || !isValidMobile(mobile)) {
+      toast({
+        title: "Valid mobile number required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!email || !isValidateEmail(email)) {
+      toast({
+        title: "Valid email id required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!profileTitle) {
+      toast({
+        title: "Profile title required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!todTitle) {
+      toast({
+        title: "Tod title required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!primaryLocation) {
+      toast({
+        title: "Primary location required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (preferredLocations.length < 1) {
+      toast({
+        title: "At least 1 preferred location required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (preferredLocations.length > 3) {
+      toast({
+        title: "Max 3 preferred locations allowed!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    for (let i = 0; i < experiences.length; i++) {
+      const {
+        companyName,
+        position,
+        isCurrentlyWorking,
+        startDate,
+        endDate,
+        jobDescription,
+      } = experiences[i];
+      if (!companyName) {
+        toast({
+          title: `In experience ${i + 1}, company name required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!position) {
+        toast({
+          title: `In experience ${i + 1}, position required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!startDate) {
+        toast({
+          title: `In experience ${i + 1}, start date required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!isCurrentlyWorking && !endDate) {
+        toast({
+          title: `In experience ${i + 1}, end date required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!jobDescription) {
+        toast({
+          title: `In experience ${i + 1}, job description required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+    }
+    for (let i = 0; i < educations.length; i++) {
+      const {
+        institution,
+        courseType,
+        courseName,
+        isCurrentlyPersuing,
+        startDate,
+        endDate,
+        description,
+      } = educations[i];
+      if (!institution) {
+        toast({
+          title: `In education ${i + 1}, institution required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!courseType) {
+        toast({
+          title: `In education ${i + 1}, course type required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!courseName) {
+        toast({
+          title: `In education ${i + 1}, course name required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!startDate) {
+        toast({
+          title: `In education ${i + 1}, start date required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!isCurrentlyPersuing && !endDate) {
+        toast({
+          title: `In education ${i + 1}, end date required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+      if (!description) {
+        toast({
+          title: `In education ${i + 1}, description required!`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return false;
+      }
+    }
+    return true;
+  };
   const handlePublish = () => {
+    if (!validateForm()) {
+      return;
+    }
     const body = {
       name: name,
       mobile: mobile,
       email: email,
+      profileTitle: profileTitle,
+      todTitle: todTitle,
       primaryLocation: primaryLocation,
       preferredLocations: preferredLocations,
       experiences: experiences,
-      profileTitle: profileTitle,
-      todTitle: todTitle,
       skills: skills,
       educations: educations,
       status: "active",

@@ -7,6 +7,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Select,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
@@ -16,6 +17,7 @@ import moment from "moment";
 
 function FormEducations({ educations, dispatchEducations }) {
   const toast = useToast();
+  const courseTypes = ["B.Tech", "M.Tech", "BCA", "MCA"];
   return (
     <Box>
       <Heading as="h3" size="lg" mb={5}>
@@ -28,7 +30,7 @@ function FormEducations({ educations, dispatchEducations }) {
           </Heading>
           <Flex flexDirection="column" gap={6}>
             <FormControl isRequired>
-              <FormLabel>Instituion</FormLabel>
+              <FormLabel>Institution</FormLabel>
               <Input
                 value={edu.institution || ""}
                 bg="white"
@@ -48,11 +50,10 @@ function FormEducations({ educations, dispatchEducations }) {
             </FormControl>
             <FormControl isRequired>
               <FormLabel>Course Type</FormLabel>
-              <Input
-                value={edu.courseType || ""}
-                bg="white"
-                color="black"
+              <Select
+                placeholder="Select option"
                 focusBorderColor="#790202"
+                bg="white"
                 onChange={(e) => {
                   dispatchEducations({
                     type: "UPDATE_EDUCATION",
@@ -61,9 +62,12 @@ function FormEducations({ educations, dispatchEducations }) {
                       updates: { courseType: e.target.value },
                     },
                   });
-                  //   console.log(education);
                 }}
-              />
+              >
+                {courseTypes.map((courseType) => {
+                  return <option value={courseType}>{courseType}</option>;
+                })}
+              </Select>
             </FormControl>
             <FormControl isRequired>
               <FormLabel>Course Name</FormLabel>
@@ -193,7 +197,7 @@ function FormEducations({ educations, dispatchEducations }) {
               </Flex>
             </Flex>
             <FormControl isRequired>
-              <FormLabel>Job Description</FormLabel>
+              <FormLabel>Description</FormLabel>
               <Textarea
                 value={edu.description || ""}
                 bg="white"

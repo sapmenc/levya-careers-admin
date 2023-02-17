@@ -92,7 +92,6 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           id: experience.id,
                           updates: {
                             isCurrentlyWorking: e.target.checked,
-                            endDate: "",
                           },
                         },
                       });
@@ -103,7 +102,6 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           id: experience.id,
                           updates: {
                             isCurrentlyWorking: e.target.checked,
-                            endDate: moment().format("YYYY-MM-DD"),
                           },
                         },
                       });
