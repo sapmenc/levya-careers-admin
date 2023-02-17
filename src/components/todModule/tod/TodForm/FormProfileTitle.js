@@ -2,21 +2,21 @@ import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import React from "react";
 
-function FormEmail({ setEmail }) {
+function FormProfileTitle({ profileTitle, setProfileTitle }) {
   return (
     <FormControl isRequired>
-      <FormLabel fontWeight="bold">Email</FormLabel>
+      <FormLabel fontWeight="bold">Profile Title</FormLabel>
       <Input
         bg="white"
         color="black"
         focusBorderColor="#790202"
-        type="email"
+        value={profileTitle}
         onChange={(e) => {
-          setEmail(e.target.value);
+          setProfileTitle(e.target.value);
         }}
       />
     </FormControl>
   );
 }
 
-export default FormEmail;
+export default FormProfileTitle;

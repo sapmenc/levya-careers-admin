@@ -2,7 +2,7 @@ import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import React from "react";
 
-function FormEmail({ setEmail }) {
+function FormEmail({ email, setEmail }) {
   return (
     <FormControl isRequired>
       <FormLabel fontWeight="bold">Email</FormLabel>
@@ -11,6 +11,7 @@ function FormEmail({ setEmail }) {
         color="black"
         focusBorderColor="#790202"
         type="email"
+        value={email}
         onChange={(e) => {
           setEmail(e.target.value);
         }}

@@ -2,7 +2,7 @@ import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import React from "react";
 
-function FormName({ setName }) {
+function FormName({ name, setName }) {
   return (
     <FormControl isRequired>
       <FormLabel fontWeight="bold">Candidate Name</FormLabel>
@@ -10,6 +10,7 @@ function FormName({ setName }) {
         bg="white"
         color="black"
         focusBorderColor="#790202"
+        value={name}
         onChange={(e) => {
           setName(e.target.value);
         }}

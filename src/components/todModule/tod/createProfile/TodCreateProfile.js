@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Image, Stack } from "@chakra-ui/react";
 
-import Form from "./createProfileForm/Form";
+import Form from "../TodForm/Form.js";
 import { LogoLink } from "../../../../properties";
 
 function Tod() {

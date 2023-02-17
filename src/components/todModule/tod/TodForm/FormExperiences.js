@@ -41,6 +41,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                 bg="white"
                 color="black"
                 focusBorderColor="#790202"
+                value={experience.companyName || ""}
                 onChange={(e) => {
                   dispatchExperiences({
                     type: "UPDATE_EXPERIENCE",
@@ -92,7 +93,6 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           id: experience.id,
                           updates: {
                             isCurrentlyWorking: e.target.checked,
-                            endDate: "",
                           },
                         },
                       });
@@ -103,7 +103,6 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           id: experience.id,
                           updates: {
                             isCurrentlyWorking: e.target.checked,
-                            endDate: moment().format("YYYY-MM-DD"),
                           },
                         },
                       });
@@ -117,7 +116,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                 <FormControl isRequired>
                   <FormLabel>Start Date</FormLabel>
                   <Input
-                    // value={}
+                    value={experience.startDate || ""}
                     bg="white"
                     color="black"
                     focusBorderColor="#790202"
@@ -153,7 +152,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                   <FormControl isRequired>
                     <FormLabel>End Date</FormLabel>
                     <Input
-                      //   value={}
+                      value={experience.endDate || ""}
                       isDisabled={experience.startDate === ""}
                       bg="white"
                       color="black"
@@ -182,13 +181,6 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                             },
                           });
                         }
-
-                        console.log(e.target.value);
-                        // const date = moment(e.target.value, "YYYY-MM-DD");
-
-                        // console.log("year", date.year());
-                        // console.log("month", date.format("MMMM"));
-                        // console.log("date", date.date());
                       }}
                     />
                   </FormControl>

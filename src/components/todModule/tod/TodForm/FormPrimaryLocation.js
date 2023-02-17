@@ -38,7 +38,7 @@ function FormPrimaryLocation({ primaryLocation, setPrimaryLocation }) {
     setPrimaryLocation({
       country: selectedCountry?.name || "",
       state: selectedState?.name || "",
-      ciity: selectedCity?.name || "",
+      city: selectedCity?.name || "",
     });
   };
   const formatLocation = (location) => {
@@ -46,7 +46,7 @@ function FormPrimaryLocation({ primaryLocation, setPrimaryLocation }) {
     if (location.country !== "") data.push(location.country);
     if (location.state !== "") data.push(location.state);
     if (location.city !== "") data.push(location.city);
-    return data;
+    return data.join(", ");
   };
   return (
     <FormControl isRequired>

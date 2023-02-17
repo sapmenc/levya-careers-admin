@@ -1,9 +1,9 @@
 import { FormControl, FormLabel, Select, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
-import { fetchAllTitles } from "../../../../../api/index.js";
+import { fetchAllTitles } from "../../../../api/index.js";
 
-function FormTodTitle({ setTodTitle }) {
+function FormTodTitle({ todTitle, setTodTitle }) {
   const token = localStorage.getItem("auth");
 
   const toast = useToast();
@@ -52,6 +52,7 @@ function FormTodTitle({ setTodTitle }) {
       <Select
         placeholder="Select option"
         focusBorderColor="#790202"
+        value={todTitle}
         onChange={(e) => {
           setTodTitle(e.target.value);
         }}

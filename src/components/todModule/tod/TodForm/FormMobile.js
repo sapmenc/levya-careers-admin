@@ -2,20 +2,22 @@ import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import React from "react";
 
-function FormName({ setName }) {
+function FormMobile({ mobile, setMobile }) {
   return (
     <FormControl isRequired>
-      <FormLabel fontWeight="bold">Candidate Name</FormLabel>
+      <FormLabel fontWeight="bold">Mobile No.</FormLabel>
       <Input
         bg="white"
         color="black"
+        type="number"
+        value={mobile}
         focusBorderColor="#790202"
         onChange={(e) => {
-          setName(e.target.value);
+          setMobile(e.target.value);
         }}
       />
     </FormControl>
   );
 }
 
-export default FormName;
+export default FormMobile;

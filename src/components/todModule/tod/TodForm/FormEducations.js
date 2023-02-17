@@ -7,6 +7,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Select,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
@@ -14,108 +15,109 @@ import {
 import React from "react";
 import moment from "moment";
 
-function FormExperiences({ experiences, dispatchExperiences }) {
+function FormEducations({ educations, dispatchEducations }) {
   const toast = useToast();
+  const courseTypes = ["B.Tech", "M.Tech", "BCA", "MCA"];
   return (
     <Box>
       <Heading as="h3" size="lg" mb={5}>
-        Experience
+        Education
       </Heading>
-      {experiences.map((experience, index) => (
-        <Box
-          key={experience.id}
-          mb={4}
-          bg="gray.200"
-          p={5}
-          borderRadius={10}
-          overflow="hidden"
-        >
+      {educations.map((edu, index) => (
+        <Box key={edu.id} mb={4} bg="gray.200" p={5} borderRadius={10}>
           <Heading as="h4" size="md" mb={8}>
-            Experience {index + 1}
+            Education {index + 1}
           </Heading>
           <Flex flexDirection="column" gap={6}>
             <FormControl isRequired>
-              <FormLabel>Company Name</FormLabel>
+              <FormLabel>Institution</FormLabel>
               <Input
-                value={experience.companyName || ""}
+                value={edu.institution || ""}
                 bg="white"
                 color="black"
                 focusBorderColor="#790202"
                 onChange={(e) => {
-                  dispatchExperiences({
-                    type: "UPDATE_EXPERIENCE",
+                  dispatchEducations({
+                    type: "UPDATE_EDUCATION",
                     payload: {
-                      id: experience.id,
-                      updates: { companyName: e.target.value },
+                      id: edu.id,
+                      updates: { institution: e.target.value },
                     },
                   });
-                  //   console.log(experience);
                 }}
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel>Position</FormLabel>
+              <FormLabel>Course Type</FormLabel>
+              <Select
+                placeholder="Select option"
+                focusBorderColor="#790202"
+                bg="white"
+                value={edu.courseType || ""}
+                onChange={(e) => {
+                  dispatchEducations({
+                    type: "UPDATE_EDUCATION",
+                    payload: {
+                      id: edu.id,
+                      updates: { courseType: e.target.value },
+                    },
+                  });
+                }}
+              >
+                {courseTypes.map((courseType) => {
+                  return <option value={courseType}>{courseType}</option>;
+                })}
+              </Select>
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Course Name</FormLabel>
               <Input
-                value={experience.position || ""}
+                value={edu.courseName || ""}
                 bg="white"
                 color="black"
                 focusBorderColor="#790202"
                 onChange={(e) => {
-                  dispatchExperiences({
-                    type: "UPDATE_EXPERIENCE",
+                  dispatchEducations({
+                    type: "UPDATE_EDUCATION",
                     payload: {
-                      id: experience.id,
-                      updates: { position: e.target.value },
+                      id: edu.id,
+                      updates: { courseName: e.target.value },
                     },
                   });
-                  //   console.log(experience);
                 }}
               />
             </FormControl>
-
-            <FormControl>
-              <Flex alignItems="center">
-                <FormLabel>Currently Working</FormLabel>
-                <Checkbox
-                  isChecked={experience.isCurrentlyWorking || false}
-                  outline="none"
-                  border="none"
-                  borderRadius={2}
-                  colorScheme="red"
-                  bg="white"
-                  focusBorderColor="#790202"
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      dispatchExperiences({
-                        type: "UPDATE_EXPERIENCE",
+            <Flex flexDir="column">
+              <FormControl>
+                <Flex alignItems="center">
+                  <FormLabel>Currently Persuing</FormLabel>
+                  <Checkbox
+                    isChecked={edu.isCurrentlyPersuing || false}
+                    outline="none"
+                    border="none"
+                    borderRadius={2}
+                    colorScheme="red"
+                    bg="white"
+                    focusBorderColor="#790202"
+                    onChange={(e) => {
+                      dispatchEducations({
+                        type: "UPDATE_EDUCATION",
                         payload: {
-                          id: experience.id,
+                          id: edu.id,
                           updates: {
-                            isCurrentlyWorking: e.target.checked,
+                            isCurrentlyPersuing: e.target.checked,
                           },
                         },
                       });
-                    } else {
-                      dispatchExperiences({
-                        type: "UPDATE_EXPERIENCE",
-                        payload: {
-                          id: experience.id,
-                          updates: {
-                            isCurrentlyWorking: e.target.checked,
-                          },
-                        },
-                      });
-                    }
-
-                    console.log(e.target.checked);
-                  }}
-                />
-              </Flex>
+                    }}
+                  />
+                </Flex>
+              </FormControl>
               <Flex gap={2} justifyContent="flex-start">
                 <FormControl isRequired>
                   <FormLabel>Start Date</FormLabel>
                   <Input
-                    // value={}
+                    value={edu.startDate || ""}
                     bg="white"
                     color="black"
                     focusBorderColor="#790202"
@@ -124,8 +126,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                     onChange={(e) => {
                       if (
                         moment().format("YYYY-MM-DD") < e.target.value ||
-                        (experience.endDate !== "" &&
-                          e.target.value > experience.endDate)
+                        (edu.endDate !== "" && e.target.value > edu.endDate)
                       ) {
                         toast({
                           title: "Error",
@@ -136,10 +137,10 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                         });
                         e.target.value = "";
                       } else {
-                        dispatchExperiences({
-                          type: "UPDATE_EXPERIENCE",
+                        dispatchEducations({
+                          type: "UPDATE_EDUCATION",
                           payload: {
-                            id: experience.id,
+                            id: edu.id,
                             updates: { startDate: e.target.value },
                           },
                         });
@@ -147,12 +148,12 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                     }}
                   />
                 </FormControl>
-                {!experience.isCurrentlyWorking && (
+                {!edu.isCurrentlyPersuing && (
                   <FormControl isRequired>
                     <FormLabel>End Date</FormLabel>
                     <Input
-                      //   value={}
-                      isDisabled={experience.startDate === ""}
+                      value={edu.endDate || ""}
+                      isDisabled={edu.startDate === ""}
                       bg="white"
                       color="black"
                       focusBorderColor="#790202"
@@ -161,7 +162,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                       onChange={(e) => {
                         if (
                           moment().format("YYYY-MM-DD") < e.target.value ||
-                          e.target.value < experience.startDate
+                          e.target.value < edu.startDate
                         ) {
                           toast({
                             title: "Error",
@@ -172,43 +173,35 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           });
                           e.target.value = "";
                         } else {
-                          dispatchExperiences({
-                            type: "UPDATE_EXPERIENCE",
+                          dispatchEducations({
+                            type: "UPDATE_EDUCATION",
                             payload: {
-                              id: experience.id,
+                              id: edu.id,
                               updates: { endDate: e.target.value },
                             },
                           });
                         }
-
-                        console.log(e.target.value);
-                        // const date = moment(e.target.value, "YYYY-MM-DD");
-
-                        // console.log("year", date.year());
-                        // console.log("month", date.format("MMMM"));
-                        // console.log("date", date.date());
                       }}
                     />
                   </FormControl>
                 )}
               </Flex>
-            </FormControl>
+            </Flex>
             <FormControl isRequired>
-              <FormLabel>Job Description</FormLabel>
+              <FormLabel>Description</FormLabel>
               <Textarea
-                value={experience.jobDescription || ""}
+                value={edu.description || ""}
                 bg="white"
                 color="black"
                 focusBorderColor="#790202"
                 onChange={(e) => {
-                  dispatchExperiences({
-                    type: "UPDATE_EXPERIENCE",
+                  dispatchEducations({
+                    type: "UPDATE_EDUCATION",
                     payload: {
-                      id: experience.id,
-                      updates: { jobDescription: e.target.value },
+                      id: edu.id,
+                      updates: { description: e.target.value },
                     },
                   });
-                  //   console.log(experience);
                 }}
               />
             </FormControl>
@@ -216,9 +209,9 @@ function FormExperiences({ experiences, dispatchExperiences }) {
           <Button
             mt={5}
             onClick={() =>
-              dispatchExperiences({
-                type: "DELETE_EXPERIENCE",
-                payload: { id: experience.id },
+              dispatchEducations({
+                type: "DELETE_EDUCATION",
+                payload: { id: edu.id },
               })
             }
             variant="outline"
@@ -229,11 +222,11 @@ function FormExperiences({ experiences, dispatchExperiences }) {
           </Button>
         </Box>
       ))}
-      <Button onClick={() => dispatchExperiences({ type: "ADD_EXPERIENCE" })}>
-        + Add Experience
+      <Button onClick={() => dispatchEducations({ type: "ADD_EDUCATION" })}>
+        + Add Education
       </Button>
     </Box>
   );
 }
 
-export default FormExperiences;
+export default FormEducations;

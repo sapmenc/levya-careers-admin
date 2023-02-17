@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Image, Stack } from "@chakra-ui/react";
 
-import Form from "./editProfileForm/Form";
+import Form from "../TodForm/Form.js";
 import { LogoLink } from "../../../../properties";
 import React from "react";
 

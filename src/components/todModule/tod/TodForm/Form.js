@@ -10,16 +10,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import {
-  defaultEducation,
-  defaultExperience,
   educationsReducer,
   experiencesReducer,
   preferredLocationsReducer,
-} from "../../todUtilities.js";
+} from "../todUtilities.js";
 import {
   isValidMobile,
   isValidateEmail,
-} from "../../../../../utitlityFunctions.js";
+} from "../../../../utitlityFunctions.js";
 import { useReducer, useState } from "react";
 
 import FormEducations from "./FormEducations";
@@ -267,11 +265,14 @@ function Form() {
   return (
     <Flex flexDir="column" gap={5}>
       <Flex flexDir="column" gap={7}>
-        <FormName setName={setName} />
-        <FormMobile setMobile={setMobile} />
-        <FormEmail setEmail={setEmail} />
-        <FormProfileTitle setProfileTitle={setProfileTitle} />
-        <FormTodTitle setTodTitle={setTodTitle} />
+        <FormName name={name} setName={setName} />
+        <FormMobile mobile={mobile} setMobile={setMobile} />
+        <FormEmail email={email} setEmail={setEmail} />
+        <FormProfileTitle
+          profileTitle={profileTitle}
+          setProfileTitle={setProfileTitle}
+        />
+        <FormTodTitle todTitle={todTitle} setTodTitle={setTodTitle} />
         <FormSkills skills={skills} setSkills={setSkills} />
         <FormPrimaryLocation
           primaryLocation={primaryLocation}
