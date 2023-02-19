@@ -18,7 +18,7 @@ import {
   isValidMobile,
   isValidateEmail,
 } from "../../../../utitlityFunctions.js";
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 
 import FormEducations from "./FormEducations";
 import FormEmail from "./FormEmail.js";
@@ -32,29 +32,20 @@ import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
 import { createProfile } from "../../../../api/index.js";
 
-  const token = localStorage.getItem("auth");
+function Form() {
   const toast = useToast();
-  const [name, setName] = useState("saransh");
-  const [profileTitle, setProfileTitle] = useState("FD");
-  const [mobile, setMobile] = useState("9650912448");
-  const [email, setEmail] = useState("saransh@gmail.com");
-  const [todTitle, setTodTitle] = useState("Java Developer");
-  const [skills, setSkills] = useState(new Set(["NodeJS"]));
-  const [primaryLocation, setPrimaryLocation] = useState({
-    city: "",
-    country: "Afghanistan",
-    state: "",
-  });
+  const [name, setName] = useState("");
+  const [profileTitle, setProfileTitle] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [todTitle, setTodTitle] = useState("");
+  const [skills, setSkills] = useState(new Set([]));
+  const [primaryLocation, setPrimaryLocation] = useState(null);
   const [experiences, dispatchExperiences] = useReducer(experiencesReducer, []);
   const [educations, dispatchEducations] = useReducer(educationsReducer, []);
   const [preferredLocations, dispatchPreferredLocations] = useReducer(
     preferredLocationsReducer,
-    [
-      {
-        id: 1676665925951,
-        locationData: { country: "Aland Islands", state: "", city: "" },
-      },
-    ]
+    []
   );
   const validateForm = () => {
     if (!name) {
@@ -252,11 +243,9 @@ import { createProfile } from "../../../../api/index.js";
     return true;
   };
   const handlePublish = async () => {
-  const handlePublish = async () => {
     if (!validateForm()) {
       return;
     }
-
     const body = {
       name: name,
       mobile: mobile,
@@ -294,10 +283,6 @@ import { createProfile } from "../../../../api/index.js";
       });
     }
   };
-  useEffect(() => {
-    if (mode === "edit") {
-    }
-  }, []);
   return (
     <Flex flexDir="column" gap={5}>
       <Flex flexDir="column" gap={7}>
@@ -340,53 +325,27 @@ import { createProfile } from "../../../../api/index.js";
         </Tabs>
       </Flex>
       <Flex justifyContent="center" alignItems="center">
-        {mode === "create" ? (
-          <Button
-            variant="unstyled"
-            bg="white"
-            color="#790202"
-            border={"1px solid #790202"}
-            px={5}
-            py={2}
-            w="xs"
-            type="submit"
-            _hover={{
-              bg: "#790202",
-              color: "white",
-            }}
-            _active={{
-              bg: "#ba1117",
-              color: "white",
-            }}
-            onClick={handlePublish}
-          >
-            PUBLISH
-          </Button>
-        ) : (
-          <Button
-            variant="unstyled"
-            bg="white"
-            color="#790202"
-            border={"1px solid #790202"}
-            px={5}
-            py={2}
-            w="xs"
-            type="submit"
-            _hover={{
-              bg: "#790202",
-              color: "white",
-            }}
-            _active={{
-              bg: "#ba1117",
-              color: "white",
-            }}
-            onClick={() => {
-              handleUpdate(profileId);
-            }}
-          >
-            UPDATE
-          </Button>
-        )}
+        <Button
+          variant="unstyled"
+          bg="white"
+          color="#790202"
+          border={"1px solid #790202"}
+          px={5}
+          py={2}
+          w="xs"
+          type="submit"
+          _hover={{
+            bg: "#790202",
+            color: "white",
+          }}
+          _active={{
+            bg: "#ba1117",
+            color: "white",
+          }}
+          onClick={handlePublish}
+        >
+          PUBLISH
+        </Button>
       </Flex>
     </Flex>
   );
