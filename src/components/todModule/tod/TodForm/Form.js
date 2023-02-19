@@ -30,6 +30,7 @@ import FormPrimaryLocation from "./FormPrimaryLocation.js";
 import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
+import { createProfile } from "../../../../api/index.js";
 
 function Form() {
   const toast = useToast();
@@ -241,7 +242,7 @@ function Form() {
     }
     return true;
   };
-  const handlePublish = () => {
+  const handlePublish = async () => {
     if (!validateForm()) {
       return;
     }
@@ -257,10 +258,30 @@ function Form() {
       skills: skills,
       educations: educations,
       status: "active",
-      keywords: new Set([]),
+      keywords: [],
       yearsOfExperience: 0,
     };
     console.log(body);
+    try {
+      const token = localStorage.getItem("auth");
+      const res = await createProfile(token, body)
+      if (res.status === 201) {
+        toast({
+          title: "Profile created successfully!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    }
+    catch (err) {
+      toast({
+        title: "Error creating profile!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
   return (
     <Flex flexDir="column" gap={5}>

@@ -58,7 +58,7 @@ function FormTodTitle({ todTitle, setTodTitle }) {
         }}
       >
         {titles.map((title) => {
-          return <option value={title?.name}>{title?.name}</option>;
+          return <option value={title?._id}>{title?.name}</option>;
         })}
       </Select>
     </FormControl>
