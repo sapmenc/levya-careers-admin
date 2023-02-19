@@ -4,7 +4,7 @@ import Form from "../TodForm/Form.js";
 import { LogoLink } from "../../../../properties";
 import React from "react";
 
-function TodEditProfile() {
+function TodEditProfile({ profileId }) {
   return (
     <Flex
       w="100%"
@@ -30,7 +30,7 @@ function TodEditProfile() {
         <Heading textAlign="center" my={5}>
           Edit New Profile
         </Heading>
-        <Form />
+        <Form mode="edit" profileId={profileId || ""} />
       </Box>
     </Flex>
   );
