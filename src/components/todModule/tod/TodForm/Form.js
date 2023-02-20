@@ -9,7 +9,11 @@ import {
   Tabs,
   useToast,
 } from "@chakra-ui/react";
-import { createProfile, editProfile } from "../../../../api/index.js";
+import {
+  createProfile,
+  editProfile,
+  fetchProfileById,
+} from "../../../../api/index.js";
 import {
   educationsReducer,
   experiencesReducer,
@@ -19,7 +23,7 @@ import {
   isValidMobile,
   isValidateEmail,
 } from "../../../../utitlityFunctions.js";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 import FormEducations from "./FormEducations";
 import FormEmail from "./FormEmail.js";
@@ -33,6 +37,7 @@ import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
 
 function Form({ mode, profileId }) {
+  const token = localStorage.getItem("auth");
   const toast = useToast();
   const [name, setName] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
@@ -263,7 +268,6 @@ function Form({ mode, profileId }) {
     };
     console.log(body);
     try {
-      const token = localStorage.getItem("auth");
       const res = await createProfile(token, body);
       if (res.status === 201) {
         toast({
@@ -304,7 +308,6 @@ function Form({ mode, profileId }) {
     };
     console.log(body);
     try {
-      const token = localStorage.getItem("auth");
       const res = await editProfile(token, profileId, body);
       if (res.status === 201) {
         toast({
@@ -323,6 +326,47 @@ function Form({ mode, profileId }) {
       });
     }
   };
+  const handleFetchProfileById = async () => {
+    try {
+      const { data } = await fetchProfileById(token, profileId);
+      if (data.status) {
+        toast({
+          title: "Success",
+          description: "Profile details fetched successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        console.log(data.data);
+        setName(data.data?.name);
+        setMobile(data.data?.mobile);
+        setEmail(data.data?.email);
+        setProfileTitle(data.data?.profileTitle);
+        setTodTitle(data.data?.todTitle);
+        // setSkills(new Set([...data.data?.skills]));
+        setPrimaryLocation(data.data?.primaryLocation);
+        dispatchPreferredLocations({
+          type: "ADD_NEW_DATA",
+          newData: data.data?.preferredLocations,
+        });
+        dispatchExperiences({
+          type: "ADD_NEW_DATA",
+          newData: data.data?.experiences,
+        });
+        dispatchEducations({
+          type: "ADD_NEW_DATA",
+          newData: data.data?.educations,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (mode === "edit") {
+      handleFetchProfileById();
+    }
+  }, []);
   return (
     <Flex flexDir="column" gap={5}>
       <Flex flexDir="column" gap={7}>
