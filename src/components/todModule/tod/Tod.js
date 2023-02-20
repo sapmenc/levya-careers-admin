@@ -189,7 +189,7 @@ function Tod({ textColor }) {
   const handleChangeStatus = async (profile) => {
     const body = {
       ...profile,
-      status: profile.status === "Active" ? "Inactive" : "Active",
+      status: profile.status === "active" ? "inactive" : "active",
     };
     console.log(body);
     try {

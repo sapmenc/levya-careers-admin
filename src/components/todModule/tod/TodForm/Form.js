@@ -262,7 +262,7 @@ function Form({ mode, profileId }) {
       experiences: experiences,
       skills: skills,
       educations: educations,
-      status: "Active",
+      status: "active",
       keywords: [],
       yearsOfExperience: 0,
     };
@@ -302,14 +302,14 @@ function Form({ mode, profileId }) {
       experiences: experiences,
       skills: skills,
       educations: educations,
-      status: "Active",
+      status: "active",
       keywords: [],
       yearsOfExperience: 0,
     };
     console.log(body);
     try {
       const res = await editProfile(token, profileId, body);
-      if (res.status === 201) {
+      if (res.status === 200) {
         toast({
           title: "Profile updated successfully!",
           status: "success",
@@ -341,7 +341,7 @@ function Form({ mode, profileId }) {
         setName(data.data?.name);
         setMobile(data.data?.mobile);
         setEmail(data.data?.email);
-        // setProfileTitle(data.data?.profileTitle);
+        setProfileTitle(data.data?.profileTitle);
         setTodTitle(data.data?.todTitle);
         // setSkills(new Set([...data.data?.skills]));
         setPrimaryLocation(data.data?.primaryLocation);
