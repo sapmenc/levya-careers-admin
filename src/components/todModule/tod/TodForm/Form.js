@@ -341,7 +341,7 @@ function Form({ mode, profileId }) {
         setName(data.data?.name);
         setMobile(data.data?.mobile);
         setEmail(data.data?.email);
-        setProfileTitle(data.data?.profileTitle);
+        // setProfileTitle(data.data?.profileTitle);
         setTodTitle(data.data?.todTitle);
         // setSkills(new Set([...data.data?.skills]));
         setPrimaryLocation(data.data?.primaryLocation);

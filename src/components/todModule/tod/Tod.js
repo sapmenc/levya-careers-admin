@@ -344,7 +344,7 @@ function Tod({ textColor }) {
                       <Td textAlign="center" isTruncated>
                         {profile?.profileTitle}
                       </Td>
-                      <Td textAlign="center">{profile?.todTitle}</Td>
+                      <Td textAlign="center">{profile?.todTitle?.name}</Td>
                       <Td textAlign="center">
                         {formatLocation(profile?.primaryLocation)}
                       </Td>
