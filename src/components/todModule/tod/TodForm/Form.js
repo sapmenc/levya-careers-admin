@@ -262,7 +262,7 @@ function Form({ mode, profileId }) {
       experiences: experiences,
       skills: skills,
       educations: educations,
-      status: "active",
+      status: "Active",
       keywords: [],
       yearsOfExperience: 0,
     };

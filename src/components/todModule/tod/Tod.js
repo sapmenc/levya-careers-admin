@@ -26,13 +26,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Edit, MinusCircle } from "react-feather";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import {
   deleteProfile,
   editProfile,
   fetchAllProfiles,
   fetchAllTitles,
 } from "../../../api/index.js";
+import { filterProfiles, filteredProfilesReducer } from "./todUtilities.js";
 
 import Loader from "../../utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../../properties.js";
@@ -43,18 +44,17 @@ import { useNavigate } from "react-router-dom";
 function Tod({ textColor }) {
   const token = localStorage.getItem("auth");
   const toast = useToast();
-  const [profiles, setProfiles] = useState([
-    { _id: 1 },
-    { _id: 2 },
-    { _id: 3 },
-    { _id: 4 },
-  ]);
+  const [profiles, setProfiles] = useState([]);
+  const [filteredProfiles, dispatchFilteredProfiles] = useReducer(
+    filteredProfilesReducer,
+    []
+  );
   const [titles, setTitles] = useState([]);
   const [profileForDeletion, setProfileForDeletion] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [filterProps, setFilterProps] = useState({
-    profileID: "",
+    profileId: "",
     searchQuery: "",
     todTitle: "",
     status: "",
@@ -126,7 +126,10 @@ function Tod({ textColor }) {
           isClosable: true,
         });
         setProfiles(data.data);
-        console.log("Profiles", data.data);
+        dispatchFilteredProfiles({
+          type: "ADD_NEW_DATA",
+          newData: data.data,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -139,6 +142,9 @@ function Tod({ textColor }) {
       });
     }
   };
+  // useEffect(() => {
+  //   console.log("Filtered Profiles", filteredProfiles);
+  // }, [filteredProfiles]);
   const handleDeleteProfile = async () => {
     if (!profileForDeletion?._id) {
       return toast({
@@ -217,8 +223,8 @@ function Tod({ textColor }) {
     });
   }, []);
   useEffect(() => {
-    console.log(filterProps);
-  }, [filterProps]);
+    console.log("filteredProfiles :", filteredProfiles);
+  }, [filteredProfiles]);
   return isLoading ? (
     <Loader />
   ) : (
@@ -256,7 +262,7 @@ function Tod({ textColor }) {
             type="text"
             placeholder="Profile ID"
             onChange={(e) => {
-              setFilterProps({ ...filterProps, profileID: e.target.value });
+              setFilterProps({ ...filterProps, profileId: e.target.value });
             }}
             focusBorderColor="#292929cf"
           />
@@ -296,8 +302,8 @@ function Tod({ textColor }) {
               setFilterProps({ ...filterProps, status: e.target.value });
             }}
           >
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </Select>
           <Box
             px={5}
@@ -311,6 +317,9 @@ function Tod({ textColor }) {
             _hover={{
               transform: "scale(1.1)",
               boxShadow: "dark-lg",
+            }}
+            onClick={() => {
+              filterProfiles(profiles, dispatchFilteredProfiles, filterProps);
             }}
           >
             <Search size="28" color="white" />
@@ -332,24 +341,26 @@ function Tod({ textColor }) {
                 </Tr>
               </Thead>
               <Tbody top={10}>
-                {profiles?.map((profile) => {
+                {filteredProfiles?.map((filteredProfile) => {
                   return (
                     <Tr key={1} fontSize="sm">
                       <Td textAlign="center" isTruncated>
-                        <strong>{profile?._id}</strong>
+                        <strong>{filteredProfile?.profileId}</strong>
                       </Td>
                       <Td textAlign="center" isTruncated>
-                        {profile?.name}
+                        {filteredProfile?.name}
                       </Td>
                       <Td textAlign="center" isTruncated>
-                        {profile?.profileTitle}
+                        {filteredProfile?.profileTitle}
                       </Td>
-                      <Td textAlign="center">{profile?.todTitle?.name}</Td>
                       <Td textAlign="center">
-                        {formatLocation(profile?.primaryLocation)}
+                        {filteredProfile?.todTitle?.name}
                       </Td>
-                      <Td textAlign="center">{profile?.enquiries}</Td>
-                      <Td textAlign="center">{profile?.status}</Td>
+                      <Td textAlign="center">
+                        {formatLocation(filteredProfile?.primaryLocation)}
+                      </Td>
+                      <Td textAlign="center">{filteredProfile?.enquiries}</Td>
+                      <Td textAlign="center">{filteredProfile?.status}</Td>
                       <Td>
                         <Flex
                           spacing={5}
@@ -365,7 +376,7 @@ function Tod({ textColor }) {
                             height="20px"
                             onClick={() => {
                               return navigate(
-                                `/tod/editProfile/${profile?._id}`
+                                `/tod/editProfile/${filteredProfile?._id}`
                               );
                             }}
                           />
@@ -375,16 +386,18 @@ function Tod({ textColor }) {
                             cursor="pointer"
                             height="20px"
                             onClick={() => {
-                              setProfileForDeletion(profile);
+                              setProfileForDeletion(filteredProfile);
                               setIsDeleteModalOpen(true);
                             }}
                           />
                           <Switch
                             onChange={() => {
-                              handleChangeStatus(profile);
+                              handleChangeStatus(filteredProfile);
                             }}
                             isChecked={
-                              profile?.status === "active" ? true : false
+                              filteredProfile?.status === "active"
+                                ? true
+                                : false
                             }
                             colorScheme="red"
                           />
