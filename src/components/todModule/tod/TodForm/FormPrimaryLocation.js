@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { City, Country, State } from "country-state-city";
 
+import { formatLocation } from "../../../../utitlityFunctions.js";
 import { useState } from "react";
 
 function FormPrimaryLocation({ primaryLocation, setPrimaryLocation }) {
@@ -41,13 +42,7 @@ function FormPrimaryLocation({ primaryLocation, setPrimaryLocation }) {
       city: selectedCity?.name || "",
     });
   };
-  const formatLocation = (location) => {
-    let data = [];
-    if (location.country !== "") data.push(location.country);
-    if (location.state !== "") data.push(location.state);
-    if (location.city !== "") data.push(location.city);
-    return data.join(", ");
-  };
+
   return (
     <FormControl isRequired>
       <Flex flexDir="column" gap={2}>

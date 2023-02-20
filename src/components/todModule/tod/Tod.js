@@ -27,11 +27,17 @@ import {
 } from "@chakra-ui/react";
 import { Edit, MinusCircle } from "react-feather";
 import React, { useEffect, useState } from "react";
+import {
+  deleteProfile,
+  editProfile,
+  fetchAllProfiles,
+  fetchAllTitles,
+} from "../../../api/index.js";
 
 import Loader from "../../utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../../properties.js";
 import { Search } from "react-feather";
-import { fetchAllTitles } from "../../../api/index.js";
+import { formatLocation } from "../../../utitlityFunctions.js";
 import { useNavigate } from "react-router-dom";
 
 function Tod({ textColor }) {
@@ -99,8 +105,108 @@ function Tod({ textColor }) {
       });
     }
   };
-  const handleFetchAllProfiles = async () => {};
-  const handleDeleteProfile = async () => {};
+  const handleFetchAllProfiles = async () => {
+    try {
+      const { data } = await fetchAllProfiles(token);
+      console.log(data);
+      if (data.error) {
+        toast({
+          title: "Error",
+          description: "Error while fetching profiles",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Profiles fetched successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        setProfiles(data.data);
+        console.log("Profiles", data.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return toast({
+        title: "Error",
+        description: "error",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
+  const handleDeleteProfile = async () => {
+    if (!profileForDeletion?._id) {
+      return toast({
+        title: "Error",
+        description: "Profile ID not found",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+    try {
+      const { data } = await deleteProfile(token, profileForDeletion?._id);
+      if (data.error) {
+        return toast({
+          title: "Error",
+          description: data.error,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Profile deleted successfully.",
+          description: data.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        handleFetchAllProfiles();
+        setIsDeleteModalOpen(false);
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+  const handleChangeStatus = async (profile) => {
+    const body = {
+      ...profile,
+      status: profile.status === "Active" ? "Inactive" : "Active",
+    };
+    console.log(body);
+    try {
+      const token = localStorage.getItem("auth");
+      const res = await editProfile(token, profile?._id, body);
+      if (res.status === 201) {
+        toast({
+          title: "Status changed successfully!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Error changed status!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+    fetchAllProfiles();
+  };
   const handleFilterData = async () => {};
   useEffect(() => {
     setIsLoading(true);
@@ -216,9 +322,10 @@ function Tod({ textColor }) {
               <Thead>
                 <Tr>
                   <Th textAlign="center">Profile ID</Th>
+                  <Th textAlign="center">Profile Name</Th>
                   <Th textAlign="center">Profile Title</Th>
-                  <Th textAlign="center">Profile Domain</Th>
-                  <Th textAlign="center">Primay Location</Th>
+                  <Th textAlign="center">TOD Title</Th>
+                  <Th textAlign="center">Primary Location</Th>
                   <Th textAlign="center">Enquiries</Th>
                   <Th textAlign="center">Status</Th>
                   <Th textAlign="center">Action</Th>
@@ -229,23 +336,20 @@ function Tod({ textColor }) {
                   return (
                     <Tr key={1} fontSize="sm">
                       <Td textAlign="center" isTruncated>
-                        lfm;ds;l
+                        <strong>{profile?._id}</strong>
                       </Td>
                       <Td textAlign="center" isTruncated>
-                        lkdsnjkesbfkjbnef,nl,sdnflknskfmlkf
+                        {profile?.name}
                       </Td>
-                      <Td textAlign="center">
-                        klsdsfjknklsdnflknskldfnklnfsldml
+                      <Td textAlign="center" isTruncated>
+                        {profile?.profileTitle}
                       </Td>
+                      <Td textAlign="center">{profile?.todTitle}</Td>
                       <Td textAlign="center">
-                        klsdsfjknklsdnflknskldfnklnfsldml
+                        {formatLocation(profile?.primaryLocation)}
                       </Td>
-                      <Td textAlign="center">
-                        ;klsdsfjknklsdnflknskldfnklnfsldml
-                      </Td>
-                      <Td textAlign="center">
-                        klsdsfjknklsdnflknskldfnklnfsldml
-                      </Td>{" "}
+                      <Td textAlign="center">{profile?.enquiries}</Td>
+                      <Td textAlign="center">{profile?.status}</Td>
                       <Td>
                         <Flex
                           spacing={5}
@@ -276,7 +380,12 @@ function Tod({ textColor }) {
                             }}
                           />
                           <Switch
-                            isChecked={"active" === "active" ? true : false}
+                            onChange={() => {
+                              handleChangeStatus(profile);
+                            }}
+                            isChecked={
+                              profile?.status === "active" ? true : false
+                            }
                             colorScheme="red"
                           />
                         </Flex>
@@ -289,14 +398,15 @@ function Tod({ textColor }) {
           </TableContainer>
         </Stack>
       </Stack>
-      <Modal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-      >
+      <Modal isOpen={isDeleteModalOpen}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Delete Profile</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton
+            onClick={() => {
+              setIsDeleteModalOpen(false);
+            }}
+          />
           <ModalBody>
             <Text>
               This action will permanently delete profile{" "}

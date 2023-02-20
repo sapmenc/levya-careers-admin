@@ -142,7 +142,7 @@ export const deleteTitle = async (token, id) =>
     },
   });
 
-export const fetchAllProfiles = async (token, body) =>
+export const fetchAllProfiles = async (token) =>
   API.get("/profile", {
     headers: {
       Authorization: `Bearer ${token}`,
