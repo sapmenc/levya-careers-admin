@@ -299,7 +299,7 @@ function Form({ mode, profileId }) {
       primaryLocation: primaryLocation,
       preferredLocations: preferredLocations,
       experiences: experiences,
-      skills: skills,
+      skills: [...skills],
       educations: educations,
       status: "active",
       keywords: [],
@@ -343,7 +343,7 @@ function Form({ mode, profileId }) {
         setEmail(data.data?.email);
         setProfileTitle(data.data?.profileTitle);
         setTodTitle(data.data?.todTitle);
-        // setSkills(new Set([...data.data?.skills]));
+        setSkills(new Set([...data.data?.skills]));
         setPrimaryLocation(data.data?.primaryLocation);
         dispatchPreferredLocations({
           type: "ADD_NEW_DATA",
