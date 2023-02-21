@@ -260,7 +260,7 @@ function Form({ mode, profileId }) {
       primaryLocation: primaryLocation,
       preferredLocations: preferredLocations,
       experiences: experiences,
-      skills: skills,
+      skills: [...skills],
       educations: educations,
       status: "active",
       keywords: [],
