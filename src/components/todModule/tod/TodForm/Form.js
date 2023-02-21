@@ -328,6 +328,7 @@ function Form({ mode, profileId }) {
   };
   const handleFetchProfileById = async () => {
     try {
+      console.log("profileId", profileId);
       const { data } = await fetchProfileById(token, profileId);
       if (data.status) {
         toast({
