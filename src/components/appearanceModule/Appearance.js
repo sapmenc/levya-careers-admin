@@ -26,6 +26,7 @@ function Appearance({ textColor, setTextColor }) {
   const [appearances, setAppearances] = useState([]);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isTextLoading, setIsTextLoading] = useState(true);
   const token = localStorage.getItem("auth");
 
   const changeBackground = async (_id, image) => {
@@ -160,8 +161,15 @@ function Appearance({ textColor, setTextColor }) {
         setIsLoading(false);
       });
   }, []);
+  useEffect(() => {
+    if (textColor === "#ffffff" || textColor === "#000000") {
+      setIsTextLoading(false);
+    } else {
+      setIsTextLoading(true);
+    }
+  }, [textColor]);
 
-  return isLoading ? (
+  return isLoading || isTextLoading ? (
     <Loader textColor={textColor} />
   ) : (
     <Box w="100%" overflowX="hidden">
