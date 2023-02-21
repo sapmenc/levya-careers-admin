@@ -28,6 +28,10 @@ import {
 import { Edit, MinusCircle } from "react-feather";
 import React, { useEffect, useReducer, useState } from "react";
 import {
+  capitalizeFirstLetter,
+  formatLocation,
+} from "../../../utitlityFunctions.js";
+import {
   deleteProfile,
   editProfile,
   fetchAllProfiles,
@@ -38,7 +42,6 @@ import { filterProfiles, filteredProfilesReducer } from "./todUtilities.js";
 import Loader from "../../utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../../properties.js";
 import { Search } from "react-feather";
-import { formatLocation } from "../../../utitlityFunctions.js";
 import { useNavigate } from "react-router-dom";
 
 function Tod({ textColor }) {
@@ -211,7 +214,7 @@ function Tod({ textColor }) {
         isClosable: true,
       });
     }
-    fetchAllProfiles();
+    handleFetchAllProfiles();
   };
   const handleFilterData = async () => {};
   useEffect(() => {
@@ -360,7 +363,16 @@ function Tod({ textColor }) {
                         {formatLocation(filteredProfile?.primaryLocation)}
                       </Td>
                       <Td textAlign="center">{filteredProfile?.enquiries}</Td>
-                      <Td textAlign="center">{filteredProfile?.status}</Td>
+                      <Td
+                        textAlign="center"
+                        className={`${
+                          filteredProfile?.status === "active" ? "green" : "red"
+                        }`}
+                      >
+                        <Box className="status-container">
+                          {capitalizeFirstLetter(filteredProfile?.status)}
+                        </Box>
+                      </Td>
                       <Td>
                         <Flex
                           spacing={5}

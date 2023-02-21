@@ -15,3 +15,16 @@ export const formatLocation = (location) => {
   if (location?.city !== "") data.push(location?.city);
   return data.join(", ");
 };
+
+export const capitalizeFirstLetter = (s) => {
+  if (s === undefined) {
+    return "";
+  } else {
+    let a = s?.split(" ");
+    for (let i = 0; i < a?.length; i++) {
+      a[i] = a[i][0]?.toUpperCase() + a[i]?.substring(1).toLowerCase();
+    }
+    let aResult = a.join(" ");
+    return aResult;
+  }
+};

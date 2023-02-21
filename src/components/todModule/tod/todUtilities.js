@@ -128,6 +128,7 @@ export const filterProfiles = (
         "status",
       ],
       threshold: 0.2,
+      findAllMatches: true,
     });
     res = searchFuse.search(filterProps.searchQuery);
   }
