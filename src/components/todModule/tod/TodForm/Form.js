@@ -263,7 +263,6 @@ function Form({ mode, profileId }) {
       skills: [...skills],
       educations: educations,
       status: "active",
-      keywords: [],
       yearsOfExperience: 0,
     };
     console.log(body);
