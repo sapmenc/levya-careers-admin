@@ -29,7 +29,49 @@ function EditUser({ textColor }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const validateUserDetails = () => {
+    if (!name) {
+      toast({
+        title: "User name required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!email) {
+      toast({
+        title: "User email required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!password) {
+      toast({
+        title: "User password required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!role) {
+      toast({
+        title: "User role required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    return true;
+  };
   const handleUserUpdation = async (e) => {
+    if (!validateUserDetails()) {
+      return;
+    }
     try {
       let body = {
         id: param.id,
@@ -74,6 +116,7 @@ function EditUser({ textColor }) {
     try {
       const { data } = await getUserById(token, param.id);
       if (data.status) {
+        console.log(data);
         toast({
           title: "Success",
           description: "User details fetched successfully",

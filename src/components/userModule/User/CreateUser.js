@@ -25,7 +25,49 @@ function CreateUser({ textColor }) {
   const [status, setStatus] = useState("active");
   const [showPassword, setShowPassword] = useState(false);
 
+  const validateUserDetails = () => {
+    if (!name) {
+      toast({
+        title: "User name required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!email) {
+      toast({
+        title: "User email required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!password) {
+      toast({
+        title: "User password required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!role) {
+      toast({
+        title: "User role required!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    return true;
+  };
   const handleUserCreation = async (e) => {
+    if (!validateUserDetails()) {
+      return;
+    }
     try {
       let body = {
         name: name,
@@ -34,6 +76,7 @@ function CreateUser({ textColor }) {
         role: role,
         status: status,
       };
+      console.log(body);
       const { data } = await signupUser(body);
       if (data.error) {
         return toast({
