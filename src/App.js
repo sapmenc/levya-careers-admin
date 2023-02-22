@@ -107,6 +107,7 @@ function App() {
   };
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
+    console.log(data);
     setTextColor(data.data.textColor);
     setBackgroundImage(data.data.appearance.image);
 
@@ -116,8 +117,9 @@ function App() {
     setUser(data.data);
   };
   useEffect(() => {
-    getCurrentUser();
-    applyDefaultTheme();
+    getCurrentUser().then(() => {
+      applyDefaultTheme();
+    });
   }, []);
 
   useEffect(() => {
