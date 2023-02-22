@@ -66,10 +66,8 @@ export const signinUser = async (body) => API.post("/signin", body);
 export const signupUser = async (body) => API.post("/signup", body);
 
 export const fetchCurrentUser = async (token) =>
-  API.get("/users/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  API.post("/users/me", {
+    token: localStorage.getItem("auth"),
   });
 
 export const fetchAllUsers = async (token) =>
