@@ -7,9 +7,7 @@ import { LogoLink } from "../../../../properties";
 
 function TodEditProfile({ profileId }) {
   const [isLoading, setIsLoading] = useState(false);
-  return isLoading ? (
-    <Loader />
-  ) : (
+  return (
     <Flex
       w="100%"
       h="100vh"
