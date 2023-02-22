@@ -66,7 +66,7 @@ export const signinUser = async (body) => API.post("/signin", body);
 export const signupUser = async (body) => API.post("/signup", body);
 
 export const fetchCurrentUser = async (token) =>
-  API.post("/users/me", {
+  API.post("/me", {
     token: localStorage.getItem("auth"),
   });
 
