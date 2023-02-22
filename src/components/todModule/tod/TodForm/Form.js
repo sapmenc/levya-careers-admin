@@ -36,7 +36,7 @@ import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
 
-function Form({ mode, profileId }) {
+function Form({ mode, profileId, setIsLoading }) {
   const token = localStorage.getItem("auth");
   const toast = useToast();
   const [name, setName] = useState("");
@@ -364,7 +364,10 @@ function Form({ mode, profileId }) {
   };
   useEffect(() => {
     if (mode === "edit") {
-      handleFetchProfileById();
+      setIsLoading(true);
+      handleFetchProfileById().then(() => {
+        setIsLoading(false);
+      });
     }
   }, []);
   return (

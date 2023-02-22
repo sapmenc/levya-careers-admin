@@ -1,11 +1,15 @@
 import { Box, Flex, Heading, Image, Stack } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 import Form from "../TodForm/Form.js";
+import Loader from "../../../utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../../../properties";
-import React from "react";
 
 function TodEditProfile({ profileId }) {
-  return (
+  const [isLoading, setIsLoading] = useState(false);
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Flex
       w="100%"
       h="100vh"
@@ -30,7 +34,11 @@ function TodEditProfile({ profileId }) {
         <Heading textAlign="center" my={5}>
           Edit New Profile
         </Heading>
-        <Form mode="edit" profileId={profileId || ""} />
+        <Form
+          mode="edit"
+          profileId={profileId || ""}
+          setIsLoading={setIsLoading}
+        />
       </Box>
     </Flex>
   );
