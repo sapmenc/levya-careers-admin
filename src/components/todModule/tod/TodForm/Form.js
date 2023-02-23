@@ -371,13 +371,7 @@ function Form({ mode, profileId }) {
   };
   useEffect(() => {
     if (mode === "edit") {
-      setIsLoading(true)
-        .then(() => {
-          handleFetchProfileById();
-        })
-        .then(() => {
-          setIsLoading(false);
-        });
+      handleFetchProfileById();
     }
   }, []);
   return isLoading ? (

@@ -41,7 +41,6 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                 bg="white"
                 color="black"
                 focusBorderColor="#790202"
-                value={experience.companyName || ""}
                 onChange={(e) => {
                   dispatchExperiences({
                     type: "UPDATE_EXPERIENCE",
@@ -93,6 +92,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           id: experience.id,
                           updates: {
                             isCurrentlyWorking: e.target.checked,
+                            endDate: moment().format("YYYY-MM-DD"),
                           },
                         },
                       });
@@ -103,6 +103,7 @@ function FormExperiences({ experiences, dispatchExperiences }) {
                           id: experience.id,
                           updates: {
                             isCurrentlyWorking: e.target.checked,
+                            endDate: "",
                           },
                         },
                       });

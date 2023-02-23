@@ -16,13 +16,14 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { fetchAllDomains, fetchAllJobs, updateJob } from "../../api";
 
 import Fuse from "fuse.js";
 import Loader from "../../components/utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../properties.js";
 import { Search } from "react-feather";
+import { filteredJobsReducer } from "./jobutilities";
 import { useNavigate } from "react-router-dom";
 
 function JobContent({ textColor }) {
@@ -39,6 +40,11 @@ function JobContent({ textColor }) {
   const [searchDomain, setSearchDomain] = useState("");
   const [searchStatus, setSearchStatus] = useState("");
   const [jobId, setJobId] = useState("");
+  const [jobs, setjobs] = useState([]);
+  const [filteredJobs, dispatchFilteredJobs] = useReducer(
+    filteredJobsReducer,
+    []
+  );
 
   const capitalizeFirstLetter = (s) => {
     if (s === undefined) {
@@ -139,6 +145,11 @@ function JobContent({ textColor }) {
         });
         console.log(data.data.data);
         setFetchedJobs(data.data.data);
+        setjobs(data.data.data);
+        dispatchFilteredJobs({
+          type: "ADD_NEW_DATA",
+          newData: data.data.data,
+        });
       }
     } catch (err) {
       toast({
