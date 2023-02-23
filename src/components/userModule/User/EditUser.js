@@ -114,7 +114,7 @@ function EditUser({ textColor }) {
 
   const handleFetchCurrentUser = async () => {
     try {
-      const { data } = await getUserById(token, param.id);
+      const data = await getUserById(token, param.id);
       if (data.status) {
         console.log(data);
         toast({
@@ -124,12 +124,13 @@ function EditUser({ textColor }) {
           duration: 2000,
           isClosable: true,
         });
-        console.log(data.password);
-        setEmail(data.email);
-        setName(data.name);
-        setPassword(data.password);
-        setRole(data.role);
-        setStatus(data.status);
+        console.log(data?.data?.user);
+        const user = data?.data?.user;
+        setEmail(user?.email);
+        setName(user?.name);
+        setPassword(user?.password);
+        setRole(user?.role);
+        setStatus(user?.status);
       }
     } catch (error) {
       console.log(error);

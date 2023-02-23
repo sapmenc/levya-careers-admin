@@ -107,7 +107,6 @@ function App() {
   };
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
-    console.log(data);
     setTextColor(data.data.textColor);
     setBackgroundImage(data.data.appearance.image);
 

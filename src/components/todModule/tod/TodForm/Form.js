@@ -25,6 +25,7 @@ import {
 } from "../../../../utitlityFunctions.js";
 import { useEffect, useReducer, useState } from "react";
 
+import ClipLoader from "react-spinners/ClipLoader";
 import FormEducations from "./FormEducations";
 import FormEmail from "./FormEmail.js";
 import FormExperiences from "./FormExperiences";
@@ -36,8 +37,14 @@ import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
 
-function Form({ mode, profileId, setIsLoading }) {
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
+function Form({ mode, profileId }) {
   const token = localStorage.getItem("auth");
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const [name, setName] = useState("");
   const [profileTitle, setProfileTitle] = useState("");
@@ -364,10 +371,27 @@ function Form({ mode, profileId, setIsLoading }) {
   };
   useEffect(() => {
     if (mode === "edit") {
-      handleFetchProfileById();
+      setIsLoading(true)
+        .then(() => {
+          handleFetchProfileById();
+        })
+        .then(() => {
+          setIsLoading(false);
+        });
     }
   }, []);
-  return (
+  return isLoading ? (
+    <>
+      <ClipLoader
+        color="#f72b2a"
+        loading={isLoading}
+        cssOverride={override}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    </>
+  ) : (
     <Flex flexDir="column" gap={5}>
       <Flex flexDir="column" gap={7}>
         <FormName name={name} setName={setName} />

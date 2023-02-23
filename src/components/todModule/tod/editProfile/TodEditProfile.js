@@ -6,7 +6,6 @@ import Loader from "../../../utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../../../properties";
 
 function TodEditProfile({ profileId }) {
-  const [isLoading, setIsLoading] = useState(false);
   return (
     <Flex
       w="100%"
@@ -32,11 +31,7 @@ function TodEditProfile({ profileId }) {
         <Heading textAlign="center" my={5}>
           Edit New Profile
         </Heading>
-        <Form
-          mode="edit"
-          profileId={profileId || ""}
-          setIsLoading={setIsLoading}
-        />
+        <Form mode="edit" profileId={profileId || ""} />
       </Box>
     </Flex>
   );
