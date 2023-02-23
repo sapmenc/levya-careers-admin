@@ -33,20 +33,15 @@ import { useNavigate } from "react-router-dom";
 function UserContent({ textColor }) {
   let token = localStorage.getItem("auth");
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const [fetchedUsers, setFetchedUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState();
-  const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [deleteUser, setDeleteUser] = useState(null);
+  const [userForDeletion, setUserForDeletion] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleDeleteUser = (id) => {
-    setUserId(id);
-    onOpen();
-  };
   const finalDeleteUser = async () => {
-    if (userId === "") {
+    if (!userForDeletion) {
       return toast({
         title: "Error",
         description: "User Id not found",
@@ -57,18 +52,12 @@ function UserContent({ textColor }) {
     }
     try {
       let body = {
-        id: userId,
+        id: userForDeletion?._id,
       };
-      const { data } = await deleteUser(token, body);
-      if (data.error) {
-        return toast({
-          title: "Error",
-          description: data.error,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-      } else {
+      console.log(body);
+      const data = await deleteUser(token, body);
+      console.log(data);
+      if (data.status === 200) {
         toast({
           title: "Success",
           description: data.message,
@@ -76,8 +65,17 @@ function UserContent({ textColor }) {
           duration: 3000,
           isClosable: true,
         });
-        handleFetchAllUsers();
         onClose();
+        setUserForDeletion(null);
+        handleFetchAllUsers();
+      } else {
+        return toast({
+          title: "Error",
+          description: data.error,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       }
     } catch (err) {
       toast({
@@ -155,16 +153,15 @@ function UserContent({ textColor }) {
           <ModalHeader>Delete User</ModalHeader>
           <ModalCloseButton
             onClick={() => {
-              setDeleteUser(null);
+              onClose();
+              setUserForDeletion(null);
             }}
           />
           <ModalBody>
             <Text>
-              All data associated with user{" "}
-              <strong>{`${deleteUser?.name} (${deleteUser?._id})`}</strong> will
-              get deleted !!
+              Are you sure you want to delete user
+              <strong>{` ${userForDeletion?.name} (${userForDeletion?._id}).`}</strong>
             </Text>
-            <Text>Do you still want to delete this user?</Text>
           </ModalBody>
 
           <ModalFooter>
@@ -173,7 +170,6 @@ function UserContent({ textColor }) {
               mr={3}
               onClick={() => {
                 finalDeleteUser();
-                setDeleteUser(null);
               }}
             >
               Delete
@@ -182,7 +178,7 @@ function UserContent({ textColor }) {
               mr={3}
               onClick={() => {
                 onClose();
-                setDeleteUser(null);
+                setUserForDeletion(null);
               }}
             >
               Close
@@ -244,8 +240,8 @@ function UserContent({ textColor }) {
                           </Button>
                           <Button
                             onClick={() => {
-                              setDeleteUser(user);
-                              handleDeleteUser(user._id);
+                              setUserForDeletion(user);
+                              onOpen();
                             }}
                             bgColor="#790202"
                             color="white"
