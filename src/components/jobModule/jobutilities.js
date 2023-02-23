@@ -12,24 +12,23 @@ export const filteredJobsReducer = (state = [], action) => {
 export const filterjobs = (jobs, dispatchFilteredJobs, filterProps) => {
   let flag = false;
   let res = jobs;
-  console.log("jobs :", res);
-  if (filterProps.jobId !== "") {
+  if (filterProps?.jobId !== "") {
     flag = true;
     const jobFuse = new Fuse(res, {
       keys: ["_id"],
       threshold: 0.5,
     });
-    res = jobFuse.search(filterProps.profileId);
+    res = jobFuse.search(filterProps.jobId);
   }
-  if (filterProps.searchQuery !== "") {
+  if (filterProps?.searchQuery !== "") {
     flag = true;
     const searchFuse = new Fuse(res, {
       keys: [
-        "profileId",
-        "name",
-        "profileTitle",
-        "todTitle.name",
-        "primaryLocation.country",
+        "country",
+        "_id",
+        "domain.name",
+        "title",
+        "createdBy.name",
         "status",
       ],
       threshold: 0.2,
@@ -37,13 +36,13 @@ export const filterjobs = (jobs, dispatchFilteredJobs, filterProps) => {
     });
     res = searchFuse.search(filterProps.searchQuery);
   }
-  if (filterProps.todTitle !== "") {
+  if (filterProps?.domain !== "") {
     flag = true;
-    const todTitleFuse = new Fuse(res, {
-      keys: ["todTitle.name"],
+    const domainFuse = new Fuse(res, {
+      keys: ["domain.name"],
       threshold: 0.3,
     });
-    res = todTitleFuse.search(filterProps.todTitle);
+    res = domainFuse.search(filterProps.domain);
   }
   if (filterProps.status !== "") {
     flag = true;
@@ -58,7 +57,6 @@ export const filterjobs = (jobs, dispatchFilteredJobs, filterProps) => {
       return r.item;
     });
   }
-
   console.log(res);
   dispatchFilteredJobs({
     type: "ADD_NEW_DATA",

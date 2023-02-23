@@ -24,6 +24,7 @@ import Loader from "../../components/utilityComponents/loader/Loader.js";
 import { LogoLink } from "../../properties.js";
 import { Search } from "react-feather";
 import { filteredJobsReducer } from "./jobutilities";
+import { filterjobs } from "./jobutilities";
 import { useNavigate } from "react-router-dom";
 
 function JobContent({ textColor }) {
@@ -314,7 +315,7 @@ function JobContent({ textColor }) {
               size="28"
               color="white"
               onClick={() => {
-                console.log(filterProps);
+                filterjobs(jobs, dispatchFilteredJobs, filterProps);
               }}
             />
           </Box>
