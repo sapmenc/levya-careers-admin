@@ -29,7 +29,7 @@ function TodEditProfile({ profileId }) {
           <Image src={LogoLink} maxWidth="250px" height="auto" />
         </Stack>
         <Heading textAlign="center" my={5}>
-          Edit New Profile
+          Edit Profile
         </Heading>
         <Form mode="edit" profileId={profileId || ""} />
       </Box>
