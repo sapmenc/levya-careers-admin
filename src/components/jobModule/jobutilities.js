@@ -1,3 +1,5 @@
+import Fuse from "fuse.js";
+
 export const filteredJobsReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_NEW_DATA":
@@ -17,7 +19,7 @@ export const filterjobs = (jobs, dispatchFilteredJobs, filterProps) => {
       keys: ["_id"],
       threshold: 0.5,
     });
-    res = profileFuse.search(filterProps.profileId);
+    res = jobFuse.search(filterProps.profileId);
   }
   if (filterProps.searchQuery !== "") {
     flag = true;

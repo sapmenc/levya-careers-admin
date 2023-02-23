@@ -45,6 +45,12 @@ function JobContent({ textColor }) {
     filteredJobsReducer,
     []
   );
+  const [filterProps, setFilterProps] = useState({
+    jobId: "",
+    searchQuery: "",
+    domain: "",
+    status: "",
+  });
 
   const capitalizeFirstLetter = (s) => {
     if (s === undefined) {
@@ -236,9 +242,9 @@ function JobContent({ textColor }) {
             bg="white"
             type="text"
             onChange={(e) => {
-              setJobId(e.target.value);
+              setFilterProps({ ...filterProps, jobId: e.target.value });
             }}
-            value={jobId}
+            value={filterProps?.jobId || ""}
             placeholder="Job ID"
             focusBorderColor="#292929cf"
           />
@@ -248,9 +254,9 @@ function JobContent({ textColor }) {
             type="text"
             placeholder="Search"
             onChange={(e) => {
-              setSearchQuery(e.target.value);
+              setFilterProps({ ...filterProps, searchQuery: e.target.value });
             }}
-            value={searchQuery}
+            value={filterProps?.searchQuery || ""}
             focusBorderColor="#292929cf"
           />
           <Select
@@ -258,8 +264,12 @@ function JobContent({ textColor }) {
             bg="white"
             placeholder="All"
             focusBorderColor="#292929cf"
+            value={filterProps?.domain || ""}
             onChange={(e) => {
-              handleSearchFilterForDomain(e);
+              setFilterProps({
+                ...filterProps,
+                domain: e.target.value,
+              });
             }}
           >
             {domains.map((domain) => {
@@ -275,8 +285,12 @@ function JobContent({ textColor }) {
             bg="white"
             placeholder="Status"
             focusBorderColor="#292929cf"
+            value={filterProps?.status || ""}
             onChange={(e) => {
-              setSearchStatus(e.target.value);
+              setFilterProps({
+                ...filterProps,
+                status: e.target.value,
+              });
             }}
           >
             <option value="active">Active</option>
@@ -300,14 +314,7 @@ function JobContent({ textColor }) {
               size="28"
               color="white"
               onClick={() => {
-                if (!jobId && !searchQuery && !searchDomain && searchStatus) {
-                  setResultJobs(fetchedJobs);
-                  return;
-                }
-
-                setResultJobs(
-                  searchWithFuse({ searchQuery, searchDomain, searchStatus })
-                );
+                console.log(filterProps);
               }}
             />
           </Box>
@@ -328,95 +335,48 @@ function JobContent({ textColor }) {
                 </Tr>
               </Thead>
               <Tbody top={10}>
-                {resultJobs.length > 0
-                  ? resultJobs?.map((job) => {
-                      return (
-                        <Tr key={job._id} fontSize="sm">
-                          <Td>{job._id}</Td>
-                          <Td>{job.title}</Td>
-                          <Td>{capitalizeFirstLetter(job.domain.name)}</Td>
-                          <Td>
-                            {getPlaceName(job.state) +
-                              ", " +
-                              getPlaceName(job.country)}
-                          </Td>
-                          <Td>{55}</Td>
-                          <Td>Keyur Shinde</Td> {/* job.created_by*/}
-                          <Td>{capitalizeFirstLetter(job.status)}</Td>
-                          <Td>
-                            <Stack spacing={5} align="center" direction="row">
-                              <Button
-                                onClick={() => {
-                                  return navigate(`/editjob/${job._id}`);
-                                }}
-                                bgColor="secondary"
-                                color="white"
-                              >
-                                Edit
-                              </Button>
-                              <Switch
-                                disabled={loading}
-                                isChecked={
-                                  job.status === "active" ? true : false
-                                }
-                                onChange={() => {
-                                  if (job.status === "active") {
-                                    handleUpdateJobStatus(job._id, "inactive");
-                                  } else {
-                                    handleUpdateJobStatus(job._id, "active");
-                                  }
-                                }}
-                                colorScheme="red"
-                              />
-                            </Stack>
-                          </Td>
-                        </Tr>
-                      );
-                    })
-                  : fetchedJobs?.map((job) => {
-                      return (
-                        <Tr key={job._id} fontSize="sm">
-                          <Td>{job._id}</Td>
-                          <Td>{job.title.toUpperCase()}</Td>
-                          <Td>{capitalizeFirstLetter(job.domain?.name)}</Td>
-                          <Td>
-                            {getPlaceName(job.state) +
-                              ", " +
-                              getPlaceName(job.country)}
-                          </Td>
-                          <Td>{55}</Td>
-                          <Td>Keyur Shinde</Td> {/* job.created_by*/}
-                          <Td>{capitalizeFirstLetter(job.status)}</Td>
-                          <Td>
-                            <Stack spacing={3} align="center" direction="row">
-                              <Button
-                                onClick={() => {
-                                  return navigate(`/editjob/${job._id}`);
-                                }}
-                                bgColor="secondary"
-                                color="white"
-                              >
-                                Edit
-                              </Button>
-                              <Switch
-                                disabled={loading}
-                                isChecked={
-                                  job.status === "active" ? true : false
-                                }
-                                onChange={() => {
-                                  if (job.status === "active") {
-                                    handleUpdateJobStatus(job._id, "inactive");
-                                  } else {
-                                    handleUpdateJobStatus(job._id, "active");
-                                  }
-                                }}
-                                colorScheme="red"
-                              />
-                            </Stack>
-                          </Td>
-                        </Tr>
-                      );
-                    })}
+                {filteredJobs?.map((job) => {
+                  return (
+                    <Tr key={job._id} fontSize="sm">
+                      <Td>{job._id}</Td>
+                      <Td>{job.title}</Td>
+                      <Td>{capitalizeFirstLetter(job.domain.name)}</Td>
+                      <Td>
+                        {getPlaceName(job.state) +
+                          ", " +
+                          getPlaceName(job.country)}
+                      </Td>
+                      <Td>{55}</Td>
+                      <Td>Keyur Shinde</Td> {/* job.created_by*/}
+                      <Td>{capitalizeFirstLetter(job.status)}</Td>
+                      <Td>
+                        <Stack spacing={5} align="center" direction="row">
+                          <Button
+                            onClick={() => {
+                              return navigate(`/editjob/${job._id}`);
+                            }}
+                            bgColor="secondary"
+                            color="white"
+                          >
+                            Edit
+                          </Button>
+                          <Switch
+                            disabled={loading}
+                            isChecked={job.status === "active" ? true : false}
+                            onChange={() => {
+                              if (job.status === "active") {
+                                handleUpdateJobStatus(job._id, "inactive");
+                              } else {
+                                handleUpdateJobStatus(job._id, "active");
+                              }
+                            }}
+                            colorScheme="red"
+                          />
+                        </Stack>
+                      </Td>
+                    </Tr>
+                  );
+                })}
               </Tbody>
             </Table>
           </TableContainer>

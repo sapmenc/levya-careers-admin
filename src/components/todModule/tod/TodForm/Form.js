@@ -275,7 +275,7 @@ function Form({ mode, profileId }) {
       status: "active",
       yearsOfExperience: 0,
     };
-    console.log(body);
+    console.log(JSON.stringify(body));
     try {
       const res = await createProfile(token, body);
       if (res.status === 201) {

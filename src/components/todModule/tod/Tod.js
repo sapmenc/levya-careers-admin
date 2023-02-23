@@ -145,9 +145,7 @@ function Tod({ textColor }) {
       });
     }
   };
-  // useEffect(() => {
-  //   console.log("Filtered Profiles", filteredProfiles);
-  // }, [filteredProfiles]);
+
   const handleDeleteProfile = async () => {
     if (!profileForDeletion?._id) {
       return toast({

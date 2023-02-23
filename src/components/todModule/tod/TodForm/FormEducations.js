@@ -17,7 +17,14 @@ import moment from "moment";
 
 function FormEducations({ educations, dispatchEducations }) {
   const toast = useToast();
-  const courseTypes = ["B.Tech", "M.Tech", "BCA", "MCA"];
+  const courseTypes = [
+    "School",
+    "Junior College",
+    "Bachelor's",
+    "Masters",
+    "Diploma",
+    "Ph.D",
+  ];
   return (
     <Box>
       <Heading as="h3" size="lg" mb={5}>
@@ -100,15 +107,29 @@ function FormEducations({ educations, dispatchEducations }) {
                     bg="white"
                     focusBorderColor="#790202"
                     onChange={(e) => {
-                      dispatchEducations({
-                        type: "UPDATE_EDUCATION",
-                        payload: {
-                          id: edu.id,
-                          updates: {
-                            isCurrentlyPersuing: e.target.checked,
+                      if (e.target.checked) {
+                        dispatchEducations({
+                          type: "UPDATE_EDUCATION",
+                          payload: {
+                            id: edu.id,
+                            updates: {
+                              isCurrentlyPersuing: e.target.checked,
+                              endDate: moment().format("YYYY-MM-DD"),
+                            },
                           },
-                        },
-                      });
+                        });
+                      } else {
+                        dispatchEducations({
+                          type: "UPDATE_EDUCATION",
+                          payload: {
+                            id: edu.id,
+                            updates: {
+                              isCurrentlyPersuing: e.target.checked,
+                              endDate: "",
+                            },
+                          },
+                        });
+                      }
                     }}
                   />
                 </Flex>
