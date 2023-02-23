@@ -12,12 +12,7 @@ export const fetchAllDomains = async (token) =>
     },
   });
 
-export const fetchAllJobs = async (token) =>
-  API.get("/jobs", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const fetchAllJobs = async () => API.get("/jobs");
 
 export const fetchJobById = async (token, id) =>
   API.get(`/jobs/${id}`, {
@@ -65,9 +60,11 @@ export const signinUser = async (body) => API.post("/signin", body);
 
 export const signupUser = async (body) => API.post("/signup", body);
 
-export const fetchCurrentUser = async (token) =>
-  API.post("/me", {
-    token: localStorage.getItem("auth"),
+export const fetchCurrentUser = async () =>
+  API.get("/users/me", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("auth")}`,
+    },
   });
 
 export const fetchAllUsers = async (token) =>

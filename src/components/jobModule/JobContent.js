@@ -120,7 +120,7 @@ function JobContent({ textColor }) {
   };
   const handleFetchAllJobs = async () => {
     try {
-      const { data } = await fetchAllJobs(token);
+      const data = await fetchAllJobs();
       if (data.error) {
         return toast({
           title: "Error",
@@ -137,7 +137,8 @@ function JobContent({ textColor }) {
           duration: 2000,
           isClosable: true,
         });
-        setFetchedJobs(data.data);
+        console.log(data.data.data);
+        setFetchedJobs(data.data.data);
       }
     } catch (err) {
       toast({
@@ -264,7 +265,7 @@ function JobContent({ textColor }) {
             placeholder="Status"
             focusBorderColor="#292929cf"
             onChange={(e) => {
-              handleSearchFilterForStatus(e);
+              setSearchStatus(e.target.value);
             }}
           >
             <option value="active">Active</option>
@@ -288,19 +289,14 @@ function JobContent({ textColor }) {
               size="28"
               color="white"
               onClick={() => {
-                if (!searchQuery && !jobId) {
-                  return toast({
-                    title: "Error",
-                    description: "Please enter a search query",
-                    status: "error",
-                    duration: 3000,
-                    isClosable: true,
-                  });
-                } else {
-                  setResultJobs(
-                    searchWithFuse({ searchQuery, searchDomain, searchStatus })
-                  );
+                if (!jobId && !searchQuery && !searchDomain && searchStatus) {
+                  setResultJobs(fetchedJobs);
+                  return;
                 }
+
+                setResultJobs(
+                  searchWithFuse({ searchQuery, searchDomain, searchStatus })
+                );
               }}
             />
           </Box>

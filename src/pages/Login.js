@@ -1,17 +1,18 @@
-import React, { useRef, useState } from "react";
 import {
   Button,
+  Flex,
   Heading,
   Image,
   Input,
+  Link,
   Stack,
   useToast,
-  Flex,
-  Link,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { signinUser } from "../api";
+import React, { useRef, useState } from "react";
+
 import { LogoLink } from "../properties.js";
+import { signinUser } from "../api";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,21 +34,12 @@ function Login() {
         duration: 3000,
         isClosable: true,
       });
-    // if (emailRef.current.value === "admin@gmail.com" && passwordRef.current.value === "admin") {
-    //     toast({
-    //         title: "Success",
-    //         description: "Login successful",
-    //         status: "success",
-    //         duration: 3000,
-    //         isClosable: true,
-    //     })
-    //     navigate('/')
-    // }
     try {
       let body = {
         email: email,
         password: password,
       };
+      console.log("body", body);
       let { data } = await signinUser(body);
       if (data.token) {
         toast({
@@ -70,23 +62,6 @@ function Login() {
         isClosable: true,
       });
     }
-    // .then(({ token }) => {
-    //     if (token) {
-    //         localStorage.setItem('jwt', token);
-    //         setLoggedIn(true);
-    //         setEmail(email);
-    //         getInitialData();
-    //         history.push('/');
-    //     }
-    // })
-    // .catch(() => {
-    //     setLoggedIn(false);
-    //     setIsInfoTooltipOpen({
-    //         open: true,
-    //         message: SOMETHING_WRONG,
-    //         success: false,
-    //     });
-    // });
   };
   return (
     <Stack

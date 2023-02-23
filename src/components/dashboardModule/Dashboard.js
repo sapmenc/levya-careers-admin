@@ -32,7 +32,7 @@ function Dashboard({ textColor }) {
 
   const getCurrentUser = async () => {
     const { data } = await fetchCurrentUser(token);
-
+    console.log("user", data);
     if (data.error) {
       window.location.href = "/login";
     }
@@ -44,7 +44,7 @@ function Dashboard({ textColor }) {
 
   const handleFetchAllJobs = async () => {
     try {
-      const { data } = await fetchAllJobs(token);
+      const { data } = await fetchAllJobs();
       if (data.error) {
         toast({
           title: "Error",

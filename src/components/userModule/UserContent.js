@@ -54,9 +54,7 @@ function UserContent({ textColor }) {
       let body = {
         id: userForDeletion?._id,
       };
-      console.log(body);
       const data = await deleteUser(token, body);
-      console.log(data);
       if (data.status === 200) {
         toast({
           title: "Success",

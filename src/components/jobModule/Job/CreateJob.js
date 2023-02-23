@@ -68,6 +68,7 @@ function CreateJob({ textColor }) {
     // console.log(result);
     return result;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
