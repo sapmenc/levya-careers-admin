@@ -36,6 +36,7 @@ import FormPrimaryLocation from "./FormPrimaryLocation.js";
 import FormProfileTitle from "./FormProfileTitle.js";
 import FormSkills from "./FormSkills";
 import FormTodTitle from "./FormTodTitle";
+import { useNavigate } from "react-router-dom";
 
 const override = {
   display: "block",
@@ -44,6 +45,7 @@ const override = {
 };
 function Form({ mode, profileId }) {
   const token = localStorage.getItem("auth");
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const [name, setName] = useState("");
@@ -59,6 +61,7 @@ function Form({ mode, profileId }) {
     preferredLocationsReducer,
     []
   );
+
   const validateForm = () => {
     if (!name) {
       toast({
@@ -282,6 +285,8 @@ function Form({ mode, profileId }) {
           duration: 2000,
           isClosable: true,
         });
+        navigate("/tod");
+        return;
       }
     } catch (err) {
       toast({
@@ -322,6 +327,8 @@ function Form({ mode, profileId }) {
           duration: 2000,
           isClosable: true,
         });
+        navigate("/tod");
+        return;
       }
     } catch (err) {
       toast({
