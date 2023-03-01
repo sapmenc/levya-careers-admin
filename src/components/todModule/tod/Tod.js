@@ -234,7 +234,7 @@ function Tod({ textColor }) {
         <Image src={LogoLink} maxWidth="250px" height="auto" />
       </Stack>
       <Heading textAlign="center" mt={8} color={textColor}>
-        All TOD Profiles
+        ToD Talent On Demand
       </Heading>
       <Stack m="2" direction="row" justify="end">
         <Button
@@ -333,7 +333,7 @@ function Tod({ textColor }) {
                 <Tr>
                   <Th textAlign="center">Profile ID</Th>
                   <Th textAlign="center">Profile Name</Th>
-                  <Th textAlign="center">Profile Title</Th>
+                  <Th textAlign="center">Designation</Th>
                   <Th textAlign="center">TOD Title</Th>
                   <Th textAlign="center">Primary Location</Th>
                   <Th textAlign="center">Enquiries</Th>

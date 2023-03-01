@@ -5,7 +5,7 @@ import React from "react";
 function FormProfileTitle({ profileTitle, setProfileTitle }) {
   return (
     <FormControl isRequired>
-      <FormLabel fontWeight="bold">Profile Title</FormLabel>
+      <FormLabel fontWeight="bold">Designation</FormLabel>
       <Input
         bg="white"
         color="black"

@@ -92,7 +92,7 @@ function Form({ mode, profileId }) {
     }
     if (!profileTitle) {
       toast({
-        title: "Profile title required!",
+        title: "Designation required!",
         status: "error",
         duration: 2000,
         isClosable: true,
