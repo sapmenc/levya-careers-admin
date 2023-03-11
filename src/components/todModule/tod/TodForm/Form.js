@@ -26,6 +26,8 @@ import {
 import { useEffect, useReducer, useState } from "react";
 
 import ClipLoader from "react-spinners/ClipLoader";
+import FormAbout from "./FormAbout.js";
+import FormAvailability from "./FormAvailability.js";
 import FormEducations from "./FormEducations";
 import FormEmail from "./FormEmail.js";
 import FormExperiences from "./FormExperiences";
@@ -52,6 +54,8 @@ function Form({ mode, profileId }) {
   const [profileTitle, setProfileTitle] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [availability, setAvailability] = useState("Immediate");
+  const [about, setAbout] = useState("");
   const [todTitle, setTodTitle] = useState("");
   const [skills, setSkills] = useState(new Set([]));
   const [primaryLocation, setPrimaryLocation] = useState(null);
@@ -129,6 +133,15 @@ function Form({ mode, profileId }) {
     if (preferredLocations.length > 3) {
       toast({
         title: "Max 3 preferred locations allowed!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!about) {
+      toast({
+        title: "Profile Description required!",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -274,6 +287,8 @@ function Form({ mode, profileId }) {
       educations: educations,
       status: "active",
       yearsOfExperience: 0,
+      availability: availability,
+      about: about,
     };
     console.log(JSON.stringify(body));
     try {
@@ -316,6 +331,8 @@ function Form({ mode, profileId }) {
       status: "active",
       keywords: [],
       yearsOfExperience: 0,
+      availability: availability,
+      about: about,
     };
     console.log(body);
     try {
@@ -355,6 +372,8 @@ function Form({ mode, profileId }) {
         setName(data.data?.name);
         setMobile(data.data?.mobile);
         setEmail(data.data?.email);
+        setAvailability(data.data?.availability);
+        setAbout(data.data?.about);
         setProfileTitle(data.data?.profileTitle);
         setTodTitle(data.data?.todTitle);
         setSkills(new Set([...data.data?.skills]));
@@ -398,6 +417,10 @@ function Form({ mode, profileId }) {
         <FormName name={name} setName={setName} />
         <FormMobile mobile={mobile} setMobile={setMobile} />
         <FormEmail email={email} setEmail={setEmail} />
+        <FormAvailability
+          availability={availability}
+          setAvailability={setAvailability}
+        />
         <FormProfileTitle
           profileTitle={profileTitle}
           setProfileTitle={setProfileTitle}
@@ -412,6 +435,7 @@ function Form({ mode, profileId }) {
           preferredLocations={preferredLocations}
           dispatchPreferredLocations={dispatchPreferredLocations}
         />
+        <FormAbout about={about} setAbout={setAbout} />
         <Tabs variant="soft-rounded" colorScheme="red">
           <TabList display="flex" justifyContent="center">
             <Tab>Experience</Tab>
